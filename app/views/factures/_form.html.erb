@@ -23,7 +23,7 @@
     <%= form.text_field :société, required: true  %>
     <%= form.text_area :cible, required: true  %>
     <%= form.text_field :par, label: 'PAR' %>
-    <%= form.number_field :montantHT, step: :any %>
+    <%= form.number_field :montantHT, step: :any, label: "Montant € HT" %>
 
     <div class="actions">
       <%= form.submit "Enregistrer", class: "btn btn-success" %>
