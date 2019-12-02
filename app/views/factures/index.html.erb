@@ -1,13 +1,50 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Factures</h1>
+<div class="pb-2 mt-4 mb-2 border-bottom">
+  <div class="btn-group float-right">
+    <%= link_to new_facture_path, class: 'btn btn-light' do %>
+      <span class="glyphicon glyphicon-plus"></span>
+      Facture
+    <% end %>
+  </div>
+  <h1>
+    <span class="glyphicon glyphicon-user"></span>
+    Liste des factures
+  </h1>
+</div>
+
+<div class='container-fluid'>
+  <%= form_tag request.path, method: :get do %>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-sm-4">
+          <%= label_tag :search, "Rechercher" %>    
+          <%= text_field_tag :search, params[:search], include_blank:true, onchange:'this.form.submit()', class:"form-control" %>
+        </div>
+        
+        <div class="col-sm-3">
+          <%= label_tag :etat, "Etat" %>
+          <div class="input-group">
+            <%= select_tag :etat, options_for_select(Facture.etats, 
+                  params[:etat]), include_blank:true,
+                  class:"form-control", onchange:'this.form.submit()' %>
+            <span class="input-group-btn">
+              <%= submit_tag 'Filtrer', class:"btn btn-success" %>
+            </span>
+          </div>
+        </div>
+        
+      </div>
+    </div>  
+  <% end %>
+</div>
 
 <table class="table table-striped table-hover">
   <thead>
     <tr>
+      <th>Num_Chrono</th>
       <th>Etat</th>
       <th>Anomalie</th>
-      <th>Num_Chrono</th>
       <th>Société</th>
       <th>Cible</th>
       <th>Par</th>
@@ -18,9 +55,9 @@
   <tbody>
     <% @factures.each do |facture| %>
       <tr>
+        <td><%= link_to facture.num_chrono, facture %></td>
         <td><%= facture.etat.humanize %></td>
         <td><%= facture.anomalie.humanize %></td>
-        <td><%= link_to facture.num_chrono, facture %></td>
         <td><%= facture.société %></td>
         <td><%= facture.cible %></td>
         <td><%= facture.par %></td>
@@ -33,5 +70,3 @@
 </table>
 
 <br>
-
-<%= link_to 'Ajouter Facture', new_facture_path %>

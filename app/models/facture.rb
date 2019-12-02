@@ -10,7 +10,6 @@ class Facture < ApplicationRecord
 
     after_initialize do
         if self.new_record?
-          # values will be available for new record forms.
           self.etat = 0
           self.anomalie = 0
         end

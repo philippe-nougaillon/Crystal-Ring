@@ -5,6 +5,12 @@ class FacturesController < ApplicationController
   # GET /factures.json
   def index
     @factures = Facture.all
+
+    unless params[:etat].blank?
+      @factures = @factures.where("etat = ?", params[:etat])
+    end
+
+
   end
 
   # GET /factures/1
