@@ -12,15 +12,15 @@
   <% end %>
 
   <div class="col-sm-5">
-    <%= form.file_field :scan, required: true %>
+    <%= form.file_field :scan %>
 
     <% unless facture.new_record? %>
       <%= form.select(:etat, Facture.etats.keys.to_a, class: "form-control") %>
     <% end %>
     <%= form.select(:anomalie, Facture.anomalies.keys.to_a, class: "form-control") %>
-    <%= form.number_field :num_chrono %>
-    <%= form.text_field :société %>
-    <%= form.text_field :cible %>
+    <%= form.number_field :num_chrono, required: true  %>
+    <%= form.text_field :société, required: true  %>
+    <%= form.text_field :cible, required: true  %>
 
     <% unless facture.new_record? %>
       <%= form.text_field :par %>

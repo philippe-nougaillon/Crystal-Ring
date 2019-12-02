@@ -1,6 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <h2>
+    #<%= @facture.num_chrono %>
+  </h2>
+</p>
+
+<p>
   <%= image_tag @facture.scan, width: "500px" %>
 </p>
 
@@ -12,11 +18,6 @@
 <p>
   <strong>Anomalie:</strong>
   <%= @facture.anomalie.humanize %>
-</p>
-
-<p>
-  <strong>Num_Chrono:</strong>
-  <%= @facture.num_chrono %>
 </p>
 
 <p>
@@ -36,6 +37,12 @@
 
 <%= link_to 'Editer', edit_facture_path(@facture) %> |
 <%= link_to 'Retour', factures_path %>
+<br />
+<br />
 
-
-<%= render partial: 'tools/audit', collection: @facture.audits %>
+<h3>Audit trail</h3>
+<p>
+  <table class="table">
+    <%= render partial: 'tools/audit', collection: @facture.audits %>
+  </table>
+</p>
