@@ -6,11 +6,14 @@ class FacturesController < ApplicationController
   def index
     @factures = Facture.all
 
+    unless params[:search].blank?
+      s = "'%#{params[:search]}%'"
+      @factures = @factures.where(Arel.sql("factures.num_chrono LIKE #{s} OR factures.société LIKE #{s} OR factures.par LIKE #{s}"))
+    end
+
     unless params[:etat].blank?
       @factures = @factures.where("etat = ?", params[:etat])
     end
-
-
   end
 
   # GET /factures/1

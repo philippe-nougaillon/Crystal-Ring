@@ -21,10 +21,7 @@
     <%= form.number_field :num_chrono, required: true  %>
     <%= form.text_field :société, required: true  %>
     <%= form.text_field :cible, required: true  %>
-
-    <% unless facture.new_record? %>
-      <%= form.text_field :par %>
-    <% end %>
+    <%= form.text_field :par %>
 
     <div class="actions">
       <%= form.submit "Enregistrer", class: "btn btn-success" %>
