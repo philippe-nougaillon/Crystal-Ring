@@ -36,3 +36,6 @@
 
 <%= link_to 'Editer', edit_facture_path(@facture) %> |
 <%= link_to 'Retour', factures_path %>
+
+
+<%= render partial: 'tools/audit', collection: @facture.audits %>

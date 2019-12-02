@@ -16,4 +16,7 @@ class Facture < ApplicationRecord
         end
     end
 
+    extend FriendlyId
+    friendly_id :num_chrono, use: :slugged
+
 end
