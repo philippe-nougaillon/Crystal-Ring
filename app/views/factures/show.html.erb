@@ -13,7 +13,7 @@
   <div class="col">
     <p>
       <strong>Etat:</strong>
-      <%= @facture.etat.humanize %>
+      <span class="badge badge-pill <%= @facture.style %>"><%= @facture.etat.humanize %></span>    
     </p>
 
     <p>
@@ -46,8 +46,10 @@
     <%= link_to 'Retour', factures_path %>
 
     <p>
-      <br>
-      <%= link_to "Validation", facture_validation_path(@facture) %>
+      <% if @facture.etat == "envoyée" %>
+        <br>
+        <%= link_to "Validation", facture_validation_path(@facture) %>
+      <% end %>
     </p>
 
   </div>

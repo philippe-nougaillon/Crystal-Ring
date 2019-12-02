@@ -20,6 +20,15 @@ class Facture < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 
+
+  def self.styles
+    ['badge-info','badge-warning','badge-success','badge-danger']
+  end
+
+  def style
+    Facture.styles[Facture.etats[self.etat]]
+  end
+
 private
   # only one candidate for an nice id; one random UDID
   def slug_candidates

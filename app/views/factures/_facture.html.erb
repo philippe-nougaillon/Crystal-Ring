@@ -1,6 +1,8 @@
 <tr>
     <td><%= link_to facture.num_chrono, facture %></td>
-    <td><%= facture.etat.humanize %></td>
+    <td>
+        <span class="badge badge-pill <%= facture.style %>"><%= facture.etat.humanize %></span>    
+    </td>
     <td><%= facture.anomalie.humanize %></td>
     <td><%= facture.société %></td>
     <td><%= facture.cible %></td>
@@ -10,3 +12,4 @@
     <td><%= link_to 'Editer', edit_facture_path(facture) %></td>
     <td><%= link_to 'Détruire', facture, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </tr>
+
