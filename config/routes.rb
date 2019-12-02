@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
-  resources :factures
+
   devise_for :users
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  resources :factures do
+    get :validation
+    post :validation
+  end
 
   root to: 'factures#index'
 

@@ -41,13 +41,17 @@
       <%= @facture.montantHT %>
     </p>
 
-
-    <%= link_to 'Editer', edit_facture_path(@facture) %> |
-    <%= link_to 'Retour', factures_path %>
-
     <p>
-      <br>
-      <%= link_to "Validation", facture_validation_path(@facture) %>
+        <% if @facture.etat == "envoyée" %>
+            <%= form_tag request.path do %>
+                <%= label_tag "Commentaires" %>
+                <%= text_area_tag :commentaires %>
+                <br>
+
+                <%= submit_tag "Valider", class: "btn btn-success" %>
+                <%= submit_tag "Rejeter", class: "btn btn-danger" %>
+            <% end %>
+        <% end %>
     </p>
 
   </div>

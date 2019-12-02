@@ -9,11 +9,13 @@ class Facture < ApplicationRecord
   has_one_attached :scan
 
   after_initialize do
-      if self.new_record?
-        self.etat = 0
-        self.anomalie = 0
-      end
+    if self.new_record?
+      self.etat = 0
+      self.anomalie = 0
+    end
   end
+
+  default_scope { order(Arel.sql("factures.updated_at DESC")) }
 
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged

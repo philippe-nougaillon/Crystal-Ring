@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_02_144223) do
+ActiveRecord::Schema.define(version: 2019_12_02_161545) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 2019_12_02_144223) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "slug"
     t.decimal "montantHT", precision: 10, scale: 2
+    t.text "commentaires"
     t.index ["slug"], name: "index_factures_on_slug", unique: true
   end
 

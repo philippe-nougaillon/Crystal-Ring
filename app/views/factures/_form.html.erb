@@ -21,7 +21,7 @@
     <%= form.select(:anomalie, Facture.anomalies.keys.to_a, class: "form-control") %>
     <%= form.number_field :num_chrono, required: true  %>
     <%= form.text_field :société, required: true  %>
-    <%= form.text_area :cible, required: true  %>
+    <%= form.text_field :cible, required: true  %>
     <%= form.text_field :par, label: 'PAR' %>
     <%= form.number_field :montantHT, step: :any, label: "Montant € HT" %>
 

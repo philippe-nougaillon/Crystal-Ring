@@ -1,5 +1,5 @@
 class FacturesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:validation]
   before_action :set_facture, only: [:show, :edit, :update, :destroy]
 
   # GET /factures
@@ -42,6 +42,9 @@ class FacturesController < ApplicationController
 
     respond_to do |format|
       if @facture.save
+        FactureMailer.with(facture: @facture).notification_email.deliver_now
+        @facture.update!(etat: "envoyée", audit_comment: "Email envoyé à #{@facture.cible}")
+
         format.html { redirect_to @facture, notice: 'Facture créée avec succès.' }
         format.json { render :show, status: :created, location: @facture }
       else
@@ -62,6 +65,24 @@ class FacturesController < ApplicationController
         format.html { render :edit }
         format.json { render json: @facture.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def validation
+    @facture = Facture.find_by(slug: params[:facture_id])
+    case params[:commit]
+    when "Valider"
+      @facture.update!(etat: "validée", audit_comment: "Validation effectuée par #{@facture.cible}")
+      @facture.update!(commentaires: params[:commentaires], audit_comment: "Commentaires de #{@facture.cible}")   
+
+      logger.debug "FACTURE VALIDEE !"
+      redirect_to facture_validation_url(@facture), notice: "Facture validée !"
+    when "Rejeter"
+      @facture.update!(etat: "rejetée", audit_comment: "Rejetée par #{@facture.cible}")
+      @facture.update!(commentaires: params[:commentaires], audit_comment: "Commentaires de #{@facture.cible}")   
+
+      logger.debug "FACTURE REJETEE !!!"
+      redirect_to root_url, alert: "Facture rejetée !"
     end
   end
 
