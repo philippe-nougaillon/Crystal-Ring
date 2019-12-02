@@ -39,7 +39,7 @@
   <% end %>
 </div>
 
-<table class="table table-striped table-hover">
+<table class="table table-striped table-hover table-bordered">
   <thead>
     <tr>
       <th>Num_Chrono</th>
@@ -53,20 +53,6 @@
   </thead>
 
   <tbody>
-    <% @factures.each do |facture| %>
-      <tr>
-        <td><%= link_to facture.num_chrono, facture %></td>
-        <td><%= facture.etat.humanize %></td>
-        <td><%= facture.anomalie.humanize %></td>
-        <td><%= facture.société %></td>
-        <td><%= facture.cible %></td>
-        <td><%= facture.par %></td>
-        <td><%= link_to 'Voir', facture %></td>
-        <td><%= link_to 'Editer', edit_facture_path(facture) %></td>
-        <td><%= link_to 'Détruire', facture, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+    <%= render @factures %>
   </tbody>
 </table>
-
-<br>

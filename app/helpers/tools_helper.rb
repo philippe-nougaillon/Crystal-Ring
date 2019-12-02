@@ -22,6 +22,14 @@ module ToolsHelper
                 when 'Array'
                     pretty_changes << "#{key} changé de '#{Facture.etats.keys[ids.first].humanize if ids.first}' à '#{Facture.etats.keys[ids.last].humanize if ids.last}'"
                 end 
+            elsif key == 'Anomalie'
+                ids = audit.audited_changes['anomalie']
+                case ids.class.name
+                when 'Integer'
+                    pretty_changes << "#{key} initialisé à '#{Facture.anomalies.keys[ids].humanize}'"
+                when 'Array'
+                    pretty_changes << "#{key} changé de '#{Facture.anomalies.keys[ids.first].humanize if ids.first}' à '#{Facture.anomalies.keys[ids.last].humanize if ids.last}'"
+                end 
             else
                 if audit.action == 'update'
                     unless c.last.first.blank? && c.last.last.blank?    

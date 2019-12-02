@@ -1,0 +1,11 @@
+<tr>
+    <td><%= link_to facture.num_chrono, facture %></td>
+    <td><%= facture.etat.humanize %></td>
+    <td><%= facture.anomalie.humanize %></td>
+    <td><%= facture.société %></td>
+    <td><%= facture.cible %></td>
+    <td><%= facture.par %></td>
+    <td><%= link_to 'Voir', facture %></td>
+    <td><%= link_to 'Editer', edit_facture_path(facture) %></td>
+    <td><%= link_to 'Détruire', facture, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>
