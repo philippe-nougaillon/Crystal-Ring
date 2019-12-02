@@ -2,7 +2,7 @@
 
 <h1>Factures</h1>
 
-<table class="table">
+<table class="table table-striped table-hover">
   <thead>
     <tr>
       <th>Etat</th>
@@ -20,7 +20,7 @@
       <tr>
         <td><%= facture.etat.humanize %></td>
         <td><%= facture.anomalie.humanize %></td>
-        <td><%= facture.num_chrono %></td>
+        <td><%= link_to facture.num_chrono, facture %></td>
         <td><%= facture.société %></td>
         <td><%= facture.cible %></td>
         <td><%= facture.par %></td>

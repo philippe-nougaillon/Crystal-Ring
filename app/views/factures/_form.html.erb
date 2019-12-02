@@ -1,4 +1,4 @@
-<%= form_with(model: facture, local: true) do |form| %>
+<%= bootstrap_form_with(model: facture, local: true) do |form| %>
   <% if facture.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(facture.errors.count, "error") %> prohibited this facture from being saved:</h2>
@@ -11,43 +11,24 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :scan %>
-    <%= form.file_field :scan %>
-  </div>
+  <div class="col-sm-5">
+    <%= form.file_field :scan, required: true %>
 
-  <div class="field">
-    <%= form.label :etat %>
-    <%= form.select(:etat, Facture.etats.keys.to_a, class: "form-control") %>
-  </div>
-
-  <div class="field">
-    <%= form.label :anomalie %>
+    <% unless facture.new_record? %>
+      <%= form.select(:etat, Facture.etats.keys.to_a, class: "form-control") %>
+    <% end %>
     <%= form.select(:anomalie, Facture.anomalies.keys.to_a, class: "form-control") %>
-  </div>
-
-  <div class="field">
-    <%= form.label :num_chrono %>
     <%= form.number_field :num_chrono %>
-  </div>
-
-  <div class="field">
-    <%= form.label :société %>
     <%= form.text_field :société %>
-  </div>
-
-  <div class="field">
-    <%= form.label :cible %>
     <%= form.text_field :cible %>
-  </div>
 
-  <div class="field">
-    <%= form.label :par %>
-    <%= form.text_field :par %>
-  </div>
+    <% unless facture.new_record? %>
+      <%= form.text_field :par %>
+    <% end %>
 
-  <div class="actions">
-    <%= form.submit "Enregistrer" %>
+    <div class="actions">
+      <%= form.submit "Enregistrer", class: "btn btn-primary" %>
+    </div>
   </div>
 
 <% end %>
