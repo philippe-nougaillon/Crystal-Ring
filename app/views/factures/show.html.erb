@@ -1,23 +1,22 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <%= image_tag @facture.scan, width: "500px" %>
+</p>
+
+<p>
   <strong>Etat:</strong>
-  <%= @facture.etat %>
+  <%= @facture.etat.humanize %>
 </p>
 
 <p>
   <strong>Anomalie:</strong>
-  <%= @facture.anomalie %>
+  <%= @facture.anomalie.humanize %>
 </p>
 
 <p>
   <strong>Num chrono:</strong>
   <%= @facture.num_chrono %>
-</p>
-
-<p>
-  <strong>Par:</strong>
-  <%= @facture.par %>
 </p>
 
 <p>
@@ -30,5 +29,10 @@
   <%= @facture.cible %>
 </p>
 
-<%= link_to 'Edit', edit_facture_path(@facture) %> |
-<%= link_to 'Back', factures_path %>
+<p>
+  <strong>Par:</strong>
+  <%= @facture.par %>
+</p>
+
+<%= link_to 'Editer', edit_facture_path(@facture) %> |
+<%= link_to 'Retour', factures_path %>

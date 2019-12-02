@@ -7,10 +7,10 @@
     <tr>
       <th>Etat</th>
       <th>Anomalie</th>
-      <th>Num chrono</th>
-      <th>Par</th>
+      <th>Num_Chrono</th>
       <th>Société</th>
       <th>Cible</th>
+      <th>Par</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,15 +18,15 @@
   <tbody>
     <% @factures.each do |facture| %>
       <tr>
-        <td><%= facture.etat %></td>
-        <td><%= facture.anomalie %></td>
+        <td><%= facture.etat.humanize %></td>
+        <td><%= facture.anomalie.humanize %></td>
         <td><%= facture.num_chrono %></td>
-        <td><%= facture.par %></td>
         <td><%= facture.société %></td>
         <td><%= facture.cible %></td>
-        <td><%= link_to 'Show', facture %></td>
-        <td><%= link_to 'Edit', edit_facture_path(facture) %></td>
-        <td><%= link_to 'Destroy', facture, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= facture.par %></td>
+        <td><%= link_to 'Voir', facture %></td>
+        <td><%= link_to 'Editer', edit_facture_path(facture) %></td>
+        <td><%= link_to 'Détruire', facture, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -34,4 +34,4 @@
 
 <br>
 
-<%= link_to 'New Facture', new_facture_path %>
+<%= link_to 'Ajouter Facture', new_facture_path %>

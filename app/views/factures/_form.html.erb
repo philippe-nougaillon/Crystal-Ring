@@ -12,23 +12,23 @@
   <% end %>
 
   <div class="field">
+    <%= form.label :scan %>
+    <%= form.file_field :scan %>
+  </div>
+
+  <div class="field">
     <%= form.label :etat %>
-    <%= form.number_field :etat %>
+    <%= form.select(:etat, Facture.etats.keys.to_a, class: "form-control") %>
   </div>
 
   <div class="field">
     <%= form.label :anomalie %>
-    <%= form.number_field :anomalie %>
+    <%= form.select(:anomalie, Facture.anomalies.keys.to_a, class: "form-control") %>
   </div>
 
   <div class="field">
     <%= form.label :num_chrono %>
     <%= form.number_field :num_chrono %>
-  </div>
-
-  <div class="field">
-    <%= form.label :par %>
-    <%= form.text_field :par %>
   </div>
 
   <div class="field">
@@ -41,7 +41,13 @@
     <%= form.text_field :cible %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="field">
+    <%= form.label :par %>
+    <%= form.text_field :par %>
   </div>
+
+  <div class="actions">
+    <%= form.submit "Enregistrer" %>
+  </div>
+
 <% end %>
