@@ -6,37 +6,43 @@
   </h2>
 </p>
 
-<p>
-  <%= image_tag @facture.scan, width: "500px" %>
-</p>
+<div class="row">
+  <div class="col">
+    <p>
+      <%= image_tag @facture.scan, width: "500px" %>
+    </p>
+  </div>
+  <div class="col">
+    <p>
+      <strong>Etat:</strong>
+      <%= @facture.etat.humanize %>
+    </p>
 
-<p>
-  <strong>Etat:</strong>
-  <%= @facture.etat.humanize %>
-</p>
+    <p>
+      <strong>Anomalie:</strong>
+      <%= @facture.anomalie.humanize %>
+    </p>
 
-<p>
-  <strong>Anomalie:</strong>
-  <%= @facture.anomalie.humanize %>
-</p>
+    <p>
+      <strong>Société:</strong>
+      <%= @facture.société %>
+    </p>
 
-<p>
-  <strong>Société:</strong>
-  <%= @facture.société %>
-</p>
+    <p>
+      <strong>Cible:</strong>
+      <%= @facture.cible %>
+    </p>
 
-<p>
-  <strong>Cible:</strong>
-  <%= @facture.cible %>
-</p>
+    <p>
+      <strong>PAR:</strong>
+      <%= @facture.par %>
+    </p>
 
-<p>
-  <strong>Par:</strong>
-  <%= @facture.par %>
-</p>
+    <%= link_to 'Editer', edit_facture_path(@facture) %> |
+    <%= link_to 'Retour', factures_path %>
+  </div>
+</div>
 
-<%= link_to 'Editer', edit_facture_path(@facture) %> |
-<%= link_to 'Retour', factures_path %>
 <br />
 <br />
 

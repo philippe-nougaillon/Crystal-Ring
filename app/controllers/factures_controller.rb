@@ -12,8 +12,13 @@ class FacturesController < ApplicationController
     end
 
     unless params[:etat].blank?
-      @factures = @factures.where("etat = ?", params[:etat])
+      @factures = @factures.where("factures.etat = ?", params[:etat])
     end
+
+    unless params[:anomalie].blank?
+      @factures = @factures.where("factures.anomalie = ?", params[:anomalie])
+    end
+
   end
 
   # GET /factures/1
@@ -73,7 +78,7 @@ class FacturesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_facture
-      @facture = Facture.friendly.find(params[:id])
+      @facture = Facture.find_by(slug: params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

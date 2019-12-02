@@ -21,17 +21,24 @@
         </div>
         
         <div class="col-sm-3">
-          <%= label_tag :etat, "Etat" %>
+          <%= label_tag :etat %>
+          <%= select_tag :etat, options_for_select(Facture.etats, 
+                params[:etat]), include_blank: true,
+                class: "form-control", onchange: 'this.form.submit()' %>
+        </div>
+
+        <div class="col-sm-3">
+          <%= label_tag :anomalie %>
           <div class="input-group">
-            <%= select_tag :etat, options_for_select(Facture.etats, 
-                  params[:etat]), include_blank:true,
+            <%= select_tag :anomalie, options_for_select(Facture.anomalies, 
+                  params[:anomalie]), include_blank: true,
                   class:"form-control", onchange:'this.form.submit()' %>
             <span class="input-group-btn">
               <%= submit_tag 'Filtrer', class:"btn btn-success" %>
             </span>
           </div>
         </div>
-        
+
       </div>
     </div>  
   <% end %>
@@ -45,7 +52,7 @@
       <th>Anomalie</th>
       <th>Société</th>
       <th>Cible</th>
-      <th>Par</th>
+      <th>PAR</th>
       <th colspan="3"></th>
     </tr>
   </thead>

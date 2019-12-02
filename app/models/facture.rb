@@ -16,6 +16,13 @@ class Facture < ApplicationRecord
     end
 
     extend FriendlyId
-    friendly_id :num_chrono, use: :slugged
+    # friendly_id :num_chrono, use: :slugged
+    friendly_id :slug_candidates, use: :slugged
+
+private
+  # only one candidate for an nice id; one random UDID
+  def slug_candidates
+    [SecureRandom.uuid]
+  end
 
 end
