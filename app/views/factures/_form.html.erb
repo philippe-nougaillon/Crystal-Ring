@@ -1,0 +1,47 @@
+<%= form_with(model: facture, local: true) do |form| %>
+  <% if facture.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(facture.errors.count, "error") %> prohibited this facture from being saved:</h2>
+
+      <ul>
+        <% facture.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :etat %>
+    <%= form.number_field :etat %>
+  </div>
+
+  <div class="field">
+    <%= form.label :anomalie %>
+    <%= form.number_field :anomalie %>
+  </div>
+
+  <div class="field">
+    <%= form.label :num_chrono %>
+    <%= form.number_field :num_chrono %>
+  </div>
+
+  <div class="field">
+    <%= form.label :par %>
+    <%= form.text_field :par %>
+  </div>
+
+  <div class="field">
+    <%= form.label :société %>
+    <%= form.text_field :société %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cible %>
+    <%= form.text_field :cible %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

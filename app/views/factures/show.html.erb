@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Etat:</strong>
+  <%= @facture.etat %>
+</p>
+
+<p>
+  <strong>Anomalie:</strong>
+  <%= @facture.anomalie %>
+</p>
+
+<p>
+  <strong>Num chrono:</strong>
+  <%= @facture.num_chrono %>
+</p>
+
+<p>
+  <strong>Par:</strong>
+  <%= @facture.par %>
+</p>
+
+<p>
+  <strong>Société:</strong>
+  <%= @facture.société %>
+</p>
+
+<p>
+  <strong>Cible:</strong>
+  <%= @facture.cible %>
+</p>
+
+<%= link_to 'Edit', edit_facture_path(@facture) %> |
+<%= link_to 'Back', factures_path %>

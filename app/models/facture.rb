@@ -1,0 +1,2 @@
+class Facture < ApplicationRecord
+end

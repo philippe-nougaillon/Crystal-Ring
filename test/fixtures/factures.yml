@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  etat: 1
+  anomalie: 1
+  num_chrono: 1
+  par: MyString
+  société: MyString
+  cible: MyString
+
+two:
+  etat: 1
+  anomalie: 1
+  num_chrono: 1
+  par: MyString
+  société: MyString
+  cible: MyString
