@@ -1,4 +1,5 @@
 class FacturesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_facture, only: [:show, :edit, :update, :destroy]
 
   # GET /factures
@@ -42,7 +43,7 @@ class FacturesController < ApplicationController
 
     respond_to do |format|
       if @facture.save
-        format.html { redirect_to @facture, notice: 'Facture was successfully created.' }
+        format.html { redirect_to @facture, notice: 'Facture créée avec succès.' }
         format.json { render :show, status: :created, location: @facture }
       else
         format.html { render :new }
@@ -56,7 +57,7 @@ class FacturesController < ApplicationController
   def update
     respond_to do |format|
       if @facture.update(facture_params)
-        format.html { redirect_to @facture, notice: 'Facture was successfully updated.' }
+        format.html { redirect_to @facture, notice: 'Facture modifiée avec succès.' }
         format.json { render :show, status: :ok, location: @facture }
       else
         format.html { render :edit }
@@ -70,7 +71,7 @@ class FacturesController < ApplicationController
   def destroy
     @facture.destroy
     respond_to do |format|
-      format.html { redirect_to factures_url, notice: 'Facture was successfully destroyed.' }
+      format.html { redirect_to factures_url, notice: 'Facture détruite avec succès.' }
       format.json { head :no_content }
     end
   end
