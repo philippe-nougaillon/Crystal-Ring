@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <div class="pb-2 mt-4 mb-2 border-bottom">
   <div class="btn-group float-right">
     <%= link_to new_facture_path, class: 'btn btn-light' do %>
@@ -15,12 +13,12 @@
   <%= form_tag request.path, method: :get do %>
     <div class="form-group">
       <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <%= label_tag :search, "Rechercher" %>    
           <%= text_field_tag :search, params[:search], include_blank:true, onchange:'this.form.submit()', class:"form-control" %>
         </div>
         
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <%= label_tag :etat %>
           <%= select_tag :etat, options_for_select(Facture.etats, 
                 params[:etat]), include_blank: true,

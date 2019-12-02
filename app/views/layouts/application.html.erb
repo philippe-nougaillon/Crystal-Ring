@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AnoFacto</title>
+    <title><%= @title.concat(@version) %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -19,7 +19,49 @@
   </head>
 
   <body>
+    <nav class="navbar navbar-expand-sm bg-primary navbar-dark fixed-top">
+      <div class="container">
+        <% if current_user %>
+            <ul class="navbar-nav">
+              <li class="nav-item <%= (@ctrl=='factures' ? 'active' : '') %>">
+                <%= link_to root_url, class: "nav-link" do %><i class="fas fa-file-invoice"></i></span> Factures<% end %>
+              </li>
+            </ul>
+        <% end %>
+
+        <ul class="navbar-nav navbar-right">
+          <% unless current_user %>
+          <% else %>
+            <% if current_user.admin? %>
+              <li class="nav-item <%= (@ctrl=='admin' ? 'active' : '') %>">
+                <%= link_to admin_index_url, class: "nav-link" do %><i class="fas fa-users-cog"></i></span> Administration<% end %>
+              </li>
+            <% end %>
+            <li class="nav-item">
+              <%= link_to destroy_user_session_path, method: :delete, title: "Fermer la session de #{current_user.email}", class: "nav-link" do %><i class="fas fa-sign-out-alt"></i></span> Déconnexion<% end %> 
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+
+    <br /><br /><br />
+
     <div class="container">
+      <% if notice.present? %>
+        <aside class="alert alert-info alert-dismissible fade show">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <%= notice %>
+        </aside>
+      <% end %>
+
+      <% if alert.present? %>
+        <aside class="alert alert-danger alert-dismissible fade show">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <%= alert %>
+        </aside>
+      <% end %>
+
       <%= yield %>
     </div>
   </body>

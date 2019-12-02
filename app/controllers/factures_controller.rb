@@ -9,7 +9,7 @@ class FacturesController < ApplicationController
 
     unless params[:search].blank?
       s = "'%#{params[:search]}%'"
-      @factures = @factures.where(Arel.sql("factures.num_chrono LIKE #{s} OR factures.société LIKE #{s} OR factures.par LIKE #{s}"))
+      @factures = @factures.where(Arel.sql("factures.num_chrono LIKE #{s} OR factures.société LIKE #{s} OR factures.par LIKE #{s} OR factures.cible LIKE #{s}"))
     end
 
     unless params[:etat].blank?
@@ -19,7 +19,6 @@ class FacturesController < ApplicationController
     unless params[:anomalie].blank?
       @factures = @factures.where("factures.anomalie = ?", params[:anomalie])
     end
-
   end
 
   # GET /factures/1
@@ -84,6 +83,6 @@ class FacturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def facture_params
-      params.require(:facture).permit(:etat, :anomalie, :num_chrono, :par, :société, :cible, :scan)
+      params.require(:facture).permit(:etat, :anomalie, :num_chrono, :par, :société, :cible, :scan, :montantHT)
     end
 end

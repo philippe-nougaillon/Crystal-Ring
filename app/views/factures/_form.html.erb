@@ -17,11 +17,13 @@
     <% unless facture.new_record? %>
       <%= form.select(:etat, Facture.etats.keys.to_a, class: "form-control") %>
     <% end %>
+
     <%= form.select(:anomalie, Facture.anomalies.keys.to_a, class: "form-control") %>
     <%= form.number_field :num_chrono, required: true  %>
     <%= form.text_field :société, required: true  %>
-    <%= form.text_field :cible, required: true  %>
-    <%= form.text_field :par %>
+    <%= form.text_area :cible, required: true  %>
+    <%= form.text_field :par, label: 'PAR' %>
+    <%= form.number_field :montantHT, step: :any %>
 
     <div class="actions">
       <%= form.submit "Enregistrer", class: "btn btn-success" %>
