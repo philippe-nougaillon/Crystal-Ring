@@ -19,6 +19,8 @@ class FacturesController < ApplicationController
     unless params[:anomalie].blank?
       @factures = @factures.where("factures.anomalie = ?", params[:anomalie])
     end
+
+    @factures = @factures.paginate(page: params[:page])
   end
 
   # GET /factures/1

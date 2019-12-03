@@ -57,3 +57,5 @@ gem 'devise'
 gem "bootstrap_form", "~> 4.0"
 gem "audited", "~> 4.9"
 gem 'friendly_id', '~> 5.2.4'
+gem 'will_paginate', '~> 3.1.0'
+gem 'will_paginate-bootstrap4'

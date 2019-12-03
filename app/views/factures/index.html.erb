@@ -61,3 +61,6 @@
     <%= render @factures %>
   </tbody>
 </table>
+
+<%= will_paginate @factures, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+

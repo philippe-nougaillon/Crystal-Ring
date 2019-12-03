@@ -17,6 +17,8 @@ class Facture < ApplicationRecord
   enum etat: [:ajoutée, :envoyée, :validée, :rejetée]
   enum anomalie: [:po, :contrat, :montant, :réception, :inconnu]
 
+  self.per_page = 10
+
   after_initialize do
     if self.new_record?
       self.etat = 0
