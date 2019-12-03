@@ -46,8 +46,11 @@
 
     <p>
       <% if @facture.envoyée? %>
-        <br>
-        <%= link_to "Test Validation", facture_validation_path(@facture, email: @facture.cibles.first.email) %>
+        <br />
+        <% @facture.cibles.each do |c| %>
+          <%= link_to "Test Validation #{c.id}", facture_validation_path(@facture, email: c.email) %>
+          <br />
+        <% end %>
       <% end %>
     </p>
 

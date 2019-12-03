@@ -48,11 +48,9 @@ class FacturesController < ApplicationController
       if @facture.save
         # Envoyer à la première et à toutes les autres cibles
         # Le premier qui valide a gagné :)
-        @facture.cibles.each_with_index do |c, i|
-          if i.zero? || c.opérateur == "OU" 
-            FactureMailer.with(cible: c).notification_email.deliver_now
-            c.update!(envoyé_le: DateTime.now)
-          end 
+        @facture.cibles.each do |c|
+          FactureMailer.with(cible: c).notification_email.deliver_now
+          c.update!(envoyé_le: DateTime.now)
         end
         @facture.update!(etat: "envoyée")
 
@@ -88,8 +86,15 @@ class FacturesController < ApplicationController
         c.update!(repondu_le: DateTime.now, réponse: etat, commentaires: params[:commentaires])
       end
 
-      # Marquer la facture traitée s'il fallait au moins une validation (opérateur 'OU')
-      @facture.update!(etat: etat.downcase) if @facture.cibles.pluck(:opérateur).uniq.include?('OU')  
+      if @facture.cibles.pluck(:opérateur).uniq.include?('OU')
+        # Marquer la facture traitée s'il fallait au moins une validation (opérateur 'OU')
+        @facture.update!(etat: etat.downcase)
+      else
+        # Marque la facture traitée si toutes les cibles ont répondu la même chose
+        if @facture.cibles.pluck(:réponse).uniq == [etat]    
+          @facture.update!(etat: etat.downcase)
+        end
+      end 
 
       redirect_to facture_validation_url(@facture), notice: "Facture #{etat} !"
     end
