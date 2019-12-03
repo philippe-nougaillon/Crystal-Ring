@@ -109,4 +109,11 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+
+  # Mail Gandi
+  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.sendmail_settings = {arguments: '-i'}
+  config.action_mailer.asset_host = "http://9a663b833e86485d8ca972fa7889a76d.testmyurl.ws"
+  config.action_mailer.default_url_options = { host: '9a663b833e86485d8ca972fa7889a76d.testmyurl.ws', protocol: 'http' }
+
 end
