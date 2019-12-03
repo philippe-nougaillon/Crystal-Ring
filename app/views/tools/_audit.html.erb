@@ -9,9 +9,12 @@
     <%= audit.action.humanize %>
   </td>
   <td>
-    <%= sanitize prettify(audit).join('<br>') %>
+    <%= audit.auditable_type %>
   </td>
   <td>
-    <%= audit.comment %>
+    <%= audit.auditable_id %>
+  </td>
+  <td>
+    <%= sanitize prettify(audit).join('<br>') %>
   </td>
 </tr>

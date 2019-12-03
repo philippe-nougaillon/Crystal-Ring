@@ -9,7 +9,7 @@
 </p>
 
 <p>
-    <%= link_to "Valider", facture_validation_url(@facture) %>
+    <%= link_to "Valider", facture_validation_url(@facture, email: @cible.email) %>
 </p>
 
 <p>Merci</p>

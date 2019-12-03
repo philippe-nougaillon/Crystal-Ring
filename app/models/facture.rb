@@ -1,12 +1,21 @@
 class Facture < ApplicationRecord
-  audited
+  extend FriendlyId
+  friendly_id :slug_candidates, use: :slugged
+
+  audited 
+
+  has_one_attached :scan
+
+  has_many :cibles, inverse_of: :facture, dependent: :delete_all
+  has_associated_audits
+  accepts_nested_attributes_for :cibles, reject_if: proc { |attributes| attributes[:email].blank? }, allow_destroy: true
+
+  validates :etat, :anomalie, :société, :num_chrono, presence: true
+
+  default_scope { order(Arel.sql("factures.updated_at DESC")) }
 
   enum etat: [:ajoutée, :envoyée, :validée, :rejetée]
   enum anomalie: [:po, :contrat, :montant, :réception, :inconnu]
-
-  validates :etat, :anomalie, :société, :num_chrono, :cible, presence: true
-
-  has_one_attached :scan
 
   after_initialize do
     if self.new_record?
@@ -15,18 +24,16 @@ class Facture < ApplicationRecord
     end
   end
 
-  default_scope { order(Arel.sql("factures.updated_at DESC")) }
-
-  extend FriendlyId
-  friendly_id :slug_candidates, use: :slugged
-
-
   def self.styles
     ['badge-info','badge-warning','badge-success','badge-danger']
   end
 
   def style
     Facture.styles[Facture.etats[self.etat]]
+  end
+
+  def les_cibles
+    self.cibles.pluck(:opérateur, :email).join(' ')
   end
 
 private

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_02_161545) do
+ActiveRecord::Schema.define(version: 2019_12_03_125644) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -55,6 +55,19 @@ ActiveRecord::Schema.define(version: 2019_12_02_161545) do
     t.index ["user_id", "user_type"], name: "user_index"
   end
 
+  create_table "cibles", force: :cascade do |t|
+    t.integer "facture_id", null: false
+    t.string "opérateur"
+    t.string "email"
+    t.datetime "repondu_le"
+    t.string "réponse"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "envoyé_le"
+    t.text "commentaires"
+    t.index ["facture_id"], name: "index_cibles_on_facture_id"
+  end
+
   create_table "factures", force: :cascade do |t|
     t.integer "etat"
     t.integer "anomalie"
@@ -96,4 +109,5 @@ ActiveRecord::Schema.define(version: 2019_12_02_161545) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "cibles", "factures"
 end

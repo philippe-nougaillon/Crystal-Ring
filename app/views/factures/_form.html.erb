@@ -21,9 +21,19 @@
     <%= form.select(:anomalie, Facture.anomalies.keys.to_a, class: "form-control") %>
     <%= form.number_field :num_chrono, required: true  %>
     <%= form.text_field :société, required: true  %>
-    <%= form.text_field :cible, required: true  %>
     <%= form.text_field :par, label: 'PAR' %>
     <%= form.number_field :montantHT, step: :any, label: "Montant € HT" %>
+  </div>
+
+  <div class="col-sm-12">
+    <h3>Cibles</h3>
+    <%= form.fields_for :cibles do |cible_form| %>
+      <div class="row">
+        <div class="col-sm-1"><%= cible_form.select(:opérateur, ['OU','ET']) %></div>
+        <div class="col"><%= cible_form.text_field :email %></div>
+        <div class="col"><%= cible_form.check_box :_destroy, label: "Supprimer ?" %></div>
+      </div>
+    <% end %>
 
     <div class="actions">
       <%= form.submit "Enregistrer", class: "btn btn-success" %>

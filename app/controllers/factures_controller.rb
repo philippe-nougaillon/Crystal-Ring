@@ -29,10 +29,12 @@ class FacturesController < ApplicationController
   # GET /factures/new
   def new
     @facture = Facture.new
+    3.times { @facture.cibles.build }
   end
 
   # GET /factures/1/edit
   def edit
+    1.times { @facture.cibles.build }
   end
 
   # POST /factures
@@ -42,8 +44,15 @@ class FacturesController < ApplicationController
 
     respond_to do |format|
       if @facture.save
-        FactureMailer.with(facture: @facture).notification_email.deliver_now
-        @facture.update!(etat: "envoyée", audit_comment: "Email envoyé à #{@facture.cible}")
+        # Envoyer à la première et à toutes les autres cibles
+        # Le premier qui valide a gagné :)
+        @facture.cibles.each_with_index do |c, i|
+          if i.zero? || c.opérateur == "OU" 
+            FactureMailer.with(cible: c).notification_email.deliver_now
+            c.update!(envoyé_le: DateTime.now)
+          end 
+        end
+        @facture.update!(etat: "envoyée")
 
         format.html { redirect_to @facture, notice: 'Facture créée avec succès.' }
         format.json { render :show, status: :created, location: @facture }
@@ -70,19 +79,17 @@ class FacturesController < ApplicationController
 
   def validation
     @facture = Facture.find_by(slug: params[:facture_id])
-    case params[:commit]
-    when "Valider"
-      @facture.update!(etat: "validée", audit_comment: "Validation effectuée par #{@facture.cible}")
-      @facture.update!(commentaires: params[:commentaires], audit_comment: "Commentaires de #{@facture.cible}")   
 
-      logger.debug "FACTURE VALIDEE !"
-      redirect_to facture_validation_url(@facture), notice: "Facture validée !"
-    when "Rejeter"
-      @facture.update!(etat: "rejetée", audit_comment: "Rejetée par #{@facture.cible}")
-      @facture.update!(commentaires: params[:commentaires], audit_comment: "Commentaires de #{@facture.cible}")   
+    if etat = params[:commit]
+      # Marquer ce que la cible a répondu
+      @facture.cibles.where(email: params[:email]).each do |c|
+        c.update!(repondu_le: DateTime.now, réponse: etat, commentaires: params[:commentaires])
+      end
 
-      logger.debug "FACTURE REJETEE !!!"
-      redirect_to root_url, alert: "Facture rejetée !"
+      # Marquer la facture traitée s'il fallait au moins une validation (opérateur 'OU')
+      @facture.update!(etat: etat.downcase) if @facture.cibles.pluck(:opérateur).uniq.include?('OU')  
+
+      redirect_to facture_validation_url(@facture), notice: "Facture #{etat} !"
     end
   end
 
@@ -104,6 +111,7 @@ class FacturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def facture_params
-      params.require(:facture).permit(:etat, :anomalie, :num_chrono, :par, :société, :cible, :scan, :montantHT)
+      params.require(:facture).permit(:etat, :anomalie, :num_chrono, :par, :société, :scan, :montantHT,
+                                    cibles_attributes: [:id, :opérateur, :email, :répondu_le, :réponse, :_destroy])
     end
 end

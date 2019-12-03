@@ -13,7 +13,7 @@
   <div class="col">
     <p>
       <strong>Etat:</strong>
-      <%= @facture.etat.humanize %>
+      <span class="badge badge-pill <%= @facture.style %>"><%= @facture.etat.humanize %></span>    
     </p>
 
     <p>
@@ -27,11 +27,6 @@
     </p>
 
     <p>
-      <strong>Cible:</strong>
-      <%= @facture.cible %>
-    </p>
-
-    <p>
       <strong>PAR:</strong>
       <%= @facture.par %>
     </p>
@@ -42,16 +37,22 @@
     </p>
 
     <p>
-        <% if @facture.etat == "envoyée" %>
-            <%= form_tag request.path do %>
-                <%= label_tag "Commentaires" %>
-                <%= text_area_tag :commentaires %>
-                <br>
+      <strong>Cible:</strong>
+      <%= @facture.les_cibles %>
+    </p>
 
-                <%= submit_tag "Valider", class: "btn btn-success" %>
-                <%= submit_tag "Rejeter", class: "btn btn-danger" %>
-            <% end %>
+    <p>
+      <% if @facture.envoyée? %>
+        <%= form_tag request.path do %>
+          <%= text_field_tag :email, params[:email] %>
+          <%= label_tag "Commentaires" %>
+          <%= text_area_tag :commentaires %>
+          <br>
+
+          <%= submit_tag "Validée", class: "btn btn-success" %>
+          <%= submit_tag "Rejetée", class: "btn btn-danger" %>
         <% end %>
+      <% end %>
     </p>
 
   </div>
@@ -63,6 +64,7 @@
 <h3>Audit trail</h3>
 <p>
   <table class="table">
-    <%= render partial: 'tools/audit', collection: @facture.audits.reorder(Arel.sql("audits.id DESC")) %>
+    <%= render partial: 'tools/audit', 
+              collection: @facture.own_and_associated_audits.reorder(Arel.sql("audits.id DESC")) %>
   </table>
 </p>

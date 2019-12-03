@@ -27,11 +27,6 @@
     </p>
 
     <p>
-      <strong>Cible:</strong>
-      <%= @facture.cible %>
-    </p>
-
-    <p>
       <strong>PAR:</strong>
       <%= @facture.par %>
     </p>
@@ -41,14 +36,18 @@
       <%= @facture.montantHT %>
     </p>
 
+    <p>
+      <strong>Cible:</strong>
+      <%= @facture.les_cibles %>
+    </p>
 
     <%= link_to 'Editer', edit_facture_path(@facture) %> |
     <%= link_to 'Retour', factures_path %>
 
     <p>
-      <% if @facture.etat == "envoyée" %>
+      <% if @facture.envoyée? %>
         <br>
-        <%= link_to "Validation", facture_validation_path(@facture) %>
+        <%= link_to "Test Validation", facture_validation_path(@facture, email: @facture.cibles.first.email) %>
       <% end %>
     </p>
 
@@ -61,6 +60,7 @@
 <h3>Audit trail</h3>
 <p>
   <table class="table">
-    <%= render partial: 'tools/audit', collection: @facture.audits.reorder(Arel.sql("audits.id DESC")) %>
+    <%= render  partial: 'tools/audit', 
+                collection: @facture.own_and_associated_audits.reorder(Arel.sql("audits.id DESC")) %>
   </table>
 </p>
