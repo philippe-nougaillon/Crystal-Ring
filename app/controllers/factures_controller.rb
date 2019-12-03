@@ -8,8 +8,8 @@ class FacturesController < ApplicationController
     @factures = Facture.all
 
     unless params[:search].blank?
-      s = "'%#{params[:search]}%'"
-      @factures = @factures.where(Arel.sql("factures.num_chrono LIKE #{s} OR factures.société LIKE #{s} OR factures.par LIKE #{s} OR factures.cible LIKE #{s}"))
+      s = "%#{params[:search].upcase}%"
+      @factures = @factures.joins(:cibles).where("cibles.email ILIKE ? OR factures.num_chrono::text ILIKE ? OR factures.société ILIKE ? OR factures.par ILIKE ?", s, s, s, s)
     end
 
     unless params[:etat].blank?
