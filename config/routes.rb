@@ -7,6 +7,10 @@ Rails.application.routes.draw do
     post :validation
   end
 
+  namespace :tools do
+    get :audit_trail
+  end
+
   root to: 'factures#index'
 
 end

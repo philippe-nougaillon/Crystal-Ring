@@ -26,6 +26,9 @@
               <li class="nav-item <%= (@ctrl=='factures' ? 'active' : '') %>">
                 <%= link_to root_url, class: "nav-link" do %><i class="fas fa-file-invoice"></i></span> Factures<% end %>
               </li>
+              <li class="nav-item <%= (@ctrl=='tools' ? 'active' : '') %>">
+                <%= link_to tools_audit_trail_url, class: "nav-link" do %><i class="fas fa-search"></i></span> Audit trail<% end %>
+              </li>
             </ul>
         <% end %>
 
