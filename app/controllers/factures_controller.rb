@@ -46,8 +46,7 @@ class FacturesController < ApplicationController
 
     respond_to do |format|
       if @facture.save
-        # Envoyer à la première et à toutes les autres cibles
-        # Le premier qui valide a gagné :)
+        # Envoyer à toutes les cibles
         @facture.cibles.each do |c|
           FactureMailer.with(cible: c).notification_email.deliver_now
           c.update!(envoyé_le: DateTime.now)
@@ -68,6 +67,14 @@ class FacturesController < ApplicationController
   def update
     respond_to do |format|
       if @facture.update(facture_params)
+        if @facture.ring1? || @facture.ring2? || @facture.ring3?
+          # Envoyer à nouveau (relance) vers toutes les cibles
+          @facture.cibles.each do |c|
+            FactureMailer.with(cible: c).notification_email.deliver_now
+            c.update!(envoyé_le: DateTime.now)
+          end
+        end
+    
         format.html { redirect_to @facture, notice: 'Facture modifiée avec succès.' }
         format.json { render :show, status: :ok, location: @facture }
       else

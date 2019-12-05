@@ -11,6 +11,7 @@ class Facture < ApplicationRecord
   accepts_nested_attributes_for :cibles, reject_if: proc { |attributes| attributes[:email].blank? }, allow_destroy: true
 
   validates :etat, :anomalie, :société, :num_chrono, presence: true
+  #validate :cibles_opérateur_unique
 
   default_scope { order(Arel.sql("factures.updated_at DESC")) }
 
@@ -42,6 +43,12 @@ private
   # only one candidate for an nice id; one random UDID
   def slug_candidates
     [SecureRandom.uuid]
+  end
+
+  def cibles_opérateur_unique
+    if cibles.pluck(:opérateur).count > 1
+      errors.add(:base, "opérateur doit être unique !")
+    end
   end
 
 end
