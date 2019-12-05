@@ -7,7 +7,9 @@
 <div class="row">
   <div class="col">
     <p>
-      <%= image_tag @facture.scan, width: "500px" %>
+      <% if @facture.scan.previewable? %>
+        <%= link_to(image_tag(@facture.scan.preview(resize: "400x350>")), "#", { 'data-toggle': "modal", 'data-target': "#myModal"}) %>
+      <% end %>
     </p>
   </div>
   <div class="col">
@@ -36,11 +38,6 @@
       <%= @facture.montantHT %>
     </p>
 
-    <p>
-      <strong>Cible:</strong>
-      <%= @facture.les_cibles %>
-    </p>
-
     <%= link_to 'Editer', edit_facture_path(@facture) %> |
     <%= link_to 'Retour', factures_path %>
 
@@ -55,6 +52,12 @@
     </p>
 
   </div>
+  <div class="col">
+    <p>
+      <strong>Cible:</strong>
+      <%= @facture.les_cibles %>
+    </p>
+  </div>
 </div>
 
 <br />
@@ -67,3 +70,30 @@
                 collection: @facture.own_and_associated_audits.reorder(Arel.sql("audits.id DESC")) %>
   </table>
 </p>
+
+
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <%# <div class="modal-header">
+        <h4 class="modal-title">#<%= @facture.num_chrono %></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div> %>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <%= image_tag(@facture.scan.preview(resize: "800x700>")) %>
+      </div>
+
+      <%# <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div> %>
+
+    </div>
+  </div>
+</div>
