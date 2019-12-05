@@ -50,16 +50,19 @@
   <div class="col-sm-5">
     <h4>Cibles</h4>
     <br>
-    <table class="table">
+    <table class="table table-sm">
       <%= render @facture.cibles %>
+      <tfoot><tr><td /><td /><td /><td /></tr></tfoot>
     </table>
+    <br>
 
     <p>
-      <% if @facture.envoyée? %>
+      <% if @facture.envoyée? && params[:email] %>
         <%= form_tag request.path do %>
           <%= hidden_field_tag :email, params[:email] %>
           
           <h4>Approbation</h4>
+          <hr>
           <strong><%= label_tag "De" %></strong>
           <%= params[:email] %>
 
@@ -67,19 +70,13 @@
           <%= text_area_tag :commentaires %>
           <br>
 
-          <%= submit_tag "Validée", class: "btn btn-success" %>
-          <%= submit_tag "Rejetée", class: "btn btn-danger" %>
+          <%= submit_tag "Validée", class: "btn btn-sm btn-success" %>
+          <%= submit_tag "Rejetée", class: "btn btn-sm btn-danger" %>
         <% end %>
       <% end %>
     </p>
-
-
   </div>
-
 </div>
-
-<br />
-<br />
 
 <h3>Audit trail</h3>
 <p>

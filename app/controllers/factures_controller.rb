@@ -103,7 +103,7 @@ class FacturesController < ApplicationController
         end
       end 
 
-      redirect_to facture_validation_url(@facture), notice: "Facture #{etat} !"
+      redirect_to facture_validation_url(@facture), notice: "Facture #{etat} par #{params[:email]}"
     end
   end
 
