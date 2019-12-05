@@ -7,9 +7,12 @@
 <div class="row">
   <div class="col">
     <p>
-      <%= image_tag @facture.scan, width: "500px" %>
+      <% if @facture.scan.previewable? %>
+        <%= link_to(image_tag(@facture.scan.preview(resize: "400x350>")), "#", { 'data-toggle': "modal", 'data-target': "#myModal"}) %>
+      <% end %>
     </p>
   </div>
+
   <div class="col">
     <p>
       <strong>Etat:</strong>
@@ -35,17 +38,25 @@
       <strong>Montant € HT:</strong>
       <%= @facture.montantHT %>
     </p>
+  </div>
 
-    <p>
-      <strong>Cible:</strong>
-      <%= @facture.les_cibles %>
-    </p>
+  <div class="col-sm-5">
+    <h4>Cibles</h4>
+    <br>
+    <table class="table">
+      <%= render @facture.cibles %>
+    </table>
 
     <p>
       <% if @facture.envoyée? %>
         <%= form_tag request.path do %>
-          <%= text_field_tag :email, params[:email] %>
-          <%= label_tag "Commentaires" %>
+          <%= hidden_field_tag :email, params[:email] %>
+          
+          <h4>Approbation</h4>
+          <strong><%= label_tag "De" %></strong>
+          <%= params[:email] %>
+
+          <strong><%= label_tag "Commentaires" %></strong>
           <%= text_area_tag :commentaires %>
           <br>
 
@@ -55,7 +66,9 @@
       <% end %>
     </p>
 
+
   </div>
+
 </div>
 
 <br />
@@ -68,3 +81,14 @@
               collection: @facture.own_and_associated_audits.reorder(Arel.sql("audits.id DESC")) %>
   </table>
 </p>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <%= image_tag(@facture.scan.preview(resize: "800x700>")) %>
+      </div>
+    </div>
+  </div>
+</div>
