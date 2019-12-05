@@ -11,50 +11,58 @@
     </div>
   <% end %>
 
-  <div class="col-sm-5">
-    <%= form.file_field :scan %>
+  <div class="row">
+    <div class="col">
+      <%= form.file_field :scan %>
 
-    <% unless facture.new_record? %>
-      <%= form.select(:etat, Facture.etats.keys.to_a, class: "form-control") %>
-    <% end %>
+      <% unless facture.new_record? %>
+        <%= form.select(:etat, Facture.etats.keys.to_a, class: "form-control") %>
+      <% end %>
 
-    <div class="row">
-      <div class="col">
-        <%= form.number_field :num_chrono, required: true  %>
-      </div>
-      <div class="col">
-        <%= form.select(:anomalie, Facture.anomalies.keys.to_a, class: "form-control") %>
-      </div>
-    </div>
-    <%= form.text_field :société, required: true  %>
-
-    <div class="row">
-      <div class="col">
-        <%= form.text_field :par, label: 'PAR' %>
-      </div>
-      <div class="col">
-        <%= form.number_field :montantHT, step: :any, label: "Montant € HT" %>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-sm-12">
-    <h4>Cibles</h4>
-    <div class="small">
-        Opérateur 'OU' => Une seule réponse d'une cible suffit pour valider/rejeter la facture
-        <br />  
-        Opérateur 'ET' => Toutes les cibles doivent répondre et toutes les réponses doivent être égales
-    </div>
-    <%= form.fields_for :cibles do |cible_form| %>
       <div class="row">
-        <div class="col-sm-1"><%= cible_form.select :opérateur, ['OU','ET'], hide_label: true %></div>
-        <div class="col-sm-4"><%= cible_form.text_field :email, label_as_placeholder: true %></div>
+        <div class="col">
+          <%= form.number_field :num_chrono, required: true  %>
+        </div>
+        <div class="col">
+          <%= form.select(:anomalie, Facture.anomalies.keys.to_a, class: "form-control") %>
+        </div>
       </div>
-    <% end %>
+      <%= form.text_field :société, required: true  %>
 
-    <div class="actions">
-      <%= form.submit "Enregistrer", class: "btn btn-success" %>
+      <div class="row">
+        <div class="col">
+          <%= form.text_field :par, label: 'PAR' %>
+        </div>
+        <div class="col">
+          <%= form.number_field :montantHT, step: :any, label: "Montant € HT" %>
+        </div>
+      </div>
+
+      <%= form.text_area :commentaires %>
+
+      <div class="actions">
+        <%= form.submit "Enregistrer", class: "btn btn-success" %>
+      </div>
     </div>
+
+    <div class="col-sm-1">
+    </div>
+    
+    <div class="col">
+      <h4>Cibles</h4>
+      <p class="small">
+          Opérateur 'ET' => Toutes les cibles doivent répondre et toutes les réponses doivent être égales
+          <br />  
+          Opérateur 'OU' => Une seule réponse d'une cible suffit pour valider/rejeter la facture
+      </p>
+      <%= form.fields_for :cibles do |cible_form| %>
+        <div class="row">
+          <div class="col-sm-2"><%= cible_form.select :opérateur, ['ET','OU'], hide_label: true %></div>
+          <div class="col"><%= cible_form.text_field :email, label_as_placeholder: true %></div>
+        </div>
+      <% end %>
+    </div>
+
   </div>
 
 <% end %>

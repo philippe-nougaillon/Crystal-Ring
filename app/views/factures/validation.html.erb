@@ -38,6 +38,13 @@
       <strong>Montant € HT:</strong>
       <%= @facture.montantHT %>
     </p>
+
+    <p>
+      <strong>Commentaires:</strong>
+      <%= @facture.commentaires %>
+    </p>
+    <br>
+
   </div>
 
   <div class="col-sm-5">
@@ -87,7 +94,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
-        <%= image_tag(@facture.scan.preview(resize: "800x700>")) %>
+        <%= image_tag(@facture.scan.preview(resize: "830x1170>")) %>
       </div>
     </div>
   </div>

@@ -31,7 +31,7 @@ class FacturesController < ApplicationController
   # GET /factures/new
   def new
     @facture = Facture.new
-    3.times { @facture.cibles.build }
+    5.times { @facture.cibles.build }
   end
 
   # GET /factures/1/edit
@@ -118,7 +118,7 @@ class FacturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def facture_params
-      params.require(:facture).permit(:etat, :anomalie, :num_chrono, :par, :société, :scan, :montantHT,
+      params.require(:facture).permit(:etat, :anomalie, :num_chrono, :par, :société, :scan, :montantHT, :commentaires,
                                     cibles_attributes: [:id, :opérateur, :email, :répondu_le, :réponse, :_destroy])
     end
 end
