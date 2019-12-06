@@ -64,3 +64,5 @@
 
 <%= will_paginate @factures, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
 
+<%= link_to "Export XLS", url_for(params.permit(:search, :etat, :anomalie).merge(format: :xls)) %>
+

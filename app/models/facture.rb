@@ -39,6 +39,48 @@ class Facture < ApplicationRecord
     self.cibles.pluck(:opérateur, :email).join(' ')
   end
 
+  def self.xls_headers
+		%w{Id Etat Anomalie Num_chrono Par Société Cible Slug MontantHT Commentaires Created_at Updated_at}
+  end
+  
+  def self.to_xls(factures)
+    require 'spreadsheet'    
+		
+		Spreadsheet.client_encoding = 'UTF-8'
+	
+		book = Spreadsheet::Workbook.new
+		sheet = book.create_worksheet name: 'Factures'
+		bold = Spreadsheet::Format.new :weight => :bold, :size => 10
+	
+		sheet.row(0).concat Facture.xls_headers
+		sheet.row(0).default_format = bold
+    
+
+		index = 1
+		factures.each do |f|
+			fields_to_export = [
+        f.id, 
+        f.etat.humanize, 
+        f.anomalie.humanize, 
+        f.num_chrono, 
+        f.par, 
+        f.société, 
+        f.les_cibles, 
+        f.slug, 
+        f.montantHT.to_f, 
+        f.commentaires, 
+        f.created_at, 
+				f.updated_at
+			]
+			sheet.row(index).replace fields_to_export
+			index += 1
+		end
+	
+		return book
+
+  end
+
+
 private
   # only one candidate for an nice id; one random UDID
   def slug_candidates

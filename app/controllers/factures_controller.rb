@@ -24,6 +24,18 @@ class FacturesController < ApplicationController
     end
 
     @factures = @factures.paginate(page: params[:page])
+
+    respond_to do |format|
+      format.html
+      format.xls do
+        book = Facture.to_xls(@factures)
+        file_contents = StringIO.new
+        book.write file_contents # => Now file_contents contains the rendered file output
+        filename = "Factures.xls"
+        send_data file_contents.string.force_encoding('binary'), filename: filename 
+      end
+    end
+
   end
 
   # GET /factures/1
