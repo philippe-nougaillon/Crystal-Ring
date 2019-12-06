@@ -45,6 +45,9 @@
     <br>
 
     <%= link_to 'Editer', edit_facture_path(@facture) %> |
+    <%= link_to facture_url(@facture, format: :pdf), title: "Afficher la facture en PDF" do %>
+        <i class="far fa-file-pdf"></i>
+    <% end %> |
     <%= link_to 'Retour', factures_path %>
 
     <p>

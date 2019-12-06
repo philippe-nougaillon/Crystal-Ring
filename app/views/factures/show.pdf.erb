@@ -1,0 +1,69 @@
+<p>
+    <h2>
+        #<%= @facture.num_chrono %>
+    </h2>
+</p>
+
+<p>
+    <% if @facture.scan.previewable? %>
+        <%= link_to(image_tag(@facture.scan.preview(resize: "800x700>")), "#", { 'data-toggle': "modal", 'data-target': "#myModal"}) %>
+    <% end %>
+</p>
+
+<p>
+    <strong>Etat:</strong>
+    <span class="badge badge-pill <%= @facture.style %>"><%= @facture.etat.humanize %></span>    
+</p>
+
+<p>
+    <strong>Anomalie:</strong>
+    <%= @facture.anomalie.humanize %>
+</p>
+
+<p>
+    <strong>Société:</strong>
+    <%= @facture.société %>
+</p>
+
+<p>
+    <strong>PAR:</strong>
+    <%= @facture.par %>
+</p>
+
+<p>
+    <strong>Montant € HT:</strong>
+    <%= @facture.montantHT %>
+</p>
+
+<p>
+    <strong>Commentaires:</strong>
+    <%= @facture.commentaires %>
+</p>
+
+<p>
+    <strong>Created_at:</strong>
+    <%= @facture.created_at %>
+</p>
+
+<p>
+    <strong>Updated_at:</strong>
+    <%= @facture.updated_at %>
+</p>
+<br>
+
+<p>
+    <strong>Cibles</strong>
+    <hr>
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Email</td>
+                <td>Envoyé le</td>
+                <td>Répondu le</td>
+                <td>Réponse</td>
+                <td>Commentaires</td>
+            </tr>
+        </thead>
+        <%= render @facture.cibles %>
+    </table>
+</p>

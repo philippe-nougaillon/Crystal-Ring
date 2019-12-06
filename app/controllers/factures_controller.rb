@@ -41,6 +41,14 @@ class FacturesController < ApplicationController
   # GET /factures/1
   # GET /factures/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "Facture #{@facture.num_chrono}", 
+               encoding: 'UTF-8'
+      end
+    end
+
   end
 
   # GET /factures/new
