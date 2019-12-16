@@ -113,7 +113,7 @@ Rails.application.configure do
   # Mail Gandi
   config.action_mailer.delivery_method = :sendmail
   config.action_mailer.sendmail_settings = {arguments: '-i'}
-  config.action_mailer.asset_host = "http://9a663b833e86485d8ca972fa7889a76d.testmyurl.ws"
-  config.action_mailer.default_url_options = { host: '9a663b833e86485d8ca972fa7889a76d.testmyurl.ws', protocol: 'http' }
+  config.action_mailer.asset_host = "https://anofacto.philnoug.com"
+  config.action_mailer.default_url_options = { host: 'anofacto.philnoug.com', protocol: 'https' }
 
 end
