@@ -78,3 +78,4 @@ gem 'yaml_db'
 # https://github.com/plentz/lol_dba
 gem 'lol_dba'
 
+gem 'capture_stdout', '~> 0.0.1'
