@@ -12,6 +12,7 @@
       <% end %>
     </p>
   </div>
+  
   <div class="col">
     <p>
       <strong>Etat:</strong>
@@ -65,7 +66,7 @@
     <p>
       <strong>Cibles</strong>
       <br>
-      <table class="table">
+      <table class="table table-hover">
         <%= render @facture.cibles %>
       </table>
     </p>
@@ -77,7 +78,7 @@
 
 <h3>Audit trail</h3>
 <p>
-  <table class="table">
+  <table class="table table-hover">
     <%= render  partial: 'tools/audit', 
                 collection: @facture.own_and_associated_audits.reorder(Arel.sql("audits.id DESC")) %>
   </table>

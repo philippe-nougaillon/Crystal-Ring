@@ -21,17 +21,19 @@
         
         <div class="col-sm-2">
           <%= label_tag :etat %>
-          <%= select_tag :etat, options_for_select(Facture.etats, 
-                params[:etat]), include_blank: true,
-                class: "form-control", onchange: 'this.form.submit()' %>
+          <%= select_tag :etat, options_for_select(Facture.etats_capitalized, params[:etat]), 
+                                include_blank: true,
+                                class: "form-control", 
+                                onchange: 'this.form.submit()' %>
         </div>
 
         <div class="col-sm-3">
           <%= label_tag :anomalie %>
           <div class="input-group">
-            <%= select_tag :anomalie, options_for_select(Facture.anomalies, 
-                  params[:anomalie]), include_blank: true,
-                  class:"form-control", onchange:'this.form.submit()' %>
+            <%= select_tag :anomalie, options_for_select(Facture.anomalies_capitalized, params[:anomalie]), 
+                                      include_blank: true,
+                                      class: 'form-control', 
+                                      onchange: 'this.form.submit()' %>
             <span class="input-group-btn">
               <%= submit_tag 'Filtrer', class:"btn btn-success" %>
             </span>

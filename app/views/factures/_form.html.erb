@@ -16,7 +16,7 @@
       <%= form.file_field :scan %>
 
       <% unless facture.new_record? %>
-        <%= form.select(:etat, Facture.etats.keys.to_a, class: "form-control") %>
+        <%= form.select :etat, Facture.etats.keys.to_a, class: "form-control" %>
       <% end %>
 
       <div class="row">
@@ -24,7 +24,7 @@
           <%= form.number_field :num_chrono, required: true  %>
         </div>
         <div class="col">
-          <%= form.select(:anomalie, Facture.anomalies.keys.to_a, class: "form-control") %>
+          <%= form.select :anomalie, Facture.anomalies.keys.to_a, class: "form-control" %>
         </div>
       </div>
       <%= form.text_field :société, required: true  %>

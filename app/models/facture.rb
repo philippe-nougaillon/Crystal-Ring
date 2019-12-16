@@ -35,6 +35,14 @@ class Facture < ApplicationRecord
     Facture.styles[Facture.etats[self.etat]]
   end
 
+  def self.etats_capitalized
+    self.etats.map {|k, v| [k.humanize.capitalize, v]}
+  end
+
+  def self.anomalies_capitalized
+    self.anomalies.map {|k, v| [k.humanize.capitalize, v]}
+  end 
+
   def les_cibles
     self.cibles.pluck(:opérateur, :email).join(' ')
   end
