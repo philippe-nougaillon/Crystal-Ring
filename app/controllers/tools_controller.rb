@@ -1,4 +1,5 @@
 class ToolsController < ApplicationController
+    skip_before_action :verify_authenticity_token
 
     def audit_trail
         @audits = Audited::Audit.order("id DESC")
