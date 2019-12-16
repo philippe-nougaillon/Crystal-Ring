@@ -71,7 +71,7 @@ class FacturesController < ApplicationController
       if @facture.save
         # Envoyer à toutes les cibles
         @facture.cibles.each do |c|
-          FactureMailer.with(cible: c).notification_email.deliver_now
+          FactureMailer.with(cible: c).notification_email.deliver_later
           c.update!(envoyé_le: DateTime.now)
         end
         @facture.update!(etat: "envoyée")
@@ -94,7 +94,7 @@ class FacturesController < ApplicationController
         # Envoyer à nouveau (relance) vers toutes les cibles
         if @facture.ring1? || @facture.ring2? || @facture.ring3?
           @facture.cibles.each do |c|
-            FactureMailer.with(cible: c).notification_email.deliver_now
+            FactureMailer.with(cible: c).notification_email.deliver_later
             c.update!(envoyé_le: DateTime.now)
           end
         end

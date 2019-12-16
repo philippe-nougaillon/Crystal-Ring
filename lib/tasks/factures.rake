@@ -19,7 +19,7 @@ namespace :factures do
                 # Envoyer à nouveau (relance) vers toutes les cibles
                 facture.cibles.each do |c|
                     puts "Envoyer relance à #{c.email}"    
-                    FactureMailer.with(cible: c).notification_email.deliver_now
+                    FactureMailer.with(cible: c).notification_email.deliver_later
                     c.update!(envoyé_le: DateTime.now) if enregistrer
                 end
 

@@ -79,3 +79,6 @@ gem 'yaml_db'
 gem 'lol_dba'
 
 gem 'capture_stdout', '~> 0.0.1'
+
+# Sucker Punch is a single-process Ruby asynchronous processing library. 
+gem 'sucker_punch'
