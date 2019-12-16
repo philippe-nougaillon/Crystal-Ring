@@ -72,3 +72,9 @@ gem 'wkhtmltopdf-binary'
 # XLSX sheet
 gem 'spreadsheet'
 gem 'yaml_db'
+
+# lol_dba is a small package of rake tasks that scan your application models 
+# and displays a list of columns that probably should be indexed. Also, it can generate .sql migration scripts.
+# https://github.com/plentz/lol_dba
+gem 'lol_dba'
+
