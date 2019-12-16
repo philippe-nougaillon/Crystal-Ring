@@ -23,7 +23,7 @@ class FacturesController < ApplicationController
       @factures = @factures.where("factures.anomalie = ?", params[:anomalie])
     end
 
-    @factures = @factures.paginate(page: params[:page])
+    @factures = @factures.paginate(page: params[:page]).includes(:cibles)
 
     respond_to do |format|
       format.html
