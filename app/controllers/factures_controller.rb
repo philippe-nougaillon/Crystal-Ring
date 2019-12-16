@@ -1,5 +1,5 @@
 class FacturesController < ApplicationController
-  before_action :authenticate_user!, except: [:validation]
+  skip_before_action :authenticate_user!, only: [:validation]
   before_action :set_facture, only: [:show, :edit, :update, :destroy]
 
   # GET /factures
@@ -90,8 +90,9 @@ class FacturesController < ApplicationController
   def update
     respond_to do |format|
       if @facture.update(facture_params)
+
+        # Envoyer à nouveau (relance) vers toutes les cibles
         if @facture.ring1? || @facture.ring2? || @facture.ring3?
-          # Envoyer à nouveau (relance) vers toutes les cibles
           @facture.cibles.each do |c|
             FactureMailer.with(cible: c).notification_email.deliver_now
             c.update!(envoyé_le: DateTime.now)

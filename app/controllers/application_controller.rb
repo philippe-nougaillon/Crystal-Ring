@@ -1,13 +1,12 @@
 class ApplicationController < ActionController::Base
-
+    before_action :authenticate_user!
     before_action :set_layout_variables
-
 
 private
     def set_layout_variables
       @ctrl = params[:controller]
       @title = "AnoFacto "
-      @version = "v0.3"
+      @version = "v0.4"
     end
 
     def user_not_authorized
