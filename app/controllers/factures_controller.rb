@@ -23,10 +23,11 @@ class FacturesController < ApplicationController
       @factures = @factures.where("factures.anomalie = ?", params[:anomalie])
     end
 
-    @factures = @factures.paginate(page: params[:page]).includes(:cibles)
-
     respond_to do |format|
-      format.html
+      format.html do
+        @factures = @factures.paginate(page: params[:page]).includes(:cibles)
+      end
+
       format.xls do
         book = Facture.to_xls(@factures)
         file_contents = StringIO.new
@@ -41,6 +42,9 @@ class FacturesController < ApplicationController
   # GET /factures/1
   # GET /factures/1.json
   def show
+
+    @pdf_preview = @facture.scan.preview(resize: "830x1170>")
+
     respond_to do |format|
       format.html
       format.pdf do

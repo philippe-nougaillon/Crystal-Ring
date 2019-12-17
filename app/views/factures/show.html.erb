@@ -8,7 +8,7 @@
   <div class="col">
     <p>
       <% if @facture.scan.previewable? %>
-        <%= link_to(image_tag(@facture.scan.preview(resize: "400x350>")), "#", { 'data-toggle': "modal", 'data-target': "#myModal"}) %>
+        <%= link_to image_tag(@pdf_preview, size: "300x400"), "#", { 'data-toggle': "modal", 'data-target': "#myModal"} %>
       <% end %>
     </p>
   </div>
@@ -80,7 +80,10 @@
 <p>
   <table class="table table-hover">
     <%= render  partial: 'tools/audit', 
-                collection: @facture.own_and_associated_audits.reorder(Arel.sql("audits.id DESC")) %>
+                collection: @facture
+                                .own_and_associated_audits
+                                .includes(:user)
+                                .reorder(Arel.sql("audits.id DESC")) %>
   </table>
 </p>
 
@@ -89,7 +92,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
-        <%= image_tag(@facture.scan.preview(resize: "830x1170>")) %>
+        <%= image_tag @pdf_preview %>
       </div>
     </div>
   </div>
