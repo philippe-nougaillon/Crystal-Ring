@@ -58,7 +58,7 @@
           <% if @facture.envoyée? %>
             <br />
             <% @facture.cibles.each do |c| %>
-              <%= link_to "Test Validation #{c.id}", facture_validation_path(@facture, email: c.email) %>
+              <%= link_to "Test Validation #{c.id}", facture_path(@facture, email: c.email) %>
               <br />
             <% end %>
           <% end %>
@@ -76,6 +76,30 @@
             </table>
           </div>
         </div>
+
+        <% if @facture.envoyée? && params[:email] %>
+            <%= form_tag facture_validation_path(@facture), method: :post do %>
+              <div class="card">
+                <div class="card-header">
+                    <h4>Approbation</h4>
+                </div>
+                <div class="card-body">
+                    <%= hidden_field_tag :email, params[:email] %>
+                    
+                    <strong><%= label_tag "Signataire" %></strong>
+                    <%= params[:email] %>
+                    <br><br>
+
+                    <strong><%= label_tag "Commentaires" %></strong>
+                    <%= text_area_tag :commentaires %>
+                </div>
+                <div class="card-footer">
+                  <%= submit_tag "Validée", class: "btn btn-sm btn-success" %>
+                  <%= submit_tag "Rejetée", class: "btn btn-sm btn-danger" %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
       </div>
       
     </div>
