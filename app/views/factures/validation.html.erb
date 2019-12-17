@@ -6,11 +6,11 @@
       <div class="row">
 
         <div class="col">
-          <p>
-            <% if @facture.scan.previewable? %>
+          <% if @facture.scan.previewable? %>
+            <div class="shadow p-4 mb-4 bg-white">
               <%= link_to image_tag(@pdf_preview, size: "300x400"), "#", { 'data-toggle': "modal", 'data-target': "#myModal"} %>
-            <% end %>
-          </p>
+            </div>
+          <% end %>
         </div>
 
         <div class="col">
