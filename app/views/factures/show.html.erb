@@ -107,7 +107,7 @@
 </div>
 <br />
 
-<% if current_user.admin? %>
+<% if current_user.try(:admin?) %>
   <h3>Audit trail</h3>
   <p>
     <table class="table table-hover">

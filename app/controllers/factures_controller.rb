@@ -1,5 +1,5 @@
 class FacturesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:validation]
+  skip_before_action :authenticate_user!, only: [:show, :validation]
   before_action :set_facture, only: [:show, :edit, :update, :destroy]
 
   # GET /factures
