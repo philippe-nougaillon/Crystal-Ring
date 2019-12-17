@@ -107,16 +107,18 @@
 </div>
 <br />
 
-<h3>Audit trail</h3>
-<p>
-  <table class="table table-hover">
-    <%= render  partial: 'tools/audit', 
-                collection: @facture
-                                .own_and_associated_audits
-                                .includes(:user)
-                                .reorder(Arel.sql("audits.id DESC")) %>
-  </table>
-</p>
+<% if current_user.admin? %>
+  <h3>Audit trail</h3>
+  <p>
+    <table class="table table-hover">
+      <%= render  partial: 'tools/audit', 
+                  collection: @facture
+                                  .own_and_associated_audits
+                                  .includes(:user)
+                                  .reorder(Arel.sql("audits.id DESC")) %>
+    </table>
+  </p>
+<% end %>
 
 <!-- The Modal -->
 <div class="modal fade" id="myModal">

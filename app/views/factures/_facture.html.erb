@@ -13,10 +13,12 @@
            <i class="far fa-edit"></i>
         <% end %>
     </td> 
-    <td>
-        <%= link_to facture, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-sm btn-outline-light text-dark" do %>
-            <i class="far fa-trash-alt"></i>
-        <% end %>
-    </td>
+    <% if current_user.admin? %>
+        <td>
+            <%= link_to facture, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-sm btn-outline-light text-dark" do %>
+                <i class="far fa-trash-alt"></i>
+            <% end %>
+        </td>
+    <% end %>
 </tr>
 
