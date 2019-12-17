@@ -8,8 +8,15 @@
     <td><%= facture.les_cibles %></td>
     <td><%= facture.par %></td>
     <td><%= time_ago_in_words(facture.updated_at) %></td>
-    <td><%= link_to 'Voir', facture %></td>
-    <td><%= link_to 'Editer', edit_facture_path(facture) %></td>
-    <td><%= link_to 'Détruire', facture, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td>
+        <%= link_to edit_facture_path(facture), class: "btn-sm btn-outline-light text-dark" do %>
+           <i class="far fa-edit"></i>
+        <% end %>
+    </td> 
+    <td>
+        <%= link_to facture, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-sm btn-outline-light text-dark" do %>
+            <i class="far fa-trash-alt"></i>
+        <% end %>
+    </td>
 </tr>
 
