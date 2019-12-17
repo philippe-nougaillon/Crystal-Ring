@@ -43,7 +43,7 @@ class FacturesController < ApplicationController
   # GET /factures/1.json
   def show
 
-    @pdf_preview = @facture.scan.preview(resize: "830x1170>")
+    @pdf_preview = @facture.scan.preview(resize: "827x1170>")
 
     respond_to do |format|
       format.html
@@ -114,6 +114,7 @@ class FacturesController < ApplicationController
 
   def validation
     @facture = Facture.find_by(slug: params[:facture_id])
+    @pdf_preview = @facture.scan.preview(resize: "827x1170>")
 
     if etat = params[:commit]
       # Marquer ce que la cible a répondu
