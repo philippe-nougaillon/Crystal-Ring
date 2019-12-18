@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
 
-  devise_for :users, controllers: {
-        sessions: 'users/sessions'
-      }
-
+  devise_for :users, controllers: { sessions: 'users/sessions' }
 
   resources :factures do
+    collection do
+      post :action
+    end
     post :validation
   end
 

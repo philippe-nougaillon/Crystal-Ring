@@ -136,6 +136,14 @@ class FacturesController < ApplicationController
     end
   end
 
+  def action
+    if factures_id = params[:factures_id]
+      Facture.where(id: factures_id.keys).update(etat: "imputée")
+      flash[:notice] = "#{factures_id.keys.count} facture.s modifiée.s"  
+    end
+    redirect_to factures_url
+  end
+
   # DELETE /factures/1
   # DELETE /factures/1.json
   def destroy

@@ -1,4 +1,5 @@
 <tr>
+    <td><%= check_box_tag "[factures_id][#{facture.id}]", 'yes', false, class: 'check_all' %></td>
     <td><%= link_to facture.num_chrono, facture %></td>
     <td>
         <span class="badge badge-pill <%= facture.style %>"><%= facture.etat.humanize %></span>    

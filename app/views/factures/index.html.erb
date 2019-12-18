@@ -40,31 +40,45 @@
           </div>
         </div>
 
+        <div class="col-sm-3">
+          <br /><br />
+          <%= link_to "Export XLS", url_for(params.permit(:search, :etat, :anomalie).merge(format: :xls)) %>
+        </div>
+
       </div>
     </div>  
   <% end %>
 </div>
 
-<table class="table table-striped table-hover table-bordered">
-  <thead>
-    <tr>
-      <th>Chrono</th>
-      <th>Etat</th>
-      <th>Anomalie</th>
-      <th>Société</th>
-      <th>Cibles</th>
-      <th>PAR</th>
-      <th>MàJ</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<%= form_tag action_factures_path do %>
+  <table class="table table-striped table-hover table-bordered">
+    <thead>
+      <tr>
+        <%# <th><%= check_box_tag "check_all_trigger", false %></th>
+        <th />
+        <th>Chrono</th>
+        <th>Etat</th>
+        <th>Anomalie</th>
+        <th>Société</th>
+        <th>Cibles</th>
+        <th>PAR</th>
+        <th>MàJ</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
 
-  <tbody>
-    <%= render @factures %>
-  </tbody>
-</table>
+    <tbody>
+      <%= render @factures %>
+    </tbody>
+  </table>
 
-<%= will_paginate @factures, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+  <%= select_tag :action_name, options_for_select(["Passer à l'état 'Imputée'"]), include_blank: true, onchange: 'this.form.submit()' %>
 
-<%= link_to "Export XLS", url_for(params.permit(:search, :etat, :anomalie).merge(format: :xls)) %>
+  <div class="col-sm-2 float-right">
+    <%= will_paginate @factures, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+  </div>
+
+  <br />
+
+<% end %>
 
