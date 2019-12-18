@@ -44,8 +44,10 @@
         </p>
         <br>
 
-        <%= link_to edit_facture_path(@facture), class: "btn btn-sm btn-outline-primary" do %>
-           <i class="far fa-edit"></i> Editer 
+        <% unless @facture.envoyée? && params[:email] %>
+          <%= link_to edit_facture_path(@facture), class: "btn btn-sm btn-outline-primary" do %>
+            <i class="far fa-edit"></i> Editer 
+          <% end %>
         <% end %> 
 
         <% if @facture.imputée? %>
