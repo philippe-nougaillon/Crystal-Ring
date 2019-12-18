@@ -44,7 +44,11 @@ class Facture < ApplicationRecord
   end 
 
   def les_cibles
-    self.cibles.pluck(:opérateur, :email).join(' ')
+    cibles = []
+    self.cibles.each do |c| 
+      cibles << c.email + (!c.commentaires.blank? ?  " => #{c.commentaires}" : '')
+    end
+    cibles.join(' | ')
   end
 
   def self.xls_headers
