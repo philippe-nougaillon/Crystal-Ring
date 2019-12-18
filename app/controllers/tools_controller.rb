@@ -33,7 +33,7 @@ class ToolsController < ApplicationController
         # capture output
         @stdout_stream = capture_stdout do
           Rake::Task['factures:relancer'].reenable # in case you're going to invoke the same task second time.
-          Rake::Task['factures:relancer'].invoke(current_user.id, params[:enregistrer])
+          Rake::Task['factures:relancer'].invoke(params[:enregistrer])
         end
     end
     
