@@ -52,7 +52,11 @@ class Facture < ApplicationRecord
   end
 
   def validable?
-    self.envoyée? || self.ring1? || self.ring2? || self.ring3?
+    if self.envoyée? or self.ring1? or self.ring2? or self.ring3?
+      true
+    else
+      false
+    end
   end
 
   def self.xls_headers
