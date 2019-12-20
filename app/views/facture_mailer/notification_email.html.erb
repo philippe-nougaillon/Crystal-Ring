@@ -1,7 +1,7 @@
 <h1>Facture en anomalie</h1> 
 
 <p>
-    <%= image_tag @facture.scan.preview(resize: "200x300>") %>
+    <%= link_to(image_tag(@facture.scan.preview(resize: "200x300>")), facture_url(@facture, email: @cible.email)) %>
 </p>
 
 <p>

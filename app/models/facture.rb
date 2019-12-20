@@ -51,6 +51,10 @@ class Facture < ApplicationRecord
     cibles.join(' | ')
   end
 
+  def validable?
+    self.envoyée? || self.ring1? || self.ring2? || self.ring3?
+  end
+
   def self.xls_headers
 		%w{Id Etat Anomalie Num_chrono Par Société Cible Slug MontantHT Commentaires Created_at Updated_at}
   end

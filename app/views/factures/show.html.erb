@@ -44,27 +44,27 @@
         </p>
         <br>
 
-        <% unless @facture.envoyée? && params[:email] %>
+        <% if current_user %>
           <%= link_to edit_facture_path(@facture), class: "btn btn-sm btn-outline-primary" do %>
             <i class="far fa-edit"></i> Editer 
           <% end %>
-        <% end %> 
 
-        <% if @facture.imputée? %>
-          <%= link_to facture_url(@facture, format: :pdf), title: "Afficher la facture en PDF", class: "btn btn-sm btn-outline-danger"  do %>
-              <i class="far fa-file-pdf"></i> Preuve PDF
-          <% end %>
-        <% end %>
-
-        <p>
-          <% if @facture.envoyée? %>
-            <br />
-            <% @facture.cibles.each do |c| %>
-              <%= link_to "Test Validation #{c.id}", facture_path(@facture, email: c.email) %>
-              <br />
+          <% if @facture.imputée? %>
+            <%= link_to facture_url(@facture, format: :pdf), title: "Afficher la facture en PDF", class: "btn btn-sm btn-outline-danger"  do %>
+                <i class="far fa-file-pdf"></i> Preuve PDF
             <% end %>
           <% end %>
-        </p>
+
+          <p>
+            <% if @facture.validable? %>
+              <br />
+              <% @facture.cibles.each do |c| %>
+                <%= link_to "Test Validation #{c.id}", facture_path(@facture, email: c.email) %>
+                <br />
+              <% end %>
+            <% end %>
+          </p>
+        <% end %>
       </div>
 
       <div class="col-sm-5">
@@ -79,7 +79,7 @@
           </div>
         </div>
 
-        <% if @facture.envoyée? && params[:email] %>
+        <% if (@facture.validable? && params[:email]) %>
             <%= form_tag facture_validation_path(@facture), method: :post do %>
               <div class="card">
                 <div class="card-header">
