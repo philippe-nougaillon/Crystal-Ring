@@ -1,15 +1,15 @@
 <h1>Facture en anomalie</h1> 
 
 <p>
-    <%= image_tag @facture.scan, width: "100px" %>
+    <%= image_tag @facture.scan.preview(resize: "200x300>") %>
 </p>
 
 <p>
-    Merci de valider ou de rejeter en cliquant sur ce lien
+    Merci de cliquer sur le lien ci-dessous afin de voir la facture en anomalie pour la valider ou la rejeter. 
 </p>
 
 <p>
-    <%= link_to "Valider", facture_path(@facture, email: c.email) %>
+    <%= link_to "Voir la facture en anomalie", facture_url(@facture, email: @cible.email) %>
 </p>
 
 <p>Merci</p>

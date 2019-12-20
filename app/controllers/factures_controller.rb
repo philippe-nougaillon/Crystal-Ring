@@ -75,7 +75,7 @@ class FacturesController < ApplicationController
       if @facture.save
         # Envoyer à toutes les cibles
         @facture.cibles.each do |c|
-          FactureMailer.with(cible: c).notification_email.deliver_later
+          FactureMailer.with(cible: c).notification_email.deliver_now
           c.update!(envoyé_le: DateTime.now)
         end
         @facture.update!(etat: "envoyée")
