@@ -67,13 +67,19 @@
         <% end %>
       </div>
 
-      <div class="col-sm-5">
+      <div class="col-sm-6">
         <div class="card">
           <div class="card-header">
-              <h4>Cibles</h4>
+              <h4>Destinataires</h4>
           </div>
           <div class="card-body">
             <table class="table table-borderless table-sm table-hover">
+              <thead>
+                <th>Email</th>
+                <th>Action</th>
+                <th>Commentaires</th>
+                <th>Il y a</th>
+              </thead>
               <%= render @facture.cibles %>
             </table>
           </div>
@@ -96,8 +102,8 @@
                     <%= text_area_tag :commentaires %>
                 </div>
                 <div class="card-footer">
-                  <%= submit_tag "Validée", class: "btn btn-sm btn-success" %>
-                  <%= submit_tag "Rejetée", class: "btn btn-sm btn-danger" %>
+                  <%= submit_tag "Valider", class: "btn btn-sm btn-success" %>
+                  <%= submit_tag "Rejeter", class: "btn btn-sm btn-danger" %>
                 </div>
               </div>
             <% end %>

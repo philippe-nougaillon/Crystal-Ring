@@ -73,11 +73,10 @@ class FacturesController < ApplicationController
 
     respond_to do |format|
       if @facture.save
-        # Envoyer à toutes les cibles
-        @facture.cibles.each do |c|
-          FactureMailer.with(cible: c).notification_email.deliver_now
-          c.update!(envoyé_le: DateTime.now)
-        end
+        # Envoyer la notification au premier destinataire
+        destinataire = @facture.cibles.first
+        FactureMailer.with(cible: destinataire).notification_email.deliver_later(wait: 1.hour)
+        destinataire.update!(envoyé_le: DateTime.now)
         @facture.update!(etat: "envoyée")
 
         format.html { redirect_to @facture, notice: 'Facture créée avec succès.' }
@@ -122,16 +121,22 @@ class FacturesController < ApplicationController
         c.update!(repondu_le: DateTime.now, réponse: etat, commentaires: params[:commentaires])
       end
 
-      if @facture.cibles.pluck(:opérateur).uniq.include?('OU')
-        # Marquer la facture traitée s'il fallait au moins une validation (opérateur 'OU')
-        @facture.update!(etat: etat.downcase)
+      # Si la facture est rejetée, c'est terminé
+      if etat == "Rejeter"
+        @facture.update!(etat: "rejetée")
       else
-        # Marque la facture traitée si toutes les cibles ont répondu la même chose
-        if @facture.cibles.pluck(:réponse).uniq == [etat]    
-          @facture.update!(etat: etat.downcase)
+        # sinon on teste s'il y a d'autres destinataires à qui demander une approbation
+        if @facture.cibles.where(repondu_le: nil).any?
+           # envoyer une demande de validation
+           destinataire = @facture.cibles.where(repondu_le: nil).first
+           FactureMailer.with(cible: destinataire).notification_email.deliver_later
+           destinataire.update!(envoyé_le: DateTime.now)
+        else 
+          # sinon c'est validé
+          @facture.update!(etat: "validée")
         end
-      end 
-
+      end
+        
       redirect_to facture_url(@facture), notice: "Facture #{etat} par #{params[:email]}"
     end
   end

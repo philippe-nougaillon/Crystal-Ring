@@ -11,7 +11,6 @@ class Facture < ApplicationRecord
   accepts_nested_attributes_for :cibles, reject_if: proc { |attributes| attributes[:email].blank? }, allow_destroy: true
 
   validates :etat, :anomalie, :société, :num_chrono, presence: true
-  #validate :cibles_opérateur_unique
 
   default_scope { order(Arel.sql("factures.updated_at DESC")) }
 
