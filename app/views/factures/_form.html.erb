@@ -15,10 +15,6 @@
     <div class="col">
       <%= form.file_field :scan %>
 
-      <% unless facture.new_record? %>
-        <%= form.select :etat, Facture.etats.keys.to_a, class: "form-control" %>
-      <% end %>
-
       <div class="row">
         <div class="col">
           <%= form.number_field :num_chrono, required: true  %>

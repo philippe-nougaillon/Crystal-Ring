@@ -15,8 +15,8 @@ class FacturesController < ApplicationController
                     .distinct
     end
 
-    unless params[:etat].blank?
-      @factures = @factures.where("factures.etat = ?", params[:etat])
+    unless params[:workflow_state].blank?
+      @factures = @factures.where("factures.workflow_state = ?", params[:workflow_state].to_s)
     end
 
     unless params[:anomalie].blank?
@@ -94,15 +94,6 @@ class FacturesController < ApplicationController
   def update
     respond_to do |format|
       if @facture.update(facture_params)
-
-        # Envoyer à nouveau (relance) vers toutes les cibles
-        if @facture.ring1? || @facture.ring2? || @facture.ring3?
-          @facture.cibles.each do |c|
-            FactureMailer.with(cible: c).notification_email.deliver_later
-            c.update!(envoyé_le: DateTime.now)
-          end
-        end
-    
         format.html { redirect_to @facture, notice: 'Facture modifiée avec succès.' }
         format.json { render :show, status: :ok, location: @facture }
       else
@@ -143,16 +134,31 @@ class FacturesController < ApplicationController
   end
 
   def action
-    if factures_id = params[:factures_id]
-      factures = 
-        Facture
-          .where(id: factures_id.keys)
+    factures_id = params[:factures_id]
+    factures = Facture.where(id: factures_id.keys)
+
+    case params[:action_name]
+    when "Relancer"
+      # Envoyer à nouveau (relance) vers toutes les cibles
+      factures = factures
+        .each do |f| 
+          if f.current_state.between? :envoyée, :ring3 
+            f.cibles.each do |c|
+              FactureMailer.with(cible: c).notification_email.deliver_later
+              c.update!(envoyé_le: DateTime.now)
+            end
+            f.relancer!
+          end
+        end
+    
+    when "Passer à l'état 'Imputée'"
+        factures = factures
           .with_validée_state
           .each do |f| 
-            f.imputer! if f.validée?
+            f.imputer!
         end
 
-      flash[:notice] = "#{factures.count} facture.s modifiée.s"  
+        flash[:notice] = "#{factures.count} facture.s modifiée.s"  
     end
     redirect_to factures_url
   end

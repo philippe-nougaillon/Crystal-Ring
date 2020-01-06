@@ -14,14 +14,14 @@ module ToolsHelper
                 when 'Array'
                     pretty_changes << "#{key} changé de '#{User.find(ids.first).nom_et_prénom if ids.first}' à '#{User.find(ids.last).nom_et_prénom if ids.last}'"
                 end 
-            elsif key == 'Etat'
-                ids = audit.audited_changes['etat']
-                case ids.class.name
-                when 'Integer'
-                    pretty_changes << "#{key} initialisé à '#{Facture.etats.keys[ids].humanize}'"
-                when 'Array'
-                    pretty_changes << "#{key} changé de '#{Facture.etats.keys[ids.first].humanize if ids.first}' à '#{Facture.etats.keys[ids.last].humanize if ids.last}'"
-                end 
+            # elsif key == 'Etat'
+            #     ids = audit.audited_changes['etat']
+            #     case ids.class.name
+            #     when 'Integer'
+            #         pretty_changes << "#{key} initialisé à '#{Facture.etats.keys[ids].humanize}'"
+            #     when 'Array'
+            #         pretty_changes << "#{key} changé de '#{Facture.etats.keys[ids.first].humanize if ids.first}' à '#{Facture.etats.keys[ids.last].humanize if ids.last}'"
+            #     end 
             elsif key == 'Anomalie'
                 ids = audit.audited_changes['anomalie']
                 case ids.class.name

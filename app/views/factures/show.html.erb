@@ -13,12 +13,12 @@
       </div>
       
       <div class="col">
-        <p>
-          <strong>Etat:</strong>
-          <span class="badge badge-pill <%= @facture.style %>">
+        <h5>
+          <span class="badge <%= @facture.style %>">
             <%= @facture.workflow_state %>
-          </span>    
-        </p>
+          </span>
+        </h5>
+        <br>
 
         <p>
           <strong>Anomalie:</strong>
@@ -47,16 +47,19 @@
         <br>
 
         <% if current_user %>
-          <%= link_to edit_facture_path(@facture), class: "btn btn-sm btn-outline-primary" do %>
-            <i class="far fa-edit"></i> Editer 
-          <% end %>
-
-          <% if @facture.imputée? %>
-            <%= link_to facture_url(@facture, format: :pdf), title: "Afficher la facture en PDF", class: "btn btn-sm btn-outline-danger"  do %>
-                <i class="far fa-file-pdf"></i> Preuve PDF
+          <p>
+            <%= link_to edit_facture_path(@facture), class: "btn btn-sm btn-outline-primary" do %>
+              <i class="far fa-edit"></i> Editer 
             <% end %>
-          <% end %>
+          </p>
 
+          <p>          
+            <% if @facture.imputée? %>
+              <%= link_to facture_url(@facture, format: :pdf), title: "Afficher la facture en PDF", class: "btn btn-sm btn-outline-danger"  do %>
+                  <i class="far fa-file-pdf"></i> Preuve PDF
+              <% end %>
+            <% end %>
+          </p>
           <p>
             <% if @facture.validable? %>
               <br />

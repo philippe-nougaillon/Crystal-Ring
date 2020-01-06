@@ -12,7 +12,7 @@
 
 <p>
     <strong>Etat:</strong>
-    <span class="badge badge-pill <%= @facture.style %>"><%= @facture.etat.humanize %></span>    
+    <span class="badge <%= @facture.style %>"><%= @facture.workflow_state %></span>    
 </p>
 
 <p>
@@ -60,7 +60,7 @@
                 <td>Email</td>
                 <td>Envoyé le</td>
                 <td>Répondu le</td>
-                <td>Réponse</td>
+                <td>Action</td>
                 <td>Commentaires</td>
             </tr>
         </thead>
