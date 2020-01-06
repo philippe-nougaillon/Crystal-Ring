@@ -73,11 +73,12 @@ class FacturesController < ApplicationController
 
     respond_to do |format|
       if @facture.save
+
         # Envoyer la notification au premier destinataire
         destinataire = @facture.cibles.first
         FactureMailer.with(cible: destinataire).notification_email.deliver_later(wait: 1.hour)
         destinataire.update!(envoyé_le: DateTime.now)
-        @facture.update!(etat: "envoyée")
+        @facture.envoyer!
 
         format.html { redirect_to @facture, notice: 'Facture créée avec succès.' }
         format.json { render :show, status: :created, location: @facture }
@@ -115,15 +116,15 @@ class FacturesController < ApplicationController
     @facture = Facture.find_by(slug: params[:facture_id])
     @pdf_preview = @facture.scan.preview(resize: "827x1170>")
 
-    if etat = params[:commit]
+    if action = params[:commit]
       # Marquer ce que la cible a répondu
       @facture.cibles.where(email: params[:email]).each do |c|
-        c.update!(repondu_le: DateTime.now, réponse: etat, commentaires: params[:commentaires])
+        c.update!(repondu_le: DateTime.now, réponse: action, commentaires: params[:commentaires])
       end
 
       # Si la facture est rejetée, c'est terminé
-      if etat == "Rejeter"
-        @facture.update!(etat: "rejetée")
+      if action == "Rejeter"
+        @facture.rejeter!
       else
         # sinon on teste s'il y a d'autres destinataires à qui demander une approbation
         if @facture.cibles.where(repondu_le: nil).any?
@@ -133,18 +134,25 @@ class FacturesController < ApplicationController
            destinataire.update!(envoyé_le: DateTime.now)
         else 
           # sinon c'est validé
-          @facture.update!(etat: "validée")
+          @facture.valider!
         end
       end
         
-      redirect_to facture_url(@facture), notice: "Facture #{etat} par #{params[:email]}"
+      redirect_to facture_url(@facture), notice: "Facture #{@facture.current_state} par #{params[:email]}"
     end
   end
 
   def action
     if factures_id = params[:factures_id]
-      Facture.where(id: factures_id.keys).update(etat: "imputée")
-      flash[:notice] = "#{factures_id.keys.count} facture.s modifiée.s"  
+      factures = 
+        Facture
+          .where(id: factures_id.keys)
+          .with_validée_state
+          .each do |f| 
+            f.imputer! if f.validée?
+        end
+
+      flash[:notice] = "#{factures.count} facture.s modifiée.s"  
     end
     redirect_to factures_url
   end

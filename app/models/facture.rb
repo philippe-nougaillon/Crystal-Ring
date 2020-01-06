@@ -1,4 +1,6 @@
 class Facture < ApplicationRecord
+  include WorkflowActiverecord
+
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 
@@ -14,10 +16,62 @@ class Facture < ApplicationRecord
 
   default_scope { order(Arel.sql("factures.updated_at DESC")) }
 
-  enum etat: [:ajoutée, :envoyée, :ring1, :ring2, :ring3, :validée, :rejetée, :imputée]
   enum anomalie: [:po, :contrat, :montant, :réception, :inconnu]
 
   self.per_page = 10
+
+
+  enum etat: [:ajoutée, :envoyée, :ring1, :ring2, :ring3, :validée, :rejetée, :imputée]
+  
+  AJOUTEE = 'ajoutée'
+  ENVOYEE = 'envoyée'
+  RING1   = 'ring1'
+  RING2   = 'ring2'
+  RING3   = 'ring3'
+  VALIDEE = 'validée'
+  REJETEE = 'rejetée'
+  IMPUTEE = 'imputée'
+
+  workflow do
+    state AJOUTEE do
+      event :envoyer, transitions_to: ENVOYEE
+    end
+
+    state ENVOYEE do
+      event :valider, transitions_to: VALIDEE
+      event :rejeter, transitions_to: REJETEE
+      event :relancer, transitions_to: RING2
+    end
+
+    state RING2 do
+      event :valider, transitions_to: VALIDEE
+      event :rejeter, transitions_to: REJETEE
+      event :relancer, transitions_to: RING3
+    end
+
+    state RING3 do
+      event :valider, transitions_to: VALIDEE
+      event :rejeter, transitions_to: REJETEE
+    end
+
+    state VALIDEE do
+      event :imputer, transitions_to: IMPUTEE
+    end
+
+    state REJETEE
+
+    state IMPUTEE
+
+    after_transition do |from, to, triggering_event, *event_args|
+      logger.debug "[WORKFLOW] #{from} -> #{to} #{triggering_event}"
+    end
+  end
+
+  # pour que le changement se voit dans l'audit trail
+  def persist_workflow_state(new_value)
+    self[:workflow_state] = new_value
+    save!
+  end
 
   after_initialize do
     if self.new_record?
@@ -51,11 +105,7 @@ class Facture < ApplicationRecord
   end
 
   def validable?
-    if self.envoyée? or self.ring1? or self.ring2? or self.ring3?
-      true
-    else
-      false
-    end
+    self.current_state < :validée
   end
 
   def self.xls_headers

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_17_131438) do
+ActiveRecord::Schema.define(version: 2020_01_06_144806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,7 +83,9 @@ ActiveRecord::Schema.define(version: 2019_12_17_131438) do
     t.string "slug"
     t.decimal "montantHT", precision: 10, scale: 2
     t.text "commentaires"
+    t.string "workflow_state"
     t.index ["slug"], name: "index_factures_on_slug", unique: true
+    t.index ["workflow_state"], name: "index_factures_on_workflow_state"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|

@@ -15,7 +15,9 @@
       <div class="col">
         <p>
           <strong>Etat:</strong>
-          <span class="badge badge-pill <%= @facture.style %>"><%= @facture.etat.humanize %></span>    
+          <span class="badge badge-pill <%= @facture.style %>">
+            <%= @facture.workflow_state %>
+          </span>    
         </p>
 
         <p>
