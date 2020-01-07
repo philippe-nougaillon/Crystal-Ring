@@ -76,7 +76,7 @@ class FacturesController < ApplicationController
 
         # Envoyer la notification au premier destinataire
         if destinataire = @facture.cibles.first
-          FactureMailer.with(cible: destinataire).notification_email.deliver_later(wait: 5.minutes)
+          FactureMailer.with(cible: destinataire).notification_email.deliver_later(wait: 1.minutes)
           destinataire.update!(envoyé_le: DateTime.now)
           @facture.envoyer!
         end

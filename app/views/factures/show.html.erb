@@ -61,7 +61,7 @@
             <% end %>
           </p>
           <p>
-            <% if @facture.validable? %>
+            <% if @facture.validable? && request.domain == "localhost" %>
               <br />
               <% @facture.cibles.each do |c| %>
                 <%= link_to "Test Validation #{c.id}", facture_path(@facture, email: c.email) %>
