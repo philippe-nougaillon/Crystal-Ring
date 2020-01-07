@@ -13,7 +13,7 @@ namespace :factures do
             j = jours[index]
 
             Facture
-            .where(etat: e)
+            .where(workflow_state: e)
             .where("DATE(updated_at) <= ?", Date.today - j.days)
             .each do | facture |
                 puts "-=" * 80
@@ -23,15 +23,16 @@ namespace :factures do
 
                 # Envoyer à nouveau un mail (relance) vers toutes les cibles
                 facture.cibles.where(repondu_le: nil).each do |c|
-                    puts "Envoyer relance à #{c.email}"    
-                    FactureMailer.with(cible: c).notification_email.deliver_later
-                    c.update!(envoyé_le: DateTime.now) if enregistrer
+                    puts "Envoyer relance à #{c.email}"
+                    if enregistrer    
+                        FactureMailer.with(cible: c).notification_email.deliver_later
+                        c.update!(envoyé_le: DateTime.now) 
+                    end
                 end
 
                 # Passer à l'état suivant
-                nouvel_etat = facture.etat_before_type_cast + 1
-                facture.update!(etat: nouvel_etat) if enregistrer
-                puts "Facture.Etat: #{facture.etat}"
+                facture.relancer! if enregistrer
+                puts "Facture.Etat: #{facture.workflow_state}"
             end
         end
         puts "-- Traitement terminé --"

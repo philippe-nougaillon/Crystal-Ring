@@ -7,16 +7,17 @@
     <td><%= facture.anomalie.humanize %></td>
     <td><%= facture.société %></td>
     <td><%= facture.les_cibles %></td>
+    <td><%= facture.cibles.where(repondu_le: nil).count %></td>
     <td><%= facture.par %></td>
     <td><%= time_ago_in_words(facture.updated_at) %></td>
     <td>
-        <%= link_to edit_facture_path(facture), class: "btn-sm btn-outline-light text-dark" do %>
+        <%= link_to edit_facture_path(facture), class: "btn btn-sm btn-outline-light text-dark" do %>
            <i class="far fa-edit"></i>
         <% end %>
     </td> 
     <% if current_user.admin? %>
         <td>
-            <%= link_to facture, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-sm btn-outline-light text-dark" do %>
+            <%= link_to facture, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-light text-dark" do %>
                 <i class="far fa-trash-alt"></i>
             <% end %>
         </td>

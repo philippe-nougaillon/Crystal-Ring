@@ -11,8 +11,8 @@ class Facture < ApplicationRecord
   has_many :cibles, inverse_of: :facture, dependent: :delete_all
   has_associated_audits
   accepts_nested_attributes_for :cibles, reject_if: proc { |attributes| attributes[:email].blank? }, allow_destroy: true
-
-  validates :etat, :anomalie, :société, :num_chrono, presence: true
+  
+  validates :anomalie, :société, :num_chrono, presence: true
 
   default_scope { order(Arel.sql("factures.updated_at DESC")) }
 
@@ -106,7 +106,7 @@ class Facture < ApplicationRecord
 
   def validable?
     self.current_state < :validée
-  end
+  end  
 
   def self.xls_headers
 		%w{Id Etat Anomalie Num_chrono Par Société Cible Slug MontantHT Commentaires Created_at Updated_at}
@@ -147,6 +147,20 @@ class Facture < ApplicationRecord
 	
 		return book
 
+  end
+
+  def self.relancer(factures)
+    # Envoyer à nouveau (relance) vers toutes les cibles
+    
+    factures.each do |f| 
+      if f.current_state.between? :envoyée, :ring3 
+        f.cibles.each do |c|
+          FactureMailer.with(cible: c).notification_email.deliver_later
+          c.update!(envoyé_le: DateTime.now)
+        end
+        f.relancer!
+      end
+    end
   end
 
 

@@ -20,7 +20,7 @@
         </div>
         
         <div class="col-sm-2">
-          <%= label_tag :workflow_state %>
+          <%= label_tag :workflow_state, "Etat" %>
           <%= select_tag :workflow_state, options_for_select(Facture.workflow_spec.state_names, params[:workflow_state]), 
                                 include_blank: true,
                                 class: "form-control", 
@@ -60,6 +60,7 @@
         <th>Anomalie</th>
         <th>Société</th>
         <th>Destinataires</th>
+        <th>P.E.R</th>
         <th>PAR</th>
         <th>MàJ</th>
         <th colspan="3"></th>
@@ -71,7 +72,7 @@
     </tbody>
   </table>
 
-  <%= select_tag :action_name, options_for_select(["Relancer","Passer à l'état 'Imputée'"]), include_blank: true, onchange: 'this.form.submit()' %>
+  <%= select_tag :action_name, options_for_select(["Relancer","Passer à l'état 'imputée'"]), include_blank: true, onchange: 'this.form.submit()', class: "form-control form-control-sm col-sm-2" %>
 
   <div class="col-sm-2 float-right">
     <%= will_paginate @factures, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>

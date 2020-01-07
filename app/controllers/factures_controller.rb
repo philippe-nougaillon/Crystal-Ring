@@ -75,10 +75,11 @@ class FacturesController < ApplicationController
       if @facture.save
 
         # Envoyer la notification au premier destinataire
-        destinataire = @facture.cibles.first
-        FactureMailer.with(cible: destinataire).notification_email.deliver_later(wait: 1.hour)
-        destinataire.update!(envoyé_le: DateTime.now)
-        @facture.envoyer!
+        if destinataire = @facture.cibles.first
+          FactureMailer.with(cible: destinataire).notification_email.deliver_later(wait: 1.hour)
+          destinataire.update!(envoyé_le: DateTime.now)
+          @facture.envoyer!
+        end
 
         format.html { redirect_to @facture, notice: 'Facture créée avec succès.' }
         format.json { render :show, status: :created, location: @facture }
@@ -134,32 +135,25 @@ class FacturesController < ApplicationController
   end
 
   def action
+    return unless params[:factures_id]
+
     factures_id = params[:factures_id]
     factures = Facture.where(id: factures_id.keys)
 
     case params[:action_name]
     when "Relancer"
       # Envoyer à nouveau (relance) vers toutes les cibles
-      factures = factures
-        .each do |f| 
-          if f.current_state.between? :envoyée, :ring3 
-            f.cibles.each do |c|
-              FactureMailer.with(cible: c).notification_email.deliver_later
-              c.update!(envoyé_le: DateTime.now)
-            end
-            f.relancer!
-          end
-        end
+      factures = Facture.relancer(factures)
     
-    when "Passer à l'état 'Imputée'"
-        factures = factures
-          .with_validée_state
-          .each do |f| 
-            f.imputer!
-        end
-
-        flash[:notice] = "#{factures.count} facture.s modifiée.s"  
+    when "Passer à l'état 'imputée'"
+      factures = factures
+        .with_validée_state
+        .each do |f| 
+          f.imputer!
+      end
     end
+    flash[:notice] = "#{factures.count} facture.s modifiée.s"  
+
     redirect_to factures_url
   end
 
@@ -181,7 +175,7 @@ class FacturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def facture_params
-      params.require(:facture).permit(:etat, :anomalie, :num_chrono, :par, :société, :scan, :montantHT, :commentaires,
-                                    cibles_attributes: [:id, :opérateur, :email, :répondu_le, :réponse, :_destroy])
+      params.require(:facture).permit(:anomalie, :num_chrono, :par, :société, :scan, :montantHT, :commentaires,
+                                    cibles_attributes: [:id, :email, :répondu_le, :réponse, :_destroy])
     end
 end
