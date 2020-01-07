@@ -36,13 +36,15 @@
                                       onchange: 'this.form.submit()' %>
             <span class="input-group-btn">
               <%= submit_tag 'Filtrer', class:"btn btn-success" %>
+              <%= link_to url_for(params.permit(:search, :etat, :anomalie).merge(format: :xls)) do %>
+                <i class="far fa-file-excel"></i>
+                Export XLS
+              <% end %>
             </span>
           </div>
         </div>
 
         <div class="col-sm-3">
-          <br /><br />
-          <%= link_to "Export XLS", url_for(params.permit(:search, :etat, :anomalie).merge(format: :xls)) %>
         </div>
 
       </div>

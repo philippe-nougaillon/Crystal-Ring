@@ -99,9 +99,11 @@ class Facture < ApplicationRecord
   def les_cibles
     cibles = []
     self.cibles.each do |c| 
-      cibles << c.email + (!c.commentaires.blank? ?  " => #{c.commentaires}" : '')
+      cibles << c.email
+                  .concat(!c.réponse.blank? ? " = #{c.réponse}": '') 
+                  .concat(!c.commentaires.blank? ?  " => #{c.commentaires}" : '')
     end
-    cibles.join(' | ')
+    cibles.join('  ')
   end
 
   def validable?
@@ -150,15 +152,15 @@ class Facture < ApplicationRecord
   end
 
   def self.relancer(factures)
-    # Envoyer à nouveau (relance) vers toutes les cibles
+    # Envoyer à nouveau (relance) vers la première cible
     
     factures.each do |f| 
       if f.current_state.between? :envoyée, :ring3 
-        f.cibles.each do |c|
-          FactureMailer.with(cible: c).notification_email.deliver_later
-          c.update!(envoyé_le: DateTime.now)
+        if destinataire = f.cibles.where(repondu_le: nil).first 
+          FactureMailer.with(cible: destinataire).notification_email.deliver_later
+          destinataire.update!(envoyé_le: DateTime.now)
+          f.relancer!
         end
-        f.relancer!
       end
     end
   end
