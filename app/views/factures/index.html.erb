@@ -52,29 +52,35 @@
   <% end %>
 </div>
 
-<%= form_tag action_factures_path do %>
-  <table class="table table-striped table-hover table-bordered">
-    <thead>
-      <tr>
-        <th />
-        <th>Chrono</th>
-        <th>Etat</th>
-        <th>Anomalie</th>
-        <th>Société</th>
-        <th>Destinataires</th>
-        <th>P.E.R</th>
-        <th>PAR</th>
-        <th>MàJ</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
+<div data-controller="action">
+  <%= form_tag action_factures_path do %>
+    <table class="table table-striped table-hover table-bordered" >
+      <thead>
+        <tr>
+          <th />
+          <th>Chrono</th>
+          <th>Etat</th>
+          <th>Anomalie</th>
+          <th>Société</th>
+          <th>Destinataires</th>
+          <th>P.E.R</th>
+          <th>PAR</th>
+          <th>MàJ</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
 
-    <tbody>
-      <%= render @factures %>
-    </tbody>
-  </table>
+      <tbody>
+        <%= render @factures %>
+      </tbody>
+    </table>
 
-  <%= select_tag :action_name, options_for_select(["Relancer","Passer à l'état 'imputée'"]), include_blank: true, onchange: 'this.form.submit()', class: "form-control form-control-sm col-sm-2" %>
+    <%= select_tag :action_name, options_for_select(["Relancer","Passer à l'état 'imputée'"]), 
+                    include_blank: true, 
+                    onchange: 'this.form.submit()', 
+                    class: "form-control form-control-sm col-sm-2",
+                    data: {"action-target": "selector"} %>
+  </div>
 
   <div class="col-sm-2 float-right">
     <%= will_paginate @factures, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
@@ -83,4 +89,5 @@
   <br />
 
 <% end %>
+
 

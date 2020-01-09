@@ -1,5 +1,9 @@
 <tr>
-    <td><%= check_box_tag "[factures_id][#{facture.id}]", 'yes', false, class: 'check_all' %></td>
+    <td>
+        <span data-action="click->action#click">
+            <%= check_box_tag "[factures_id][#{facture.id}]", 'yes', false,  data: {"action-target":"source"} %>
+        </span>
+    </td>
     <td class="text-right"><%= link_to facture.num_chrono, facture %></td>
     <td>
         <span class="badge <%= facture.style %>"><%= facture.current_state %></span>    
