@@ -63,7 +63,7 @@ class FacturesController < ApplicationController
 
   # GET /factures/1/edit
   def edit
-    1.times { @facture.cibles.build }
+    3.times { @facture.cibles.build }
   end
 
   # POST /factures

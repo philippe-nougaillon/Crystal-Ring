@@ -1,3 +1,5 @@
+<br>
+
 <%= bootstrap_form_with(model: facture, local: true) do |form| %>
   <% if facture.errors.any? %>
     <div id="error_explanation">
@@ -13,7 +15,7 @@
 
   <div class="row">
     <div class="col">
-      <%= form.file_field :scan %>
+      <%= form.file_field :scan, required: true, accept: ".pdf" %>
 
       <div class="row">
         <div class="col">
@@ -58,3 +60,10 @@
   </div>
 
 <% end %>
+
+<script type="application/javascript">
+    $('input[type="file"]').change(function(e){
+        var fileName = e.target.files[0].name;
+        $('.custom-file-label').html(fileName);
+    });
+</script>

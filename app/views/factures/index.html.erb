@@ -38,13 +38,10 @@
               <%= submit_tag 'Filtrer', class:"btn btn-success" %>
               <%= link_to url_for(params.permit(:search, :etat, :anomalie).merge(format: :xls)), class: "btn btn-link" do %>
                 <i class="far fa-file-excel"></i>
-                Export XLS
+                Exporter
               <% end %>
             </span>
           </div>
-        </div>
-
-        <div class="col-sm-3">
         </div>
 
       </div>
