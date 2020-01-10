@@ -1,18 +1,7 @@
 <br>
 
 <%= bootstrap_form_with(model: facture, local: true) do |form| %>
-  <% if facture.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(facture.errors.count, "error") %> prohibited this facture from being saved:</h2>
-
-      <ul>
-        <% facture.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+  
   <div class="row">
     <div class="col">
       <%= form.file_field :scan, required: true, accept: ".pdf" %>
