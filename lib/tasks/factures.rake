@@ -1,40 +1,24 @@
 namespace :factures do
     
-    desc "Relancer par email et changer l'état: Ring2=>Ring3, Ring1=>Ring2, Envoyée=>Ring1"
+    desc "Relancer par email"
     task :relancer, [:enregistrer] => :environment do |task, args|
 
         enregistrer = (args[:enregistrer] == '1')    
         puts "Envoyer les mails et enregistrer les modifications !" if enregistrer
         
-        etats = [:ring2, :ring1, :envoyée]
-        jours = [3,3,7]
+        délai = 4.days
 
-        etats.each_with_index do | e, index | 
-            j = jours[index]
+        factures = Facture
+                    .with_envoyée_state
+                    .or(Facture.with_ring1_state)
+                    .or(Facture.with_ring2_state)
+                    .or(Facture.with_ring3_state)
+                    .where("DATE(updated_at) <= ?", Date.today - délai)
+        
+        # Envoyer à nouveau (relance) vers toutes les cibles
+        factures = Facture.relancer(factures)
 
-            Facture
-            .where(workflow_state: e)
-            .where("DATE(updated_at) <= ?", Date.today - j.days)
-            .each do | facture |
-                puts "-=" * 80
-                puts "Facture ##{facture.num_chrono} (id:#{facture.id})"
-                puts "Etat: #{facture.etat}" 
-                puts "Date de dernière màj: #{facture.updated_at}"
-
-                # Envoyer à nouveau un mail (relance) vers toutes les cibles
-                facture.cibles.where(repondu_le: nil).each do |c|
-                    puts "Envoyer relance à #{c.email}"
-                    if enregistrer    
-                        FactureMailer.with(cible: c).notification_email.deliver_later
-                        c.update!(envoyé_le: DateTime.now) 
-                    end
-                end
-
-                # Passer à l'état suivant
-                facture.relancer! if enregistrer
-                puts "Facture.Etat: #{facture.workflow_state}"
-            end
-        end
         puts "-- Traitement terminé --"
+        puts "#{factures.size} facture(s) traitée(s)"
     end
 end

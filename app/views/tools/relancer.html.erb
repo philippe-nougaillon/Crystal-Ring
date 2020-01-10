@@ -4,14 +4,15 @@
 
 <p>
     <h5>
-        Envoyer des relances par mail aux cibles des factures en état 'Envoyée' ou 'Ring1' ou 'Ring2' et
-        modifier leur état en le passant au suivant ('Envoyée' => 'Ring1', 'Ring1' => 'Ring2', 'Ring2' => 'Ring3' )
+      Relancer les destinataires avertis depuis plus de 4 jours 
     </h5>
 </p>
 <br />
 
 <%= bootstrap_form_with(url: "relancer_do", method: :post, local: true) do |form| %>
-  <%= form.check_box :enregistrer, {custom: :switch, label: "Envoyer les emails ? (non: visualisation seulement, ne fait rien de définitif :)"} %>  
+
+  <%# <%= form.check_box :enregistrer, {custom: :switch, label: "Envoyer les emails ? (non: visualisation seulement, ne fait rien de définitif :)"} %> 
+
   <br /><br />
-  <%= form.submit "Lancer", class: "btn btn-success" %>
+  <%= form.submit "Lancer la relance", class: "btn btn-success" %>
 <% end %>
