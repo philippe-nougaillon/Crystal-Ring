@@ -88,10 +88,6 @@ class Facture < ApplicationRecord
     self.current_state.meta[:style]
   end
 
-  # def self.etats_capitalized
-  #   self.etats.map {|k, v| [k.humanize.capitalize, v]}
-  # end
-
   def self.anomalies_capitalized
     self.anomalies.map {|k, v| [k.humanize.capitalize, v]}
   end 
@@ -103,7 +99,7 @@ class Facture < ApplicationRecord
                   .concat(!c.réponse.blank? ? " = #{c.réponse}": '') 
                   .concat(!c.commentaires.blank? ?  " => #{c.commentaires}" : '')
     end
-    cibles.join('  ')
+    cibles.join(' | ')
   end
 
   def validable?
