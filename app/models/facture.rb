@@ -13,6 +13,7 @@ class Facture < ApplicationRecord
   accepts_nested_attributes_for :cibles, reject_if: proc { |attributes| attributes[:email].blank? }, allow_destroy: true
   
   validates :anomalie, :société, :num_chrono, presence: true
+  validates_uniqueness_of :num_chrono
 
   default_scope { order(Arel.sql("factures.updated_at DESC")) }
 

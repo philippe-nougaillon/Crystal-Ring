@@ -6,7 +6,7 @@ private
     def set_layout_variables
       @ctrl = params[:controller]
       @title = "AnoFacto "
-      @version = "v0.9.b"
+      @version = "v0.9.c"
     end
 
     def user_not_authorized
