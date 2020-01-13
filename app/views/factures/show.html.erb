@@ -78,7 +78,7 @@
               <h4>Destinataires</h4>
           </div>
           <div class="card-body">
-            <table class="table table-borderless table-sm table-hover">
+            <table class="table table-borderless table-sm table-hover table-responsive">
               <thead>
                 <th>Email</th>
                 <th>Action</th>
@@ -123,7 +123,7 @@
 <% if current_user.try(:admin?) %>
   <h3>Audit trail</h3>
   <p>
-    <table class="table table-hover">
+    <table class="table table-hover table-responsive">
       <%= render  partial: 'tools/audit', 
                   collection: @facture
                                   .own_and_associated_audits
