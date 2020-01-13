@@ -3,8 +3,8 @@ namespace :factures do
     desc "Relancer par email"
     task :relancer, [:enregistrer] => :environment do |task, args|
 
-        enregistrer = (args[:enregistrer] == '1')    
-        puts "Envoyer les mails et enregistrer les modifications !" if enregistrer
+        # Ne pas se lancer les weekend
+        next if [6,7].include?(Date.today.wday)
         
         délai = 4.days
 
