@@ -90,3 +90,4 @@ gem 'sucker_punch'
 gem 'workflow'
 gem 'workflow-activerecord'
 
+gem 'exception_notification'

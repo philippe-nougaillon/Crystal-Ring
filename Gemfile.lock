@@ -88,6 +88,9 @@ GEM
       responders
       warden (~> 1.2.3)
     erubi (1.9.0)
+    exception_notification (4.4.0)
+      actionmailer (>= 4.0, < 7)
+      activesupport (>= 4.0, < 7)
     ffi (1.11.3)
     friendly_id (5.2.5)
       activerecord (>= 4.0.0)
@@ -256,6 +259,7 @@ DEPENDENCIES
   capture_stdout (~> 0.0.1)
   capybara (>= 2.15)
   devise
+  exception_notification
   friendly_id (~> 5.2.4)
   image_processing (~> 1.2)
   jbuilder (~> 2.7)

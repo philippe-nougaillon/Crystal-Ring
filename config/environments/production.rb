@@ -116,4 +116,12 @@ Rails.application.configure do
   config.action_mailer.asset_host = "https://anofacto-dev.philnoug.com"
   config.action_mailer.default_url_options = { host: 'anofacto-dev.philnoug.com', protocol: 'https' }
 
+  # Exception Notification
+  Rails.application.config.middleware.use ExceptionNotification::Rack,
+    :email => {
+      :email_prefix => "[AnoFacto ERROR]",
+      :sender_address => %{"philnoug" <philippe.nougaillon@gmail.com>},
+      :exception_recipients => %w{philippe.nougaillon@gmail.com}
+    }
+ 
 end
