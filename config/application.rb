@@ -17,5 +17,7 @@ module AnoFacto
     # the framework and any gems in your application.
 
     config.active_job.queue_adapter = :sucker_punch
+
+    config.i18n.default_locale = :fr
   end
 end
