@@ -1,6 +1,6 @@
 <div class="card ">
   <div class="card-header">
-    <h2>#<%= @facture.num_chrono %></h2>
+    <h2>Facture #<%= @facture.num_chrono %></h2>
   </div>
   <div class="card-body">
     <div class="row">
@@ -14,10 +14,11 @@
       
       <div class="col">
         <h5>
-          <span class="badge <%= @facture.style %>">
-            <%= @facture.workflow_state %>
-          </span>
         </h5>
+        <br>
+        
+        <h6>Etat: <span class="badge  <%= @facture.style %>"><%= @facture.workflow_state.humanize %></span></h6>
+
         <br>
 
         <p>
@@ -48,7 +49,7 @@
 
         <% if current_user %>
           <p>
-            <%= link_to edit_facture_path(@facture), class: "btn btn-sm btn-outline-primary" do %>
+            <%= link_to edit_facture_path(@facture), class: "btn btn-sm btn-light" do %>
               <i class="far fa-edit"></i> Editer 
             <% end %>
           </p>
@@ -80,7 +81,7 @@
           <div class="card-body">
             <table class="table table-borderless table-sm table-hover table-responsive">
               <thead>
-                <th>Email</th>
+                <th>Nom</th>
                 <th>Action</th>
                 <th>Commentaires</th>
                 <th>Il y a</th>
@@ -118,10 +119,10 @@
     </div>
   </div>
 </div>
-<br />
+<br /><br />
 
 <% if current_user.try(:admin?) %>
-  <h3>Audit trail</h3>
+  <h4>Audit trail</h4>
   <p>
     <table class="table table-hover table-responsive">
       <%= render  partial: 'tools/audit', 

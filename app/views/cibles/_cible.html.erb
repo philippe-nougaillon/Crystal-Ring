@@ -1,5 +1,5 @@
 <tr>
-    <td><%= cible.email %></td>
+    <td><%= cible.email.split('@').first %></td>
     <td><%= cible.réponse %></td>
     <td><%= cible.commentaires %></td>
     <td><%= time_ago_in_words(cible.repondu_le) if cible.repondu_le %></td>
