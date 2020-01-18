@@ -5,17 +5,12 @@
   <div class="card-body">
     <div class="row">
       <div class="col">
-        <% if @facture.scan.previewable? %>
-          <div class="shadow p-4 mb-4 bg-white">
-            <%= link_to image_tag(@pdf_preview, size: "300x400", class: "img-fluid"), "#", { 'data-toggle': "modal", 'data-target': "#myModal"} %>
-          </div>
-        <% end %>
+        <div class="shadow p-4 mb-4 bg-white">
+          <%= link_to image_tag(@pdf_preview, size: "300x400", class: "img-fluid"), "#", { 'data-toggle': "modal", 'data-target': "#myModal"} %>
+        </div>
       </div>
       
       <div class="col">
-        <h5>
-        </h5>
-        <br>
         
         <h6>Etat: <span class="badge  <%= @facture.style %>"><%= @facture.workflow_state.humanize %></span></h6>
 
@@ -123,15 +118,13 @@
 
 <% if current_user.try(:admin?) %>
   <h4>Audit trail</h4>
-  <p>
-    <table class="table table-hover table-responsive">
-      <%= render  partial: 'tools/audit', 
+    <table class="table table-hover table-striped table-responsive-xl">
+      <%= render partial: 'tools/audit', 
                   collection: @facture
                                   .own_and_associated_audits
                                   .includes(:user)
                                   .reorder(Arel.sql("audits.id DESC")) %>
     </table>
-  </p>
 <% end %>
 
 <!-- The Modal -->
