@@ -6,11 +6,12 @@
   <div class="row">
     <div class="col-sm-2"><%= f.date_field :date, value: params[:date], onchange: "this.form.submit()" %></div>
     <div class="col-sm-4"><%= f.select :user_id, options_from_collection_for_select(@users, 'id', 'email', params[:user_id]), { include_blank: true, label: "User" }, { class: "selectpicker", onchange: "this.form.submit()" } %></div>
+    <div class="col-sm-2"><%= f.select :audit_action, options_for_select(@actions, params[:audit_action]), { include_blank: true, label: "Action" }, { class: "selectpicker", onchange: "this.form.submit()" } %></div>
     <div class="col-sm-2"><%= f.select :type, options_for_select(@types, params[:type]), { include_blank: true, label: "Type" }, { class: "selectpicker", onchange: "this.form.submit()" } %></div>
   </div>
 <% end %>
 
-<table class="table table-sm table-bordered table-hover table-condensed table-responsive-xl">
+<table class="table table-sm table-bordered table-hover table-striped table-responsive-xl">
     <thead>
         <tr>
             <th>Date</th>

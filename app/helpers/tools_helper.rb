@@ -37,4 +37,15 @@ module ToolsHelper
         pretty_changes
     end
 
+    def facture_link_factory(audit)
+        if audit.auditable_type == 'Facture' && audit.action != 'destroy'
+            if Facture.where(id: audit.auditable_id).any?
+                facture = Facture.find_by(id: audit.auditable_id)    
+                link_to audit.auditable_id, facture_path(facture)
+            end
+        else
+            audit.auditable_id    
+        end
+    end    
+
 end
