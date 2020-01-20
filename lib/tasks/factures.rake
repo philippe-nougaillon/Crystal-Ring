@@ -3,8 +3,8 @@ namespace :factures do
     desc "Relancer par email"
     task :relancer, [:enregistrer] => :environment do |task, args|
 
-        # Ne pas se lancer les weekend
-        next if [6,7].include?(Date.today.wday)
+        # Ne pas se lancer si week-end (samedi=6, dimanche=0)
+        next if [6,0].include?(Date.today.wday)
         
         délai = 4.days
 
