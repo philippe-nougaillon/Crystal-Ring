@@ -18,7 +18,7 @@ class ToolsController < ApplicationController
             @audits = @audits.where(user_id: params[:user_id])
         end
             
-        @audits = @audits.paginate(page: params[:page], per_page: 10)
+        @audits = @audits.paginate(page: params[:page], per_page: 15)
     end
 
     def relancer
