@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_06_144806) do
+ActiveRecord::Schema.define(version: 2020_01_21_123110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,7 +68,9 @@ ActiveRecord::Schema.define(version: 2020_01_06_144806) do
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "envoyé_le"
     t.text "commentaires"
+    t.string "slug"
     t.index ["facture_id"], name: "index_cibles_on_facture_id"
+    t.index ["slug"], name: "index_cibles_on_slug", unique: true
   end
 
   create_table "factures", force: :cascade do |t|

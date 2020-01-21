@@ -110,7 +110,7 @@ class FacturesController < ApplicationController
 
     if action = params[:commit]
       # Marquer ce que la cible a répondu
-      @facture.cibles.where(email: params[:email]).each do |c|
+      @facture.cibles.where(slug: params[:cible_slug]).each do |c|
         c.update!(repondu_le: DateTime.now, réponse: action, commentaires: params[:commentaires])
       end
 
@@ -130,7 +130,7 @@ class FacturesController < ApplicationController
         end
       end
         
-      redirect_to facture_url(@facture), notice: "Facture #{@facture.current_state} par #{params[:email]}"
+      redirect_to facture_url(@facture), notice: "Facture #{@facture.current_state}"
     end
   end
 
