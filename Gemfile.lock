@@ -131,7 +131,7 @@ GEM
     orm_adapter (0.5.0)
     pg (1.1.4)
     public_suffix (4.0.1)
-    puma (4.3.0)
+    puma (4.3.1)
       nio4r (~> 2.0)
     rack (2.0.7)
     rack-proxy (0.6.5)
@@ -267,7 +267,7 @@ DEPENDENCIES
   lol_dba
   mini_magick (~> 4.8)
   pg (>= 0.18, < 2.0)
-  puma (~> 4.1)
+  puma (>= 4.3.1)
   rails (~> 6.0, >= 6.0.2)
   sass-rails (>= 6)
   selenium-webdriver
