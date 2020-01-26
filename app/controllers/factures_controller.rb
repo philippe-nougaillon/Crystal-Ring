@@ -25,7 +25,9 @@ class FacturesController < ApplicationController
 
     respond_to do |format|
       format.html do
+        @total = @factures.sum(:montantHT)
         @factures = @factures.paginate(page: params[:page]).includes(:cibles)
+        @sub_total = @factures.sum(:montantHT)
       end
 
       format.xls do

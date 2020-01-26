@@ -59,6 +59,7 @@
           <th>Etat</th>
           <th>Anomalie</th>
           <th>Société</th>
+          <th>Mnt HT</th>
           <th>Destinataires</th>
           <th title="Nombre de sans réponse">SR</th>
           <th>PAR</th>
@@ -70,7 +71,16 @@
       <tfoot>
         <tr>
           <th />
-          <th colspan=8></th>
+          <th colspan=4>Sous-total page</th>
+          <th class="text-right"><%= number_to_currency(@sub_total, unit: '€', precision: 2, format: '%n %u') %>
+          <th colspan=4></th>
+          <th /><th />
+        </tr>
+        <tr>
+          <th />
+          <th colspan=4>Total</th>
+          <th class="text-right"><%= number_to_currency(@total, unit: '€', precision: 2, format: '%n %u') %>
+          <th colspan=4></th>
           <th /><th />
         </tr>
       </tfoot>

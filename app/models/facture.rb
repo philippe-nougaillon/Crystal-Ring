@@ -19,7 +19,7 @@ class Facture < ApplicationRecord
 
   enum anomalie: [:po, :contrat, :montant, :réception, :inconnu]
 
-  self.per_page = 10
+  self.per_page = 2
   
   AJOUTEE = 'ajoutée'
   ENVOYEE = 'envoyée'

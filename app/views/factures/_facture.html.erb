@@ -10,6 +10,7 @@
     </td>
     <td><%= facture.anomalie.humanize %></td>
     <td><%= facture.société %></td>
+    <td class="text-right"><%= number_to_currency(facture.montantHT, unit: '€', precision: 2, format: '%n %u') %></td>
     <td><%= facture.les_cibles %></td>
     <td class="text-right"><%= facture.cibles.sans_réponse.count %></td>
     <td><%= facture.par %></td>
