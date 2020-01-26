@@ -49,60 +49,65 @@
   <% end %>
 </div>
 
-<div data-controller="action">
-  <%= form_tag action_factures_path do %>
-    <table class="table table-striped table-hover table-bordered table-responsive-xl" >
-      <thead>
-        <tr>
-          <th />
-          <th>Chrono</th>
-          <th>Etat</th>
-          <th>Anomalie</th>
-          <th>Société</th>
-          <th>Mnt HT</th>
-          <th>Destinataires</th>
-          <th title="Nombre de sans réponse">SR</th>
-          <th>PAR</th>
-          <th>MàJ</th>
-          <th colspan="3"></th>
-        </tr>
-      </thead>
+<% if @factures.any? %>
+  <div data-controller="action">
+    <%= form_tag action_factures_path do %>
+      <table class="table table-striped table-hover table-bordered table-responsive-xl">
+        <thead>
+          <tr>
+            <th />
+            <th>Chrono</th>
+            <th>Etat</th>
+            <th>Anomalie</th>
+            <th>Société</th>
+            <th>Mnt HT</th>
+            <th>Destinataires</th>
+            <th title="Nombre de sans réponse">SR</th>
+            <th>PAR</th>
+            <th>MàJ</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
 
-      <tfoot>
-        <tr>
-          <th />
-          <th colspan=4>Sous-total page</th>
-          <th class="text-right"><%= number_to_currency(@sub_total, unit: '€', precision: 2, format: '%n %u') %>
-          <th colspan=4></th>
-          <th /><th />
-        </tr>
-        <tr>
-          <th />
-          <th colspan=4>Total</th>
-          <th class="text-right"><%= number_to_currency(@total, unit: '€', precision: 2, format: '%n %u') %>
-          <th colspan=4></th>
-          <th /><th />
-        </tr>
-      </tfoot>
+        <tfoot>
+          <tr>
+            <th />
+            <th colspan=4>Sous-total page</th>
+            <th class="text-right"><%= number_to_currency(@sub_total, unit: '€', precision: 2, format: '%n %u') %>
+            <th colspan=4></th>
+            <th /><th />
+          </tr>
+          <tr>
+            <th />
+            <th colspan=4>Total</th>
+            <th class="text-right"><%= number_to_currency(@total, unit: '€', precision: 2, format: '%n %u') %>
+            <th colspan=4></th>
+            <th /><th />
+          </tr>
+        </tfoot>
 
-      <tbody>
-        <%= render @factures %>
-      </tbody>
-    </table>
+        <tbody>
+          <%= render @factures %>
+        </tbody>
+      </table>
 
-    <%= select_tag :action_name, options_for_select(["Relancer","Passer à l'état 'imputée'"]), 
-                    include_blank: true, 
-                    onchange: 'this.form.submit()', 
-                    class: "form-control form-control-sm col-sm-2",
-                    data: {"action-target": "selector"} %>
+      <%= select_tag :action_name, options_for_select(["Relancer","Passer à l'état 'imputée'"]), 
+                      include_blank: true, 
+                      onchange: 'this.form.submit()', 
+                      class: "form-control form-control-sm col-sm-2",
+                      data: {"action-target": "selector"} %>
+
+      <div class="col-sm-2 float-right">
+        <%= will_paginate @factures, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+      </div>
+
+    <br />
+
+    <% end %>
   </div>
-
-  <div class="col-sm-2 float-right">
-    <%= will_paginate @factures, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
-  </div>
-
-  <br />
-
+<% else %>
+  <p>
+    <em>Aucun résultat à afficher...</em>
+  </p>
 <% end %>
-
 
