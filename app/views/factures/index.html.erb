@@ -98,11 +98,9 @@
 
       <%= page_entries_info @factures, model: Facture %>
 
-      <div class="col-sm-2 float-right">
+      <div class="float-right">
         <%= will_paginate @factures, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
       </div>
-
-    <br />
 
     <% end %>
   </div>
