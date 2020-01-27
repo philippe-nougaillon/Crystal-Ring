@@ -96,6 +96,8 @@
                       class: "form-control form-control-sm col-sm-2",
                       data: {"action-target": "selector"} %>
 
+      <%= page_entries_info @factures, model: Facture %>
+
       <div class="col-sm-2 float-right">
         <%= will_paginate @factures, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
       </div>
