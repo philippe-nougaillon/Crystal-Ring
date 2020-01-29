@@ -12,7 +12,6 @@ class FacturesController < ApplicationController
       @factures = @factures
                     .joins(:cibles)
                     .where("cibles.email ILIKE ? OR factures.num_chrono::text ILIKE ? OR factures.société ILIKE ? OR factures.par ILIKE ?", s, s, s, s)
-                    .distinct
     end
 
     unless params[:workflow_state].blank?

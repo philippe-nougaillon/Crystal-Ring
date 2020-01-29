@@ -96,9 +96,9 @@ class Facture < ApplicationRecord
   def les_cibles
     cibles = []
     self.cibles.each do |c| 
-      cibles << c.email
-                  .concat(!c.réponse.blank? ? " = #{c.réponse}": '') 
-                  .concat(!c.commentaires.blank? ?  " => #{c.commentaires}" : '')
+      cibles << c.email.split('@').first
+                  .concat(!c.réponse.blank? ? " -> #{c.réponse}": '') 
+                  .concat(!c.commentaires.blank? ?  " ('#{c.commentaires}')" : '')
     end
     cibles.join(' | ')
   end

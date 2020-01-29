@@ -13,7 +13,7 @@
     <td class="text-right"><%= number_to_currency(facture.montantHT, unit: '€', precision: 2, format: '%n %u') %></td>
     <td><%= facture.les_cibles %></td>
     <td><%= facture.par %></td>
-    <td><%= time_ago_in_words(facture.updated_at) %></td>
+    <td>Il y a <%= time_ago_in_words(facture.updated_at) %></td>
     <td>
         <%= link_to edit_facture_path(facture), class: "btn btn-sm btn-outline-light text-dark" do %>
            <i class="far fa-edit"></i>
