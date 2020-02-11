@@ -100,7 +100,7 @@
                     <br><br>
 
                     <strong><%= label_tag "Commentaires" %></strong>
-                    <%= text_area_tag :commentaires %>
+                    <%= text_area_tag :commentaires, nil, rows: 4, cols: 50 %>
                 </div>
                 <div class="card-footer">
                   <%= submit_tag "Valider", class: "btn btn-sm btn-success" %>
