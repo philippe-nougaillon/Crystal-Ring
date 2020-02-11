@@ -15,7 +15,7 @@
     Si vous voulez valider le paiement :
     <ul>
         <li>Vous devez d’abord réceptionner la commande dans ARIBA</li>
-        <li>Puis Communiquer le n°de PO (dans commentaires) et valider dans 'AnoFacto'</li>
+        <li>Puis Communiquer le n°de PO (dans commentaires) et <%= link_to "valider dans 'AnoFacto'", facture_url(@facture, cible_slug: @cible.slug) %></li>
     </ul>
     Si vous refusez de payer :
     <ul>
