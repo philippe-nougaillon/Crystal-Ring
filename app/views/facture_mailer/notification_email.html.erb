@@ -74,6 +74,20 @@
     <p>
         Toute participation publicitaire doit être validée à l’aide du contrat dûment signé par le RCP, le DR (si > 150 €), le DC (si > 1000€)
     </p>
+<% elsif @facture.anomalie == 'inconnu' %>
+    <p>
+        Cette facture ne peut être payée pour une raison inconnue. 
+    </p>
+    Si vous voulez valider le paiement :
+    <ul>
+        <li>Vous devez d’abord réceptionner la commande dans ARIBA</li>
+        <li>Puis <%= link_to "Valider dans 'AnoFacto'", facture_url(@facture, cible_slug: @cible.slug) %> si la prestation a bien eu lieu dans les conditions prévues.</li>
+    </ul>
+    Si vous refusez de payer :
+    <ul>
+        <li>Saisir la raison dans « commentaires »</li>
+        <li>Sélectionner : <%= link_to "Rejeter", facture_url(@facture, cible_slug: @cible.slug) %></li>
+    </ul>
 <% end %>
 
 <p>
