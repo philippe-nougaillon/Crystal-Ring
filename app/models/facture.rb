@@ -81,7 +81,6 @@ class Facture < ApplicationRecord
   after_initialize do
     if self.new_record?
       self.etat = 0
-      self.anomalie = 0
     end
   end
 
