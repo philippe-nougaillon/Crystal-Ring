@@ -6,6 +6,9 @@
     <%= audit.try(:user).try(:email) %>
   </td>
   <td>
+    <%= audit.remote_address %>
+  </td>
+  <td>
     <%= audit.action.humanize %>
   </td>
   <td>
