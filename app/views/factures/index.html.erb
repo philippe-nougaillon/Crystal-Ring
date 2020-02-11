@@ -6,7 +6,7 @@
     <% end %>
   </div>
 
-  <h1><i class="fas fa-file-invoice"></i> Factures</h1>
+  <h1><i class="fas fa-file-invoice"></i> Gestion des factures</h1>
 </div>
 
 <div class='container-fluid'>
@@ -21,13 +21,13 @@
         
         <div class="col-sm-2">
           <%= label_tag :workflow_state, "Etat" %>
-          <%= select_tag :workflow_state, options_for_select(Facture.workflow_spec.state_names, params[:workflow_state]), 
+          <%= select_tag :workflow_state, options_for_select(Facture.workflow_states_capitalized, params[:workflow_state]), 
                                 include_blank: true,
                                 class: "form-control", 
                                 onchange: 'this.form.submit()' %>
         </div>
 
-        <div class="col-sm-4">
+        <div class="col-sm-5">
           <%= label_tag :anomalie %>
           <div class="input-group">
             <%= select_tag :anomalie, options_for_select(Facture.anomalies_capitalized, params[:anomalie]), 
