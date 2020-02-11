@@ -9,6 +9,10 @@ class Cible < ApplicationRecord
 
   scope :sans_réponse, -> { where(repondu_le: nil) }
 
+  def firstname
+    self.email.split('@').first.split('.').first.humanize
+  end
+
 private
 
   # only one candidate for an nice id; one random UDID
