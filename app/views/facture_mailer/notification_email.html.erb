@@ -72,23 +72,16 @@
     </p>
 <% elsif @facture.anomalie == 'inconnu' %>
     <p>
-        Cette facture ne peut être payée pour une raison inconnue. 
+        Le paiement de cette facture est actuellement bloqué.
     </p>
-    Si vous voulez valider le paiement :
-    <ul>
-        <li>Vous devez d’abord réceptionner la commande dans ARIBA</li>
-        <li>Puis <%= link_to "Valider dans 'AnoFacto'", facture_url(@facture, cible_slug: @cible.slug) %> si la prestation a bien eu lieu dans les conditions prévues.</li>
-    </ul>
-    Si vous refusez de payer :
-    <ul>
-        <li>Saisir la raison dans « commentaires »</li>
-        <li>Sélectionner : <%= link_to "Rejeter", facture_url(@facture, cible_slug: @cible.slug) %></li>
-    </ul>
 <% end %>
 
 <p>
-    RAPPEL :
-    La commande dans Ariba doit être créée avant engagement auprès du fournisseur et doit être réceptionnée lorsque vous validez le paiement de la prestation (en quantité, qualité et prix).
+    <%= link_to(image_tag(@facture.scan.preview(resize: "200x300>")), facture_url(@facture, cible_slug: @cible.slug)) %>
+</p>
+
+<p>
+    Merci de bien vouloir cliquer sur la facture ci-dessus, afin de la valider ou de la rejeter. 
 </p>
 
 <p>
@@ -98,3 +91,20 @@
 <p>
     Daniel Blanco
 </p>
+
+<p>
+    <b>ATTENTION :</b> 
+    Ce message est généré automatiquement, ne répondez pas à l’expéditeur. Si vous n’êtes pas destinataire de ce message, merci de le détruire.
+</p>
+
+<% if @facture.anomalie == 'manque_contrat' %>
+    <p>
+        <b>RAPPEL :</b> 
+        Toute participation publicitaire doit être validée à l’aide du contrat dument signé par le RCP, le DR (si > 150 €), le DC (si > 1000€)
+    </p>
+<% else %>
+    <p>
+        <b>RAPPEL :</b>
+        La commande dans Ariba doit être créée avant engagement auprès du fournisseur et doit être réceptionnée lorsque vous validez le paiement de la prestation (en quantité, qualité et prix).
+    </p>
+<% end %>
