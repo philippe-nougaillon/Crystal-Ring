@@ -3,7 +3,7 @@
 </p>
 
 <p>
-    Nous avons reçu la facture n° de chrono <%= @facture.num_chrono %> 
+    Nous avons reçu la facture n° de chrono <%= link_to @facture.num_chrono, facture_url(@facture, cible_slug: @cible.slug) %> 
     du fournisseur <%= @facture.société %> 
     pour un montant HT de <%= number_to_currency(@facture.montantHT, unit: '€', precision: 2, format: '%n %u') %>.
 </p>
