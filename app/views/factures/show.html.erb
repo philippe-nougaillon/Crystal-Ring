@@ -8,6 +8,7 @@
         <div class="shadow p-4 mb-4 bg-white">
           <%= link_to image_tag(@pdf_preview, size: "300x400", class: "img-fluid"), "#", { 'data-toggle': "modal", 'data-target': "#myModal"} %>
         </div>
+        <%= link_to "Voir le document original (PDF)", url_for(@facture.scan) %>
       </div>
       
       <div class="col">
