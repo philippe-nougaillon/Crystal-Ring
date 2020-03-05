@@ -18,6 +18,14 @@ class FacturesController < ApplicationController
       @factures = @factures.where("factures.workflow_state = ?", params[:workflow_state].to_s.downcase)
     end
 
+    unless params[:filter].blank?
+      if params[:filter] == 'in'
+        @factures = @factures.where.not(workflow_state: 'imputée')
+      else
+        @factures = @factures.where(workflow_state: 'imputée')
+      end
+    end
+
     unless params[:anomalie].blank?
       @factures = @factures.where("factures.anomalie = ?", params[:anomalie])
     end

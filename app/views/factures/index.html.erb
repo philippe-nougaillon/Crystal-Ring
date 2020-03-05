@@ -14,9 +14,9 @@
     <div class="form-group">
       <div class="row">
       
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <%= label_tag :search, "Rechercher" %>    
-          <%= text_field_tag :search, params[:search], include_blank:true, onchange:'this.form.submit()', class:"form-control" %>
+          <%= text_field_tag :search, params[:search], include_blank:true, onchange: 'this.form.submit()', class: "form-control" %>
         </div>
         
         <div class="col-sm-2">
@@ -27,7 +27,22 @@
                                 onchange: 'this.form.submit()' %>
         </div>
 
-        <div class="col-sm-5">
+        <div class="col-sm-2">
+          <%= label_tag :filter, "Voir que les imputées ?" %>
+          <div class="" data-toggle="buttons">    
+            <label class="btn btn-default active">
+              <%= radio_button_tag :filter, 'out', params[:filter] == 'out', onchange: "this.form.submit();" %>
+              Oui
+            </label>
+            <label class="btn btn-default active">
+              <%= radio_button_tag :filter, 'in', params[:filter] == 'in', onchange: "this.form.submit();" %>
+              Non
+            </label>
+          </div>
+        </div>
+
+
+        <div class="col-sm-4">
           <%= label_tag :anomalie %>
           <div class="input-group">
             <%= select_tag :anomalie, options_for_select(Facture.anomalies_capitalized, params[:anomalie]), 
