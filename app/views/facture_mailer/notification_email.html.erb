@@ -1,4 +1,80 @@
-<h1>Facture en anomalie</h1> 
+<p>
+    Bonjour <%= @cible.firstname %>,
+</p>
+
+<p>
+    Nous avons reçu la facture n° de chrono <%= link_to @facture.num_chrono, facture_url(@facture, cible_slug: @cible.slug) %> 
+    du fournisseur <%= @facture.société %> 
+    pour un montant HT de <%= number_to_currency(@facture.montantHT, unit: '€', precision: 2, format: '%n %u') %>.
+</p>
+
+<% if @facture.anomalie == 'manque_po' %>
+    <p>
+        Cette facture ne peut être payée car le numéro de commande (purchase order PO ) ne figure pas sur le document. 
+    </p>
+    Si vous voulez valider le paiement :
+    <ul>
+        <li>Vous devez d’abord réceptionner la commande dans ARIBA</li>
+        <li>Puis Communiquer le n°de PO (dans commentaires) et <%= link_to "valider dans 'AnoFacto'", facture_url(@facture, cible_slug: @cible.slug) %></li>
+    </ul>
+    Si vous refusez de payer :
+    <ul>
+        <li>Saisir la raison dans « Commentaires »</li>
+        <li>Sélectionner : <%= link_to "Rejeter", facture_url(@facture, cible_slug: @cible.slug) %></li>
+    </ul>
+<% elsif @facture.anomalie == 'manque_réception' %>
+    <p>
+        Cette facture ne peut être payée car la commande Ariba <%= @facture.commentaires %> n’a pas été réceptionnée.
+    </p>
+    Si vous voulez valider le paiement :
+    <ul>
+        <li>Vous devez d’abord réceptionner la commande dans ARIBA</li>
+        <li>Puis <%= link_to "Valider dans 'AnoFacto'", facture_url(@facture, cible_slug: @cible.slug) %></li>
+    </ul>
+    Si vous refusez de payer :
+    <ul>
+        <li>Saisir la raison dans « commentaires »</li>
+        <li>Sélectionner : <%= link_to "Rejeter", facture_url(@facture, cible_slug: @cible.slug) %></li>
+    </ul>
+<% elsif @facture.anomalie == 'écart_valeur' %>
+    <p>
+        Cette facture ne peut être payée car son montant excède celui de la réception de la commande faite dans Ariba.
+    </p>
+    Si vous voulez valider le paiement :
+    <ul>
+        <li>Justifier l’écart dans commentaires</li>
+        <li>Obtenir l’approbation de ce surplus auprès de votre Responsable</li>
+        <li>Puis <%= link_to "Valider dans 'AnoFacto'", facture_url(@facture, cible_slug: @cible.slug) %></li>
+    </ul>
+    Si vous refusez de payer :
+    <ul>
+        <li>Contacter votre fournisseur pour lui demander un avoir</li>
+        <li>Saisir la raison dans « commentaires »</li>
+        <li>Sélectionner : <%= link_to "Rejeter", facture_url(@facture, cible_slug: @cible.slug) %></li>
+    </ul>
+<% elsif @facture.anomalie == 'manque_contrat' %>
+    <p>
+        Cette facture ne peut être payée soit parce que le contrat est manquant, soit le montant est supérieur au contrat, soit il n’est pas suffisamment validé. 
+    </p>
+    Si vous voulez valider le paiement :
+    <ul>
+        <li>Vous devez envoyer par mail le contrat dûment signé</li>
+        <li>Puis <%= link_to "Valider dans 'AnoFacto'", facture_url(@facture, cible_slug: @cible.slug) %> si la prestation a bien eu lieu dans les conditions prévues.</li>
+    </ul>
+    Si vous refusez de payer :
+    <ul>
+        <li>Saisir la raison dans « commentaires »</li>
+        <li>Prévenez et Demandez un avoir à votre client</li>
+        <li>Sélectionner : <%= link_to "Rejeter", facture_url(@facture, cible_slug: @cible.slug) %></li>
+    </ul>
+    <p>
+        Toute participation publicitaire doit être validée à l’aide du contrat dûment signé par le RCP, le DR (si > 150 €), le DC (si > 1000€)
+    </p>
+<% elsif @facture.anomalie == 'inconnu' %>
+    <p>
+        Le paiement de cette facture est actuellement bloqué.
+    </p>
+<% end %>
 
 <p>
     <%= link_to(image_tag(@facture.scan.preview(resize: "200x300>")), facture_url(@facture, cible_slug: @cible.slug)) %>
@@ -9,5 +85,26 @@
 </p>
 
 <p>
-    Merci
+    Salutations
 </p>
+
+<p>
+    Daniel Blanco
+</p>
+
+<p>
+    <b>ATTENTION :</b> 
+    Ce message est généré automatiquement, ne répondez pas à l’expéditeur. Si vous n’êtes pas destinataire de ce message, merci de le détruire.
+</p>
+
+<% if @facture.anomalie == 'manque_contrat' %>
+    <p>
+        <b>RAPPEL :</b> 
+        Toute participation publicitaire doit être validée à l’aide du contrat dument signé par le RCP, le DR (si > 150 €), le DC (si > 1000€)
+    </p>
+<% else %>
+    <p>
+        <b>RAPPEL :</b>
+        La commande dans Ariba doit être créée avant engagement auprès du fournisseur et doit être réceptionnée lorsque vous validez le paiement de la prestation (en quantité, qualité et prix).
+    </p>
+<% end %>

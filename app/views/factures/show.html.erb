@@ -8,6 +8,7 @@
         <div class="shadow p-4 mb-4 bg-white">
           <%= link_to image_tag(@pdf_preview, size: "300x400", class: "img-fluid"), "#", { 'data-toggle': "modal", 'data-target': "#myModal"} %>
         </div>
+        <%= link_to "Voir le document original (PDF)", url_for(@facture.scan) %>
       </div>
       
       <div class="col">
@@ -18,7 +19,7 @@
 
         <p>
           <strong>Anomalie:</strong>
-          <%= @facture.anomalie.humanize %>
+          <%= @facture.anomalie.humanize.capitalize %>
         </p>
 
         <p>
@@ -100,7 +101,7 @@
                     <br><br>
 
                     <strong><%= label_tag "Commentaires" %></strong>
-                    <%= text_area_tag :commentaires %>
+                    <%= text_area_tag :commentaires, nil, rows: 4, cols: 50 %>
                 </div>
                 <div class="card-footer">
                   <%= submit_tag "Valider", class: "btn btn-sm btn-success" %>

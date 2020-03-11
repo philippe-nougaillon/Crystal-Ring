@@ -17,7 +17,7 @@ class Facture < ApplicationRecord
 
   default_scope { order(Arel.sql("factures.updated_at DESC")) }
 
-  enum anomalie: [:po, :contrat, :montant, :réception, :inconnu]
+  enum anomalie: [:manque_po, :manque_contrat, :écart_valeur, :manque_réception, :inconnu]
 
   self.per_page = 10
   
@@ -81,7 +81,6 @@ class Facture < ApplicationRecord
   after_initialize do
     if self.new_record?
       self.etat = 0
-      self.anomalie = 0
     end
   end
 
@@ -91,6 +90,10 @@ class Facture < ApplicationRecord
 
   def self.anomalies_capitalized
     self.anomalies.map {|k, v| [k.humanize.capitalize, v]}
+  end 
+
+  def self.workflow_states_capitalized
+    self.workflow_spec.state_names.map {|k| [k.to_s.humanize.capitalize]}
   end 
 
   def les_cibles

@@ -113,8 +113,12 @@ Rails.application.configure do
   # Mail Gandi
   config.action_mailer.delivery_method = :sendmail
   config.action_mailer.sendmail_settings = { arguments: '-i' }
-  config.action_mailer.asset_host = "https://anofacto.philnoug.com"
-  config.action_mailer.default_url_options = { host: 'anofacto.philnoug.com', protocol: 'https' }
+
+  # config.action_mailer.asset_host = "https://anofacto-dev.philnoug.com"
+  # config.action_mailer.default_url_options = { host: 'anofacto-dev.philnoug.com', protocol: 'https' }
+
+  config.action_mailer.asset_host = "https://anofacto-dev.philnoug.com"
+  config.action_mailer.default_url_options = { host: 'anofacto-dev.philnoug.com', protocol: 'https' }
 
   # Exception Notification
   Rails.application.config.middleware.use ExceptionNotification::Rack,

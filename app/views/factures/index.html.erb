@@ -6,7 +6,7 @@
     <% end %>
   </div>
 
-  <h1><i class="fas fa-file-invoice"></i> Factures</h1>
+  <h1><i class="fas fa-file-invoice"></i> Gestion des factures</h1>
 </div>
 
 <div class='container-fluid'>
@@ -14,18 +14,33 @@
     <div class="form-group">
       <div class="row">
       
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <%= label_tag :search, "Rechercher" %>    
-          <%= text_field_tag :search, params[:search], include_blank:true, onchange:'this.form.submit()', class:"form-control" %>
+          <%= text_field_tag :search, params[:search], include_blank:true, onchange: 'this.form.submit()', class: "form-control" %>
         </div>
         
         <div class="col-sm-2">
           <%= label_tag :workflow_state, "Etat" %>
-          <%= select_tag :workflow_state, options_for_select(Facture.workflow_spec.state_names, params[:workflow_state]), 
+          <%= select_tag :workflow_state, options_for_select(Facture.workflow_states_capitalized, params[:workflow_state]), 
                                 include_blank: true,
                                 class: "form-control", 
                                 onchange: 'this.form.submit()' %>
         </div>
+
+        <div class="col-sm-2">
+          <%= label_tag :filter, "Voir que les imputées ?" %>
+          <div class="" data-toggle="buttons">    
+            <label class="btn btn-default active">
+              <%= radio_button_tag :filter, 'out', params[:filter] == 'out', onchange: "this.form.submit();" %>
+              Oui
+            </label>
+            <label class="btn btn-default active">
+              <%= radio_button_tag :filter, 'in', params[:filter] == 'in', onchange: "this.form.submit();" %>
+              Non
+            </label>
+          </div>
+        </div>
+
 
         <div class="col-sm-4">
           <%= label_tag :anomalie %>
@@ -61,7 +76,7 @@
             <th>Etat</th>
             <th>Anomalie</th>
             <th>Société</th>
-            <th>Montant_HT</th>
+            <th>Montant_€_HT</th>
             <th>Destinataires</th>
             <th>PAR</th>
             <th>Dernière MàJ</th>

@@ -11,7 +11,7 @@
           <%= form.number_field :num_chrono, required: true  %>
         </div>
         <div class="col">
-          <%= form.select :anomalie, Facture.anomalies.keys.to_a, class: "form-control" %>
+          <%= form.select :anomalie, options_for_select(Facture.anomalies.keys.to_a), class: "form-control" %>
         </div>
       </div>
       <%= form.text_field :société, required: true  %>
