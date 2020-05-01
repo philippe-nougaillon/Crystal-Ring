@@ -78,12 +78,6 @@ class Facture < ApplicationRecord
     save!
   end
 
-  after_initialize do
-    if self.new_record?
-      self.etat = 0
-    end
-  end
-
   def style
     self.current_state.meta[:style]
   end
