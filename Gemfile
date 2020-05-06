@@ -86,3 +86,6 @@ gem 'workflow-activerecord'
 
 # Sucker Punch is a single-process Ruby asynchronous processing library. 
 # gem 'sucker_punch'
+
+# ActiveStorage Service to store files PostgeSQL.
+gem 'active_storage-postgresql'
