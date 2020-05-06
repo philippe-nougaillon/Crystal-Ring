@@ -78,11 +78,11 @@ gem 'lol_dba'
 
 gem 'capture_stdout', '~> 0.0.1'
 
-# Sucker Punch is a single-process Ruby asynchronous processing library. 
-gem 'sucker_punch'
-
 # Ruby finite-state-machine-inspired API for modeling workflow 
 gem 'workflow'
 gem 'workflow-activerecord'
 
-gem 'exception_notification'
+# gem 'exception_notification'
+
+# Sucker Punch is a single-process Ruby asynchronous processing library. 
+# gem 'sucker_punch'

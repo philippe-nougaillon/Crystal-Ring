@@ -16,7 +16,7 @@ module AnoFacto
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
-    config.active_job.queue_adapter = :sucker_punch
+    # config.active_job.queue_adapter = :sucker_punch
 
     config.i18n.default_locale = :fr
   end
