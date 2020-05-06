@@ -20,13 +20,5 @@ module AnoFacto
 
     config.i18n.default_locale = :fr
 
-    # Variants rely on ImageProcessing gem for the actual transformations of the file, 
-    # so you must add gem "image_processing" to your Gemfile if you wish to use variants. 
-    # By default, images will be processed with ImageMagick using the MiniMagick gem, 
-    # but you can also switch to the libvips processor operated by the ruby-vips gem).
-
-    config.active_storage.variant_processor = :vips
-
-
   end
 end
