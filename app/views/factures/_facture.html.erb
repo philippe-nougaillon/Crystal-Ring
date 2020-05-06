@@ -21,7 +21,7 @@
     </td> 
     <% if current_user.admin? %>
         <td>
-            <%= link_to facture, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-light text-dark" do %>
+            <%= link_to facture, method: :delete, data: { confirm: 'Etes-vous bien certain de vouloir faire ça ?' }, class: "btn btn-sm btn-outline-light text-dark" do %>
                 <i class="far fa-trash-alt"></i>
             <% end %>
         </td>

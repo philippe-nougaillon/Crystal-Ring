@@ -259,14 +259,14 @@ DEPENDENCIES
   capybara (>= 2.15)
   devise
   friendly_id (~> 5.2.4)
-  image_processing (~> 1.2)
+  image_processing (~> 1.10.3)
   jbuilder (~> 2.7)
   listen (>= 3.0.5, < 3.2)
   lol_dba
-  mini_magick (~> 4.8)
   pg (>= 0.18, < 2.0)
   puma (>= 4.3.1)
   rails (~> 6.0, >= 6.0.2.2)
+  ruby-vips
   sass-rails (>= 6)
   selenium-webdriver
   spreadsheet
