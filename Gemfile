@@ -7,7 +7,7 @@ ruby '2.7.0'
 gem 'rails', '~> 6.0', '>= 6.0.2.2'
 
 # Use postgresql as the database for Active Record
-gem 'pg', '>= 0.18', '< 2.0'
+gem 'pg', '~> 1.2.3'
 
 # Use Puma as the app server
 gem 'puma', ">= 4.3.1"
@@ -89,3 +89,6 @@ gem 'workflow-activerecord'
 
 # ActiveStorage Service to store files PostgeSQL.
 gem 'active_storage-postgresql'
+
+# A simple, efficient worker queue for Ruby & PostgreSQL
+# gem 'queue_classic'
