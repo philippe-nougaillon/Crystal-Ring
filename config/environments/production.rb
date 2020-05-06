@@ -121,11 +121,11 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'anofacto.fr', protocol: 'https' }
 
   # Exception Notification
-  Rails.application.config.middleware.use ExceptionNotification::Rack,
-    :email => {
-      :email_prefix => "[AnoFacto]",
-      :sender_address => %{"philnoug" <philippe.nougaillon@gmail.com>},
-      :exception_recipients => %w{philippe.nougaillon@gmail.com}
-    }
+  # Rails.application.config.middleware.use ExceptionNotification::Rack,
+  #   :email => {
+  #     :email_prefix => "[AnoFacto]",
+  #     :sender_address => %{"philnoug" <philippe.nougaillon@gmail.com>},
+  #     :exception_recipients => %w{philippe.nougaillon@gmail.com}
+  #   }
  
 end
