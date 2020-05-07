@@ -4,17 +4,20 @@
   </div>
   <div class="card-body">
     <div class="row">
+
       <div class="col">
-        <div class="shadow p-4 mb-4 bg-white">
-          <%# <%= link_to image_tag(@pdf_preview, size: "300x400", class: "img-fluid"), "#", { 'data-toggle': "modal", 'data-target': "#myModal"} %> %>
+        <div class="shadow p-4 mb-4 bg-white" style="height: 280px;">
+          <%# <%= link_to image_tag(@pdf_preview, size: "300x400", class: "img-fluid"), "#", { 'data-toggle': "modal", 'data-target': "#myModal"} %> 
+          <%= link_to image_tag('hands-unfill-paper-invoice-form-receipt-bill', class: "img-fluid"), url_for(@facture.scan) %>
+          <br><br>
+          <%= link_to "Voir le document original (PDF)", url_for(@facture.scan) %>
         </div>
-        <%= link_to "Voir le document original (PDF)", url_for(@facture.scan) %>
       </div>
       
       <div class="col">
-        
-        <h6>Etat: <span class="badge  <%= @facture.style %>"><%= @facture.workflow_state.humanize %></span></h6>
-
+        <h5>
+          <span class="badge  <%= @facture.style %>"><%= @facture.workflow_state.humanize %></span>
+        </h5>
         <br>
 
         <p>
@@ -41,7 +44,6 @@
           <strong>Commentaires:</strong>
           <%= @facture.commentaires %>
         </p>
-        <br>
 
         <% if current_user %>
           <p>
@@ -50,22 +52,23 @@
             <% end %>
           </p>
 
-          <p>          
-            <% if @facture.imputée? %>
+          <% if @facture.imputée? %>
+            <p>          
               <%= link_to facture_url(@facture, format: :pdf), title: "Afficher la facture en PDF", class: "btn btn-sm btn-outline-danger"  do %>
                   <i class="far fa-file-pdf"></i> Preuve PDF
               <% end %>
-            <% end %>
-          </p>
-          <p>
-            <% if @facture.validable? && request.domain == "localhost" %>
+            </p>
+          <% end %>
+    
+          <% if false && @facture.validable? && request.domain == "localhost" %>
+            <p>
               <br />
               <% @facture.cibles.each do |c| %>
                 <%= link_to "Test Validation #{c.id}", facture_path(@facture, cible_slug: c.slug) %>
                 <br />
               <% end %>
-            <% end %>
-          </p>
+            </p>
+          <% end %>
         <% end %>
       </div>
 
