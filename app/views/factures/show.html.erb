@@ -16,7 +16,7 @@
       
       <div class="col">
         <p>
-          <% unless (@facture.validable? && params[:cible_slug]) %>
+          <% if current_user %>
             <h5>
               <span class="badge  <%= @facture.style %>"><%= @facture.workflow_state.humanize %></span>
             </h5>
