@@ -19,8 +19,10 @@ gem 'webpacker', '~> 4.0'
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
+
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -82,10 +84,10 @@ gem 'capture_stdout', '~> 0.0.1'
 gem 'workflow'
 gem 'workflow-activerecord'
 
-# gem 'exception_notification'
-
 # ActiveStorage Service to store files PostgeSQL.
 gem 'active_storage-postgresql'
 
 # A simple, efficient worker queue for Ruby & PostgreSQL
-gem 'queue_classic', :git => 'git://github.com/QueueClassic/queue_classic.git'
+gem 'queue_classic', :git => 'https://github.com/QueueClassic/queue_classic.git'
+
+# gem 'exception_notification'

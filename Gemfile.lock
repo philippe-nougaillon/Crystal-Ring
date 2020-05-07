@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/QueueClassic/queue_classic.git
+  remote: https://github.com/QueueClassic/queue_classic.git
   revision: b67f971cf7751e7b45e83faeee4f181eafdadfd0
   specs:
     queue_classic (4.0.0.pre.alpha1)

@@ -85,9 +85,11 @@ class FacturesController < ApplicationController
 
         # Envoyer la notification au premier destinataire
         if destinataire = @facture.cibles.first
-          FactureMailer.with(cible: destinataire).notification_email.deliver_later(wait: 1.minutes)
-          destinataire.update!(envoyé_le: DateTime.now)
+          # Faire avancer le workflow_state juste qu'à l'état 'Envoyée' grâce à l'action 'Envoyer'
           @facture.envoyer!
+
+          # Notifier le destinataire plus tard
+          NotifierDestinataireJob.perform_later(destinataire)
         end
 
         format.html { redirect_to @facture, notice: 'Facture créée avec succès.' }
