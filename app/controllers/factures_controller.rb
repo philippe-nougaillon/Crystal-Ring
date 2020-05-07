@@ -88,11 +88,11 @@ class FacturesController < ApplicationController
           # Faire avancer le workflow_state juste qu'à l'état 'Envoyée' grâce à l'action 'Envoyer'
           @facture.envoyer!
 
-          # Notifier le destinataire plus tard
+          # Notifier le destinataire 
           NotifierDestinataireJob.perform_later(destinataire)
         end
 
-        format.html { redirect_to factures_url, notice: 'Facture créée avec succès.' }
+        format.html { redirect_to factures_url, notice: 'Facture créée avec succès. Le premier destinataire va être notifié par courriel dans quelques minutes.' }
         format.json { render :show, status: :created, location: @facture }
       else
         format.html { render :new }

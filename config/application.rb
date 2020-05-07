@@ -17,7 +17,8 @@ module AnoFacto
     # the framework and any gems in your application.
 
     # Active Job
-    config.active_job.queue_adapter = :queue_classic
+    # config.active_job.queue_adapter = :queue_classic
+    config.active_job.queue_adapter = :sucker_punch
 
     config.i18n.default_locale = :fr
 

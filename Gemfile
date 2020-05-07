@@ -88,6 +88,9 @@ gem 'workflow-activerecord'
 gem 'active_storage-postgresql'
 
 # A simple, efficient worker queue for Ruby & PostgreSQL
-gem 'queue_classic', :git => 'https://github.com/QueueClassic/queue_classic.git'
+# gem 'queue_classic', :git => 'https://github.com/QueueClassic/queue_classic.git'
+
+# Sucker Punch is a single-process Ruby asynchronous processing library.
+gem 'sucker_punch', '~> 2.0'
 
 # gem 'exception_notification'
