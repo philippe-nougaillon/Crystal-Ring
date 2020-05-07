@@ -15,11 +15,15 @@
       </div>
       
       <div class="col">
-        <h5>
-          <span class="badge  <%= @facture.style %>"><%= @facture.workflow_state.humanize %></span>
-        </h5>
-        <br>
-
+        <p>
+          <% unless (@facture.validable? && params[:cible_slug]) %>
+            <h5>
+              <span class="badge  <%= @facture.style %>"><%= @facture.workflow_state.humanize %></span>
+            </h5>
+            <br>
+          <% end %>
+        </p>
+        
         <p>
           <strong>Anomalie:</strong>
           <%= @facture.anomalie.humanize.capitalize %>
@@ -60,7 +64,7 @@
             </p>
           <% end %>
     
-          <% if false && @facture.validable? && request.domain == "localhost" %>
+          <% if @facture.validable? && request.domain == "localhost" %>
             <p>
               <br />
               <% @facture.cibles.each do |c| %>
@@ -73,46 +77,46 @@
       </div>
 
       <div class="col-sm-6">
-        <div class="card">
-          <div class="card-header">
-              <h4>Destinataires</h4>
+        <% unless (@facture.validable? && params[:cible_slug]) %>
+          <div class="card">
+            <div class="card-header">
+                <h4>Destinataires</h4>
+            </div>
+            <div class="card-body">
+              <table class="table table-borderless table-sm table-hover table-responsive">
+                <thead>
+                  <th>Nom</th>
+                  <th>Action</th>
+                  <th>Commentaires</th>
+                  <th>Il y a</th>
+                </thead>
+                <%= render @facture.cibles %>
+              </table>
+            </div>
           </div>
-          <div class="card-body">
-            <table class="table table-borderless table-sm table-hover table-responsive">
-              <thead>
-                <th>Nom</th>
-                <th>Action</th>
-                <th>Commentaires</th>
-                <th>Il y a</th>
-              </thead>
-              <%= render @facture.cibles %>
-            </table>
-          </div>
-        </div>
-
-        <% if (@facture.validable? && params[:cible_slug]) %>
-            <%= form_tag facture_validation_path(@facture), method: :post do %>
-              <div class="card">
-                <div class="card-header">
-                    <h4>Approbation</h4>
-                </div>
-                <div class="card-body">
-                    <%= hidden_field_tag :cible_slug, params[:cible_slug] %>
-                    
-                    <strong><%= label_tag "Signataire" %></strong>
-                    <%= Cible.find_by(slug: params[:cible_slug]).email %>
-                    <br><br>
-
-                    <strong><%= label_tag "Commentaires" %></strong>
-                    <%= text_area_tag :commentaires, nil, rows: 4, cols: 50 %>
-                </div>
-                <div class="card-footer">
-                  <%= submit_tag "Valider", class: "btn btn-sm btn-success" %>
-                  <%= submit_tag "Rejeter", class: "btn btn-sm btn-danger" %>
-                </div>
+       <% else %>
+          <%= form_tag facture_validation_path(@facture), method: :post do %>
+            <div class="card">
+              <div class="card-header">
+                  <h4>Approbation</h4>
               </div>
-            <% end %>
+              <div class="card-body">
+                  <%= hidden_field_tag :cible_slug, params[:cible_slug] %>
+                  
+                  <strong><%= label_tag "Signataire" %></strong>
+                  <%= Cible.find_by(slug: params[:cible_slug]).email %>
+                  <br><br>
+
+                  <strong><%= label_tag "Commentaires" %></strong>
+                  <%= text_area_tag :commentaires, nil, rows: 4, cols: 50 %>
+              </div>
+              <div class="card-footer">
+                <%= submit_tag "Valider", class: "btn btn-sm btn-success" %>
+                <%= submit_tag "Rejeter", class: "btn btn-sm btn-danger" %>
+              </div>
+            </div>
           <% end %>
+        <% end %>
       </div>
       
     </div>
@@ -121,8 +125,8 @@
 <br /><br />
 
 <% if current_user.try(:admin?) %>
-  <h4>Audit trail</h4>
-    <table class="table table-sm table-hover table-striped table-responsive-xl">
+  <h4>Historique des modifications</h4>
+    <table class="table table-sm table-hover table-bordered table-striped table-responsive-xl">
       <%= render partial: 'tools/audit', 
                   collection: @facture
                                   .own_and_associated_audits

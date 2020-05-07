@@ -7,7 +7,5 @@ class NotifierDestinataireJob < ApplicationJob
 
     # Mise à jour de la date d'envoi
     destinataire.update!(envoyé_le: DateTime.now)
-    
-    logger.debug "[JOB] Notification OK :)"
   end
 end

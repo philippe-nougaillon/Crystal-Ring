@@ -88,7 +88,7 @@ class FacturesController < ApplicationController
           # Faire avancer le workflow_state juste qu'à l'état 'Envoyée' grâce à l'action 'Envoyer'
           @facture.envoyer!
 
-          # Notifier le destinataire 
+          # Notifier le prochain destinataire 
           NotifierDestinataireJob.perform_later(destinataire)
         end
 
@@ -117,7 +117,7 @@ class FacturesController < ApplicationController
 
   def validation
     @facture = Facture.find_by(slug: params[:facture_id])
-    @pdf_preview = @facture.scan.preview(resize: "827x1170>")
+    # @pdf_preview = @facture.scan.preview(resize: "827x1170>")
 
     if action = params[:commit]
       # Marquer ce que la cible a répondu
@@ -131,17 +131,16 @@ class FacturesController < ApplicationController
       else
         # sinon on teste s'il y a d'autres destinataires à qui demander une approbation
         if @facture.cibles.where(repondu_le: nil).any?
-           # envoyer une demande de validation
-           destinataire = @facture.cibles.where(repondu_le: nil).first
-           FactureMailer.with(cible: destinataire).notification_email.deliver_later
-           destinataire.update!(envoyé_le: DateTime.now)
+          # Notifier le prochain destinataire 
+          destinataire = @facture.cibles.where(repondu_le: nil).first
+          NotifierDestinataireJob.perform_later(destinataire)
         else 
           # sinon c'est validé
           @facture.valider!
         end
       end
         
-      redirect_to facture_url(@facture), notice: "Facture #{@facture.current_state}"
+      redirect_to facture_url(@facture), notice: "Facture #{@facture.current_state}. Merci pour votre réponse. Vous pouvez maintenant fermer cette page."
     end
   end
 
