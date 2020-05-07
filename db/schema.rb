@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_06_162144) do
+ActiveRecord::Schema.define(version: 2020_05_07_093440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,18 @@ ActiveRecord::Schema.define(version: 2020_05_06_162144) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "queue_classic_jobs", force: :cascade do |t|
+    t.text "q_name", null: false
+    t.text "method", null: false
+    t.jsonb "args", null: false
+    t.datetime "locked_at"
+    t.integer "locked_by"
+    t.datetime "created_at", default: -> { "now()" }
+    t.datetime "scheduled_at", default: -> { "now()" }
+    t.index ["q_name", "id"], name: "idx_qc_on_name_only_unlocked", where: "(locked_at IS NULL)"
+    t.index ["scheduled_at", "id"], name: "idx_qc_on_scheduled_at_only_unlocked", where: "(locked_at IS NULL)"
   end
 
   create_table "users", force: :cascade do |t|
