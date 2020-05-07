@@ -140,7 +140,7 @@ class FacturesController < ApplicationController
         end
       end
         
-      redirect_to facture_url(@facture), notice: "Facture #{@facture.current_state}. Merci pour votre réponse. Vous pouvez maintenant fermer cette page."
+      redirect_to facture_url(@facture), notice: "Réponse enregistrée, merci. Vous pouvez maintenant fermer cette page."
     end
   end
 
