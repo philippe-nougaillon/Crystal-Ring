@@ -8,7 +8,8 @@
     pour un montant HT de <%= number_to_currency(@facture.montantHT, unit: '€', precision: 2, format: '%n %u') %>.
 </p>
 
-<% if @facture.anomalie == 'manque_po' %>
+<% case @facture.anomalie 
+        when 'manque_po' %>
     <p>
         Cette facture ne peut être payée car le numéro de commande (purchase order PO ) ne figure pas sur le document. 
     </p>
@@ -22,7 +23,7 @@
         <li>Saisir la raison dans « Commentaires »</li>
         <li>Sélectionner : <%= link_to "Rejeter", facture_url(@facture, cible_slug: @cible.slug) %></li>
     </ul>
-<% elsif @facture.anomalie == 'manque_réception' %>
+<% when 'manque_réception' %>
     <p>
         Cette facture ne peut être payée car la commande Ariba <%= @facture.commentaires %> n’a pas été réceptionnée.
     </p>
@@ -36,7 +37,7 @@
         <li>Saisir la raison dans « commentaires »</li>
         <li>Sélectionner : <%= link_to "Rejeter", facture_url(@facture, cible_slug: @cible.slug) %></li>
     </ul>
-<% elsif @facture.anomalie == 'écart_valeur' %>
+<% when 'écart_valeur' %>
     <p>
         Cette facture ne peut être payée car son montant excède celui de la réception de la commande faite dans Ariba.
     </p>
@@ -52,7 +53,7 @@
         <li>Saisir la raison dans « commentaires »</li>
         <li>Sélectionner : <%= link_to "Rejeter", facture_url(@facture, cible_slug: @cible.slug) %></li>
     </ul>
-<% elsif @facture.anomalie == 'manque_contrat' %>
+<% when 'manque_contrat' %>
     <p>
         Cette facture ne peut être payée soit parce que le contrat est manquant, soit le montant est supérieur au contrat, soit il n’est pas suffisamment validé. 
     </p>
@@ -70,7 +71,7 @@
     <p>
         Toute participation publicitaire doit être validée à l’aide du contrat dûment signé par le RCP, le DR (si > 150 €), le DC (si > 1000€)
     </p>
-<% elsif @facture.anomalie == 'inconnu' %>
+<% when 'inconnu' %>
     <p>
         Le paiement de cette facture est actuellement bloqué.
     </p>
