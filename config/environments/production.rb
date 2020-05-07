@@ -114,11 +114,11 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :sendmail
   config.action_mailer.sendmail_settings = { arguments: '-i' }
 
-  # config.action_mailer.asset_host = "https://anofacto-dev.philnoug.com"
-  # config.action_mailer.default_url_options = { host: 'anofacto-dev.philnoug.com', protocol: 'https' }
+  config.action_mailer.asset_host = "https://anofacto-dev-ruby27.philnoug.com/"
+  config.action_mailer.default_url_options = { host: 'anofacto-dev-ruby27.philnoug.com', protocol: 'https' }
 
-  config.action_mailer.asset_host = "https://anofacto.fr"
-  config.action_mailer.default_url_options = { host: 'anofacto.fr', protocol: 'https' }
+  #config.action_mailer.asset_host = "https://anofacto.fr"
+  #config.action_mailer.default_url_options = { host: 'anofacto.fr', protocol: 'https' }
 
   # Exception Notification
   # Rails.application.config.middleware.use ExceptionNotification::Rack,

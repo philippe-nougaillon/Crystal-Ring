@@ -92,7 +92,7 @@ class FacturesController < ApplicationController
           NotifierDestinataireJob.perform_later(destinataire)
         end
 
-        format.html { redirect_to @facture, notice: 'Facture créée avec succès.' }
+        format.html { redirect_to factures_url, notice: 'Facture créée avec succès.' }
         format.json { render :show, status: :created, location: @facture }
       else
         format.html { render :new }
