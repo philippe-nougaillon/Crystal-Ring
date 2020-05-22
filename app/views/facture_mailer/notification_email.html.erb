@@ -4,14 +4,14 @@
 
 <p>
     Nous avons reçu la facture n° de chrono <%= link_to @facture.num_chrono, facture_url(@facture, cible_slug: @cible.slug) %> 
-    du fournisseur <%= @facture.société %> 
+    du fournisseur '<%= @facture.société %>' 
     pour un montant HT de <%= number_to_currency(@facture.montantHT, unit: '€', precision: 2, format: '%n %u') %>.
 </p>
 
 <% case @facture.anomalie 
         when 'manque_po' %>
     <p>
-        Cette facture ne peut être payée car le numéro de commande (purchase order PO ) ne figure pas sur le document. 
+        Cette facture ne peut être payée car le numéro de commande (Purchase Order "PO") ne figure pas sur le document. 
     </p>
     Si vous voulez valider le paiement :
     <ul>
@@ -82,7 +82,7 @@
 </p>
 
 <p>
-    Merci de bien vouloir cliquer sur la facture ci-dessus, afin de la valider ou de la rejeter. 
+    Merci de bien vouloir cliquer sur un des liens ci-dessus afin d'afficher la facture et de la valider ou de la rejeter. 
 </p>
 
 <p>
