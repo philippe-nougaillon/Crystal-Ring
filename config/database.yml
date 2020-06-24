@@ -80,8 +80,6 @@ test:
 #
 production:
   <<: *default
-  host: localhost
-  database: AnoFacto_production
-  username: hosting-db
-  password: 
-  pool: 5
+  database: myapp_production
+  username: myapp
+  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>

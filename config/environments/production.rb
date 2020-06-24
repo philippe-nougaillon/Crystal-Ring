@@ -111,11 +111,20 @@ Rails.application.configure do
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
   # Mail Gandi
-  config.action_mailer.delivery_method = :sendmail
-  config.action_mailer.sendmail_settings = { arguments: '-i' }
+  # config.action_mailer.delivery_method = :sendmail
+  # config.action_mailer.sendmail_settings = { arguments: '-i' }
 
-  config.action_mailer.asset_host = "https://grohe.anofacto.fr/"
-  config.action_mailer.default_url_options = { host: 'grohe.anofacto.fr', protocol: 'https' }
+  ActionMailer::Base.smtp_settings = {
+    :port           => ENV['MAILGUN_SMTP_PORT'],
+    :address        => ENV['MAILGUN_SMTP_SERVER'],
+    :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
+    :password       => ENV['MAILGUN_SMTP_PASSWORD'],
+    :domain         => 'anofacto.heroku.com',
+    :authentication => :plain,
+  }
+  ActionMailer::Base.delivery_method = :smtp
+
+  config.action_mailer.default_url_options = { host: 'anofacto.herokuapp.com', protocol: 'https' }
 
   # Exception Notification
   # Rails.application.config.middleware.use ExceptionNotification::Rack,
