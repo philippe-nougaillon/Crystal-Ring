@@ -285,7 +285,7 @@ DEPENDENCIES
   lol_dba
   mini_magick (~> 4.10.1)
   pg (~> 1.2.3)
-  puma (>= 4.3.1)
+  puma
   rails (~> 6.0, >= 6.0.3.1)
   sass-rails (>= 6)
   selenium-webdriver
