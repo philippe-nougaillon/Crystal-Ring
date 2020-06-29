@@ -8,9 +8,11 @@
       <div class="col-sm-3">
         <div class="shadow p-4 mb-4 bg-white">
 
-          <%= image_tag @pdf_preview %>
 
           <%= link_to url_for(@facture.scan), title: "Cliquez ici pour voir le document original (PDF)" do %>
+  
+            <%= image_tag @pdf_preview %>
+
             <%= image_tag "hands-unfill-paper-invoice-form-receipt-bill", class: "img-fluid btn btn-light" %>
             <div class="btn btn-outline-success btn-block">
               Voir le document
