@@ -52,7 +52,7 @@ class FacturesController < ApplicationController
   # GET /factures/1
   # GET /factures/1.json
   def show
-    # @pdf_preview = @facture.scan.preview(resize: "827x1170>")
+    @pdf_preview = @facture.scan.preview(resize: "827x1170>")
 
     respond_to do |format|
       format.html
