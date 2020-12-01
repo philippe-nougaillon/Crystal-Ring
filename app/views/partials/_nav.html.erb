@@ -1,0 +1,72 @@
+<nav class="navbar is-light" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div><!-- /navbar-brand -->
+
+  <div id="navbarBasicExample" class="navbar-menu">
+
+    <div class="navbar-start">
+
+      <!-- %= link_to "Home", root_path, class: "navbar-item" % -->
+
+    </div><!-- /navbar-start -->
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <% if (!user_signed_in?) %>
+            <%= link_to "A propos", 
+                pages_about_path, 
+                class: "button is-light" 
+            %>
+            <%= link_to "S'inscrire",
+                new_user_registration_path, 
+                class: "button is-info" 
+            %>
+            <%= link_to "Connexion", 
+                new_user_session_path, 
+                class: "button is-primary" 
+            %>
+          <% else %>        
+            <div class="button is-light">
+              <%= link_to current_user.email, edit_user_registration_path(current_user) %>
+            </div>
+
+            <% if current_user.admin? %>
+              <%= link_to "Tools", 
+                  tools_index_path, 
+                  class: "button is-warning" 
+              %>
+            <% end %>
+
+            <%= link_to "Log out", 
+                destroy_user_session_path, 
+                method: :delete, 
+                class: "button is-light" 
+            %>
+          <% end %>
+        </div><!-- /buttons -->
+      </div><!-- /navbar-item -->
+    </div><!-- /navbar-end -->
+
+  </div><!-- /navbar-menu -->
+
+</nav>
+
+<script>
+  $(document).ready(function() {
+
+    // Check for click events on the navbar burger icon
+    $(".navbar-burger").click(function() {
+
+        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+        $(".navbar-burger").toggleClass("is-active");
+        $(".navbar-menu").toggleClass("is-active");
+
+    });
+  });
+</script>

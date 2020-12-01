@@ -1,69 +1,8 @@
-<div class="pb-2 mt-4 mb-2 border-bottom">
-  <div class="btn-group float-right">
-    <%= link_to new_facture_path, class: 'btn btn-light' do %>
-      <i class="fas fa-plus-circle"></i>
-      Facture
-    <% end %>
-  </div>
+<h1 class="title">Factures</h1>
 
-  <h1><i class="fas fa-file-invoice"></i> Factures</h1>
-</div>
-
-<div class='container-fluid'>
-  <%= form_tag request.path, method: :get do %>
-    <div class="form-group">
-      <div class="row">
-      
-        <div class="col-sm-3">
-          <%= label_tag :search, "Rechercher" %>    
-          <%= text_field_tag :search, params[:search], include_blank:true, onchange: 'this.form.submit()', class: "form-control" %>
-        </div>
-        
-        <div class="col-sm-2">
-          <%= label_tag :workflow_state, "Etat" %>
-          <%= select_tag :workflow_state, options_for_select(Facture.workflow_states_capitalized, params[:workflow_state]), 
-                                include_blank: true,
-                                class: "form-control", 
-                                onchange: 'this.form.submit()' %>
-        </div>
-
-        <div class="col-sm-2">
-          <%= label_tag :filter, "Voir que les imputées ?" %>
-          <div class="" data-toggle="buttons">    
-            <label class="btn btn-default active">
-              <%= radio_button_tag :filter, 'out', params[:filter] == 'out', onchange: "this.form.submit();" %>
-              Oui
-            </label>
-            <label class="btn btn-default active">
-              <%= radio_button_tag :filter, 'in', params[:filter] == 'in', onchange: "this.form.submit();" %>
-              Non
-            </label>
-          </div>
-        </div>
-
-
-        <div class="col-sm-4">
-          <%= label_tag :anomalie %>
-          <div class="input-group">
-            <%= select_tag :anomalie, options_for_select(Facture.anomalies_capitalized, params[:anomalie]), 
-                                      include_blank: true,
-                                      class: 'form-control', 
-                                      onchange: 'this.form.submit()' %>
-            <span class="input-group-btn">
-              <%= submit_tag 'Filtrer', class:"btn btn-success" %>
-              <%= link_to url_for(params.permit(:search, :etat, :anomalie).merge(format: :xls)), class: "btn btn-light" do %>
-                <i class="far fa-file-excel"></i>
-                Exporter
-              <% end %>
-            </span>
-          </div>
-        </div>
-
-      </div>
-    </div>  
-  <% end %>
-</div>
-<br>
+<%= form_tag factures_path, method: :get do %>
+  <%= render "partials/search" %>
+<% end %>
 
 <% if @factures.any? %>
   <div data-controller="action">

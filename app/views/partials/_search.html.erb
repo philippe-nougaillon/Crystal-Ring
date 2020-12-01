@@ -1,0 +1,17 @@
+<div class="field has-addons">
+    <div class="control">
+        <%= text_field_tag :search, params[:search], class: "input", placeholder: "Entrez un nom à chercher" %>
+    </div>
+    <div class="control select is-primary">
+        <%= select_tag :workflow_state, options_for_select(Facture.workflow_states_capitalized, params[:workflow_state]), 
+                            include_blank: true,
+                            onchange: 'this.form.submit()' %>
+    </div>
+    <div class="control">
+        <button class="button is-primary">Rechercher</button>
+    </div>
+    <div class="control">
+        <%= link_to url_for(controller: params[:controller], action: 'new'), class: 'button is-primary is-light' do %>+<% end %>
+    </div>
+</div>
+<br>
