@@ -1,6 +1,6 @@
 <h2>Connexion</h2>
 
-<%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<%= bulma_form_with(model: resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   
   <div class="col-sm-4">
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>

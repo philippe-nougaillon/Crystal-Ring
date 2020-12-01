@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0', '>= 6.0.3.1'
+gem 'rails', '~> 6.0', '>= 6.0.3.4'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.2.3'
@@ -60,11 +60,15 @@ end
 #gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
-gem "bootstrap_form", "~> 4.0"
 gem "audited", "~> 4.9"
 gem 'friendly_id', '~> 5.2.4'
 gem 'will_paginate', '~> 3.1.0'
-gem 'will_paginate-bootstrap4'
+
+#BULMA
+gem 'bulma-rails', '~> 0.9.0'
+gem 'bulma-extensions-rails', '~> 6.2.7'
+gem 'bulma_form_builder'
+
 
 # PDF
 gem 'wicked_pdf'

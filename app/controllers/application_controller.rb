@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 private
     def set_layout_variables
       @ctrl = params[:controller]
-      @title = "AnoFacto"
+      @title = "Ring"
       @version = " v1.5"
     end
 

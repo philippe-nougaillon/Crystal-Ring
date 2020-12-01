@@ -58,7 +58,7 @@ Rails.application.configure do
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
-  # config.active_job.queue_name_prefix = "AnoFacto_production"
+  # config.active_job.queue_name_prefix = "Ring_production"
 
   config.action_mailer.perform_caching = false
 
@@ -119,17 +119,17 @@ Rails.application.configure do
     :address        => ENV['MAILGUN_SMTP_SERVER'],
     :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
     :password       => ENV['MAILGUN_SMTP_PASSWORD'],
-    :domain         => 'mg.anofacto.fr',
+    :domain         => 'mg.Ring.fr',
     :authentication => :plain,
   }
   ActionMailer::Base.delivery_method = :smtp
 
-  config.action_mailer.default_url_options = { host: 'grohe.anofacto.fr', protocol: 'https' }
+  config.action_mailer.default_url_options = { host: 'grohe.Ring.fr', protocol: 'https' }
 
   # Exception Notification
   # Rails.application.config.middleware.use ExceptionNotification::Rack,
   #   :email => {
-  #     :email_prefix => "[AnoFacto]",
+  #     :email_prefix => "[Ring]",
   #     :sender_address => %{"philnoug" <philippe.nougaillon@gmail.com>},
   #     :exception_recipients => %w{philippe.nougaillon@gmail.com}
   #   }

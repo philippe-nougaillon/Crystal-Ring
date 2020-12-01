@@ -1,4 +1,4 @@
-# AnoFacto
+# Ring
 
 ### Application de centralisation et de validation des factures fournisseurs
 
