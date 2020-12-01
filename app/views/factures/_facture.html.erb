@@ -16,13 +16,13 @@
     <td>Il y a <%= time_ago_in_words(facture.updated_at) %></td>
     <td>
         <%= link_to edit_facture_path(facture), class: "btn btn-sm btn-outline-light text-dark" do %>
-           <i class="far fa-edit"></i>
+           Editer
         <% end %>
     </td> 
     <% if current_user.admin? %>
         <td>
             <%= link_to facture, method: :delete, data: { confirm: 'Etes-vous bien certain de vouloir faire ça ?' }, class: "btn btn-sm btn-outline-light text-dark" do %>
-                <i class="far fa-trash-alt"></i>
+                Supprimer
             <% end %>
         </td>
     <% end %>

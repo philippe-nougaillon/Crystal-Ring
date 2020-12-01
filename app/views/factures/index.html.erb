@@ -10,15 +10,15 @@
       <table class="table is-striped is-hover is-bordered is-fullwidth">
         <thead>
           <tr>
-            <th />
+            <th></th>
             <th>Chrono</th>
             <th>Etat</th>
-            <th>Anomalie_Facture</th>
+            <th>Anomalie facture</th>
             <th>Société</th>
-            <th>Montant_€_HT</th>
+            <th>Montant € HT</th>
             <th>Destinataires</th>
             <th>PAR</th>
-            <th>Dernière_MàJ</th>
+            <th>Dernière MàJ</th>
             <th colspan="3"></th>
           </tr>
         </thead>
@@ -32,11 +32,12 @@
             <th /><th />
           </tr>
           <tr>
-            <th />
+            <th></th>
             <th colspan=4>Total</th>
             <th class="text-right"><%= number_to_currency(@total, unit: '€', precision: 2, format: '%n %u') %>
             <th colspan=3></th>
-            <th /><th />
+            <th></th>
+            <th></th>
           </tr>
         </tfoot>
 
@@ -48,15 +49,11 @@
       <%= select_tag :action_name, options_for_select(["Relancer","Passer à l'état 'imputée'"]), 
                       include_blank: true, 
                       onchange: 'this.form.submit()', 
-                      class: "form-control form-control-sm col-sm-2",
+                      class: "select",
                       data: {"action-target": "selector"} %>
 
       <%= page_entries_info @factures, model: Facture %>
-
-      <div class="float-right">
-
-      </div>
-
+      <%= will_paginate @factures %>
     <% end %>
   </div>
 <% else %>

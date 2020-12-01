@@ -1,58 +1,48 @@
-<br>
-
 <%= bulma_form_with(model: facture, local: true) do |form| %>
   
-  <div class="row">
-    <div class="col">
-      <%= form.file_field :scan, required: true, accept: ".pdf" %>
+  <div class="columns">
+    <div class="column">
 
-      <div class="row">
-        <div class="col">
-          <%= form.number_field :num_chrono, required: true  %>
+      <div class="columns">
+        <div class="column">
+          <%= form.number_field :num_chrono, required: true %>
         </div>
-        <div class="col">
-          <%= form.select :anomalie, options_for_select(Facture.anomalies.keys.to_a), class: "form-control" %>
+        <div class="column">
+          <%= form.select :anomalie, options_for_select(Facture.anomalies.keys.to_a) %>
         </div>
       </div>
-      <%= form.text_field :société, required: true  %>
 
-      <div class="row">
-        <div class="col">
+      <%= form.text_field :société, required: true %>
+
+      <div class="columns">
+        <div class="column">
           <%= form.text_field :par, label: 'PAR' %>
         </div>
-        <div class="col">
+        <div class="column">
           <%= form.number_field :montantHT, step: :any, label: "Montant € HT" %>
         </div>
       </div>
 
+      <%= form.label "Fichier", class: "" %><br>
+      <%= form.file_field :scan, required: true, class: "input", accept: ".pdf" %>
+
       <%= form.text_area :commentaires %>
 
       <div class="actions">
-        <%= form.submit "Enregistrer", class: "btn btn-success" %>
+        <%= form.submit "Enregistrer", class: "button is-primary" %>
       </div>
     </div>
-
-    <div class="col-sm-1">
-    </div>
     
-    <div class="col">
-      <h4>Destinataires</h4>
-      <p class="small">
-      </p>
-      <%= form.fields_for :cibles do |cible_form| %>
-        <div class="row">
-          <div class="col"><%= cible_form.text_field :email, label_as_placeholder: true %></div>
-        </div>
+    <div class="column">
+      <h4 class="title is-4">Destinataires</h4>
+      <%= form.fields_for :cibles do | cible_form | %>
+        <%= cible_form.email_field :email %>
       <% end %>
+    </div>
+
+    <div class="column">
     </div>
 
   </div>
 
 <% end %>
-
-<script type="application/javascript">
-    $('input[type="file"]').change(function(e){
-        var fileName = e.target.files[0].name;
-        $('.custom-file-label').html(fileName);
-    });
-</script>

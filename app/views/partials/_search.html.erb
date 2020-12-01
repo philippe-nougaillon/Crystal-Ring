@@ -1,6 +1,6 @@
 <div class="field has-addons">
     <div class="control">
-        <%= text_field_tag :search, params[:search], class: "input", placeholder: "Entrez un nom à chercher" %>
+        <%= text_field_tag :search, params[:search], class: "input", placeholder: "Entrez un nom à rechercher" %>
     </div>
     <div class="control select is-primary">
         <%= select_tag :workflow_state, options_for_select(Facture.workflow_states_capitalized, params[:workflow_state]), 
