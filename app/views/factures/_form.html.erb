@@ -1,7 +1,7 @@
 <%= bulma_form_with(model: facture, local: true) do |form| %>
   
   <div class="columns">
-    <div class="column">
+    <div class="column is-one-half">
 
       <div class="columns">
         <div class="column">
@@ -24,7 +24,7 @@
       </div>
 
       <%= form.label "Fichier", class: "" %><br>
-      <%= form.file_field :scan, required: true, class: "input", accept: ".pdf" %>
+      <%= form.file_field :scan, required: true, class: "input", accept: ".pdf, .png, .jpg" %>
 
       <%= form.text_area :commentaires %>
 
@@ -35,12 +35,10 @@
     
     <div class="column">
       <h4 class="title is-4">Destinataires</h4>
-      <%= form.fields_for :cibles do | cible_form | %>
-        <%= cible_form.email_field :email %>
-      <% end %>
-    </div>
 
-    <div class="column">
+      <%= form.fields_for :cibles do | cible | %>
+        <%= cible.email_field :email %>
+      <% end %>
     </div>
 
   </div>

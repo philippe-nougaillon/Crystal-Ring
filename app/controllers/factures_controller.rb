@@ -52,7 +52,10 @@ class FacturesController < ApplicationController
   # GET /factures/1
   # GET /factures/1.json
   def show
-    @pdf_preview = @facture.scan.preview(resize: "827x1170>")
+    #if @facture.scan.previewable?
+      #@pdf_preview = @facture.scan.preview(resize: "827x1170>")
+      #@pdf_preview = @facture.scan.preview(resize_to_limit: [100, 100])
+    #end
 
     respond_to do |format|
       format.html
@@ -67,7 +70,7 @@ class FacturesController < ApplicationController
   # GET /factures/new
   def new
     @facture = Facture.new
-    5.times { @facture.cibles.build }
+    3.times { @facture.cibles.build }
   end
 
   # GET /factures/1/edit

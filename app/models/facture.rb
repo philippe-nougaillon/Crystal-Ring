@@ -31,41 +31,41 @@ class Facture < ApplicationRecord
   IMPUTEE = 'imputée'
 
   workflow do
-    state AJOUTEE, meta: {style: 'badge-info'} do
+    state AJOUTEE, meta: {style: 'is-info'} do
       event :envoyer, transitions_to: ENVOYEE
     end
 
-    state ENVOYEE, meta: {style: 'badge-warning'} do
+    state ENVOYEE, meta: {style: 'is-warning'} do
       event :valider, transitions_to: VALIDEE
       event :rejeter, transitions_to: REJETEE
       event :relancer, transitions_to: RING1
     end
 
-    state RING1, meta: {style: 'badge-secondary'} do
+    state RING1, meta: {style: 'is-secondary'} do
       event :valider, transitions_to: VALIDEE
       event :rejeter, transitions_to: REJETEE
       event :relancer, transitions_to: RING2
     end
 
-    state RING2, meta: {style: 'badge-secondary'} do
+    state RING2, meta: {style: 'is-secondary'} do
       event :valider, transitions_to: VALIDEE
       event :rejeter, transitions_to: REJETEE
       event :relancer, transitions_to: RING3
     end
 
-    state RING3, meta: {style: 'badge-secondary'} do
+    state RING3, meta: {style: 'is-secondary'} do
       event :valider, transitions_to: VALIDEE
       event :rejeter, transitions_to: REJETEE
       event :relancer, transitions_to: RING1
     end
 
-    state VALIDEE, meta: {style: 'badge-success'} do
+    state VALIDEE, meta: {style: 'is-success'} do
       event :imputer, transitions_to: IMPUTEE
     end
 
-    state REJETEE, meta: {style: 'badge-danger'}
+    state REJETEE, meta: {style: 'is-danger'}
 
-    state IMPUTEE, meta: {style: 'badge-dark'}
+    state IMPUTEE, meta: {style: 'is-dark'}
 
     after_transition do |from, to, triggering_event, *event_args|
       logger.debug "[WORKFLOW] #{from} -> #{to} #{triggering_event}"

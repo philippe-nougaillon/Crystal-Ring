@@ -1,129 +1,102 @@
-<div class="card ">
-  <div class="card-header">
-    <h2>Facture #<%= @facture.num_chrono %></h2>
+<h2 class="title is-2">Facture #<%= @facture.num_chrono %></h2>
+<div class="columns">
+  <div class="column">
+    <%= link_to url_for(@facture.scan), title: "Cliquez ici pour voir le document original (PDF)" do %>
+      <%= image_tag(@facture.scan, width: 200) %>
+    <% end %>
   </div>
-  <div class="card-body">
-    <div class="row">
 
-      <div class="col-sm-3">
-        <div class="shadow p-4 mb-4 bg-white">
+  <div class="column">
+    <p>
+      <% if current_user %>
+        <h5>
+          <span class="tag <%= @facture.style %>"><%= @facture.workflow_state.humanize %></span>
+        </h5>
+        <br>
+      <% end %>
+    </p>
 
-          <%= link_to url_for(@facture.scan), title: "Cliquez ici pour voir le document original (PDF)" do %>
-            <%= image_tag @pdf_preview, width: 200 %>
-          <% end %>
- 
-        </div>
-      </div>
-      
-      <div class="col">
-        <p>
-          <% if current_user %>
-            <h5>
-              <span class="badge  <%= @facture.style %>"><%= @facture.workflow_state.humanize %></span>
-            </h5>
-            <br>
+    <p>
+      <strong>Anomalie:</strong>
+      <%= @facture.anomalie.humanize.capitalize %>
+    </p>
+
+    <p>
+      <strong>Société:</strong>
+      <%= @facture.société %>
+    </p>
+
+    <p>
+      <strong>PAR:</strong>
+      <%= @facture.par %>
+    </p>
+
+    <p>
+      <strong>Montant HT:</strong>
+      <%= number_to_currency(@facture.montantHT, unit: '€', precision: 2, format: '%n %u') %>
+    </p>
+
+    <p>
+      <strong>Commentaires:</strong>
+      <%= @facture.commentaires %>
+    </p>
+
+    <% if current_user %>
+      <p>
+        <%= link_to edit_facture_path(@facture), class: "btn btn-sm btn-light" do %>
+          <i class="far fa-edit"></i> Editer 
+        <% end %>
+      </p>
+
+      <% if @facture.imputée? %>
+        <p>          
+          <%= link_to facture_url(@facture, format: :pdf), title: "Afficher la facture en PDF", class: "btn btn-sm btn-outline-danger"  do %>
+              <i class="far fa-file-pdf"></i> Preuve PDF
           <% end %>
         </p>
+      <% end %>
+
+      <% if @facture.validable? && request.domain == "localhost" %>
+        <p>
+          <br />
+          <% @facture.cibles.each do |c| %>
+            <%= link_to "Test Validation #{c.id}", facture_path(@facture, cible_slug: c.slug) %>
+            <br />
+          <% end %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="column">
+    <% unless (@facture.validable? && params[:cible_slug]) %>
+      <h4>Destinataires</h4>
+      <table class="table table-borderless table-sm table-hover table-responsive">
+        <thead>
+          <th>Nom</th>
+          <th>Action</th>
+          <th>Commentaires</th>
+          <th>Il y a</th>
+        </thead>
+        <%= render @facture.cibles %>
+      </table>
+    <% else %>
+      <%= form_tag facture_validation_path(@facture), method: :post do %>
+        <h4>Approbation</h4>
+        <%= hidden_field_tag :cible_slug, params[:cible_slug] %>
         
-        <p>
-          <strong>Anomalie:</strong>
-          <%= @facture.anomalie.humanize.capitalize %>
-        </p>
+        <strong><%= label_tag "Signataire" %></strong>
+        <%= Cible.find_by(slug: params[:cible_slug]).email %>
+        <br><br>
 
-        <p>
-          <strong>Société:</strong>
-          <%= @facture.société %>
-        </p>
-
-        <p>
-          <strong>PAR:</strong>
-          <%= @facture.par %>
-        </p>
-
-        <p>
-          <strong>Montant HT:</strong>
-          <%= number_to_currency(@facture.montantHT, unit: '€', precision: 2, format: '%n %u') %>
-        </p>
-
-        <p>
-          <strong>Commentaires:</strong>
-          <%= @facture.commentaires %>
-        </p>
-
-        <% if current_user %>
-          <p>
-            <%= link_to edit_facture_path(@facture), class: "btn btn-sm btn-light" do %>
-              <i class="far fa-edit"></i> Editer 
-            <% end %>
-          </p>
-
-          <% if @facture.imputée? %>
-            <p>          
-              <%= link_to facture_url(@facture, format: :pdf), title: "Afficher la facture en PDF", class: "btn btn-sm btn-outline-danger"  do %>
-                  <i class="far fa-file-pdf"></i> Preuve PDF
-              <% end %>
-            </p>
-          <% end %>
-    
-          <% if @facture.validable? && request.domain == "localhost" %>
-            <p>
-              <br />
-              <% @facture.cibles.each do |c| %>
-                <%= link_to "Test Validation #{c.id}", facture_path(@facture, cible_slug: c.slug) %>
-                <br />
-              <% end %>
-            </p>
-          <% end %>
-        <% end %>
-      </div>
-
-      <div class="col-sm-6">
-        <% unless (@facture.validable? && params[:cible_slug]) %>
-          <div class="card">
-            <div class="card-header">
-                <h4>Destinataires</h4>
-            </div>
-            <div class="card-body">
-              <table class="table table-borderless table-sm table-hover table-responsive">
-                <thead>
-                  <th>Nom</th>
-                  <th>Action</th>
-                  <th>Commentaires</th>
-                  <th>Il y a</th>
-                </thead>
-                <%= render @facture.cibles %>
-              </table>
-            </div>
-          </div>
-       <% else %>
-          <%= form_tag facture_validation_path(@facture), method: :post do %>
-            <div class="card">
-              <div class="card-header">
-                  <h4>Approbation</h4>
-              </div>
-              <div class="card-body">
-                  <%= hidden_field_tag :cible_slug, params[:cible_slug] %>
-                  
-                  <strong><%= label_tag "Signataire" %></strong>
-                  <%= Cible.find_by(slug: params[:cible_slug]).email %>
-                  <br><br>
-
-                  <strong><%= label_tag "Commentaires" %></strong>
-                  <%= text_area_tag :commentaires, nil, rows: 4, cols: 50 %>
-              </div>
-              <div class="card-footer">
-                <%= submit_tag "Valider", class: "btn btn-sm btn-success" %>
-                <%= submit_tag "Rejeter", class: "btn btn-sm btn-danger" %>
-              </div>
-            </div>
-          <% end %>
-        <% end %>
-      </div>
-      
-    </div>
+        <strong><%= label_tag "Commentaires" %></strong>
+        <%= text_area_tag :commentaires, nil, rows: 4, cols: 50 %>
+        <%= submit_tag "Valider", class: "btn btn-sm btn-success" %>
+        <%= submit_tag "Rejeter", class: "btn btn-sm btn-danger" %>
+      <% end %>
+    <% end %>
   </div>
 </div>
-<br /><br />
 
 <% if current_user.try(:admin?) %>
   <h4>Historique des modifications</h4>
@@ -136,6 +109,7 @@
     </table>
 <% end %>
 
+
 <!-- The Modal -->
 <div class="modal fade" id="myModal">
   <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
@@ -145,7 +119,7 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <%= image_tag @pdf_preview %>
+        <%= image_tag(@facture.scan) %>
       </div>
     </div>
   </div>

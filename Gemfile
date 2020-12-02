@@ -71,8 +71,8 @@ gem 'bulma_form_builder'
 
 
 # PDF
-gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary'
+# gem 'wicked_pdf'
+# gem 'wkhtmltopdf-binary'
 
 # XLSX sheet
 gem 'spreadsheet'
@@ -90,7 +90,7 @@ gem 'workflow'
 gem 'workflow-activerecord'
 
 # ActiveStorage Service to store files PostgeSQL.
-gem 'active_storage-postgresql'
+#gem 'active_storage-postgresql'
 
 # cloud file storage service Amazon’s S3.
 gem "aws-sdk-s3", require: false

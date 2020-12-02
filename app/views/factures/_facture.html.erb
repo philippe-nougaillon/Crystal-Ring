@@ -6,7 +6,7 @@
     </td>
     <td class="text-right"><%= link_to facture.num_chrono, facture %></td>
     <td>
-        <span class="badge <%= facture.style %>"><%= facture.workflow_state.humanize %></span>    
+        <span class="tag <%= facture.style %>"><%= facture.workflow_state.humanize %></span>    
     </td>
     <td><%= facture.anomalie.humanize.capitalize %></td>
     <td><%= facture.société %></td>
