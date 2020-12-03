@@ -17,7 +17,7 @@ class FacturesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create facture" do
     assert_difference('Facture.count') do
-      post factures_url, params: { facture: { anomalie: @facture.anomalie, cible: @facture.cible, etat: @facture.etat, num_chrono: @facture.num_chrono, par: @facture.par, société: @facture.société } }
+      post factures_url, params: { facture: { typefacture: @facture.typefacture, cible: @facture.cible, etat: @facture.etat, num_chrono: @facture.num_chrono, par: @facture.par, société: @facture.société } }
     end
 
     assert_redirected_to facture_url(Facture.last)
@@ -34,7 +34,7 @@ class FacturesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update facture" do
-    patch facture_url(@facture), params: { facture: { anomalie: @facture.anomalie, cible: @facture.cible, etat: @facture.etat, num_chrono: @facture.num_chrono, par: @facture.par, société: @facture.société } }
+    patch facture_url(@facture), params: { facture: { typefacture: @facture.typefacture, cible: @facture.cible, etat: @facture.etat, num_chrono: @facture.num_chrono, par: @facture.par, société: @facture.société } }
     assert_redirected_to facture_url(@facture)
   end
 

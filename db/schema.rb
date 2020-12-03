@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_24_130507) do
+ActiveRecord::Schema.define(version: 2020_12_03_083446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,9 +79,7 @@ ActiveRecord::Schema.define(version: 2020_06_24_130507) do
   end
 
   create_table "factures", force: :cascade do |t|
-    t.integer "anomalie"
     t.integer "num_chrono"
-    t.string "par"
     t.string "société"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -89,6 +87,7 @@ ActiveRecord::Schema.define(version: 2020_06_24_130507) do
     t.decimal "montantHT", precision: 10, scale: 2
     t.text "commentaires"
     t.string "workflow_state"
+    t.string "typefacture"
     t.index ["slug"], name: "index_factures_on_slug", unique: true
     t.index ["workflow_state"], name: "index_factures_on_workflow_state"
   end

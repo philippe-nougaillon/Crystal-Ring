@@ -8,7 +8,7 @@
     <td>
         <span class="tag <%= facture.style %>"><%= facture.workflow_state.humanize %></span>    
     </td>
-    <td><%= facture.anomalie.humanize.capitalize %></td>
+    <td><%= facture.typefacture.humanize.capitalize %></td>
     <td><%= facture.société %></td>
     <td class="text-right"><%= number_to_currency(facture.montantHT, unit: '€', precision: 2, format: '%n %u') %></td>
     <td><%= facture.les_cibles %></td>

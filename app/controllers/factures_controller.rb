@@ -26,8 +26,8 @@ class FacturesController < ApplicationController
       end
     end
 
-    unless params[:anomalie].blank?
-      @factures = @factures.where("factures.anomalie = ?", params[:anomalie])
+    unless params[:typefacture].blank?
+      @factures = @factures.where("factures.typefacture = ?", params[:typefacture])
     end
 
     respond_to do |format|
@@ -188,7 +188,7 @@ class FacturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def facture_params
-      params.require(:facture).permit(:anomalie, :num_chrono, :par, :société, :scan, :montantHT, :commentaires, :workflow_state,
+      params.require(:facture).permit(:typefacture, :num_chrono, :par, :société, :scan, :montantHT, :commentaires, :workflow_state,
                                     cibles_attributes: [:id, :email, :répondu_le, :réponse, :_destroy])
     end
 end

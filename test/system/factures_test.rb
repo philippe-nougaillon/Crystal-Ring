@@ -14,7 +14,7 @@ class FacturesTest < ApplicationSystemTestCase
     visit factures_url
     click_on "New Facture"
 
-    fill_in "Anomalie", with: @facture.anomalie
+    fill_in "typefacture", with: @facture.typefacture
     fill_in "Cible", with: @facture.cible
     fill_in "Etat", with: @facture.etat
     fill_in "Num chrono", with: @facture.num_chrono
@@ -30,7 +30,7 @@ class FacturesTest < ApplicationSystemTestCase
     visit factures_url
     click_on "Edit", match: :first
 
-    fill_in "Anomalie", with: @facture.anomalie
+    fill_in "typefacture", with: @facture.typefacture
     fill_in "Cible", with: @facture.cible
     fill_in "Etat", with: @facture.etat
     fill_in "Num chrono", with: @facture.num_chrono

@@ -2,7 +2,7 @@
 
 one:
   etat: 1
-  anomalie: 1
+  typefacture: 1
   num_chrono: 1
   par: MyString
   société: MyString
@@ -10,7 +10,7 @@ one:
 
 two:
   etat: 1
-  anomalie: 1
+  typefacture: 1
   num_chrono: 1
   par: MyString
   société: MyString

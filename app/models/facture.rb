@@ -12,12 +12,12 @@ class Facture < ApplicationRecord
   has_associated_audits
   accepts_nested_attributes_for :cibles, reject_if: proc { |attributes| attributes[:email].blank? }, allow_destroy: true
   
-  validates :anomalie, :société, :num_chrono, presence: true
+  validates :typefacture, :société, :num_chrono, presence: true
   validates_uniqueness_of :num_chrono
 
   default_scope { order(Arel.sql("factures.updated_at DESC")) }
 
-  enum anomalie: [:manque_po, :manque_contrat, :écart_valeur, :manque_réception, :inconnu]
+  enum typefacture: [:manque_po, :manque_contrat, :écart_valeur, :manque_réception, :inconnu]
 
   self.per_page = 10
   
@@ -82,8 +82,8 @@ class Facture < ApplicationRecord
     self.current_state.meta[:style]
   end
 
-  def self.anomalies_capitalized
-    self.anomalies.map {|k, v| [k.humanize.capitalize, v]}
+  def self.typefactures_capitalized
+    self.typefactures.map {|k, v| [k.humanize.capitalize, v]}
   end 
 
   def self.workflow_states_capitalized
@@ -105,7 +105,7 @@ class Facture < ApplicationRecord
   end  
 
   def self.xls_headers
-		%w{Id Etat Anomalie Num_chrono Par Société Cible Slug MontantHT Commentaires Created_at Updated_at}
+		%w{Id Etat typefacture Num_chrono Par Société Cible Slug MontantHT Commentaires Created_at Updated_at}
   end
   
   def self.to_xls(factures)
@@ -126,7 +126,7 @@ class Facture < ApplicationRecord
 			fields_to_export = [
         f.id, 
         f.workflow_state, 
-        f.anomalie.humanize, 
+        f.typefacture.humanize, 
         f.num_chrono, 
         f.par, 
         f.société, 

@@ -8,7 +8,7 @@
           <%= form.number_field :num_chrono, required: true %>
         </div>
         <div class="column">
-          <%= form.select :anomalie, options_for_select(Facture.anomalies.keys.to_a) %>
+          <%= form.select :typefacture, options_for_select(Facture.typefactures.keys.to_a) %>
         </div>
       </div>
 
