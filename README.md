@@ -1,22 +1,26 @@
 # Ring
 
-### Application de centralisation et de validation des factures fournisseurs
+## Application de centralisation et de validation des factures fournisseurs
 
-# le Workflow
+# Le principe
 
-Chaque nouvelle facture ajoutée dans l'application suit un circuit de validation (workflow) qui passe par les étapes suivantes : 
+Chaque nouvelle facture ajoutée dans l'application suit un circuit de validation (workflow) qui passe par les états suivants grâce à des actions de l'utilisateur.
 
-* Ajout
-* Envoi
-* Ring1
-* Ring2
-* Ring3
-* Validation/Rejet
-* Imputation
+# Les états d'une facture
 
-Ce workflow est très facilement modifiable car basé sur le Gem [workflow](https://github.com/geekq/workflow/).
+* Ajoutée (la facture vient d'être ajoutée)
+* Envoyée (une notification a été envoyée au premier destinataire)
+* Ring1 (le destinataire n'a pas réagi au bout de 3 jours, une nouvelle notification a été envoyée)
+* Ring2 (idem Ring1)
+* Ring3 (idem Ring1)
+* Validée (La facture a été validée par l'ensemble des destinataires)
+* Rejetée (la facture a été rejeté par un des destinataires) 
+* Imputatée (la facture a été saisie dans le système comptable)
+
+Ce workflow est un exemple. Il peut être très facilement adapté à des besoins spécifiques (cf. [workflow](https://github.com/geekq/workflow/)).
 
 Chaque passage d'étape provoque un changement d'état de la facture qui est consigné dans un "Audit trail". Cet audit trail permet d'avoir une tracabilité complète et précise de tous les changements intervenus sur une facture.   
+
 
 ## l'état 'Ajoutée'
 
@@ -55,15 +59,21 @@ La facture est considérée comme ayant terminé son chemin dans le circuit de v
 
 Après avoir coché une ou plusieurs factures dans la liste, un menu proposant plusieurs action apparait. L'action choisie sera alors appliquée à l'ensemble des factures sélectionnées.
 
-## Action: Relancer
+## Action 'Relancer'
 
 Envoyer une notification par email et incrémenter l'état de la facture.
 
-## Action: Passer à l'état 'Imputée'
+## Action 'Passer à l'état 'Imputée''
 
 Passer les factures sélectionnées à l'état 'Imputée'
 
-# Export Excel
+
+# Les petis extras 
+
+## Vue Liste/Grille
+Les factures peuvent être vues sous la forme d'une liste, sorte de tableau excel qui presenté les données ou bien sous la forme d'une grille qui présente les factures sous forme d'images.
+
+## Export Excel
 
 Une fonction permet d'exporter toutes les factures et leurs données vers une feuille Excel.
 
