@@ -14,6 +14,7 @@
     <td><%= facture.les_cibles %></td>
     <td><%= facture.po %></td>
     <td>Il y a <%= time_ago_in_words(facture.updated_at) %></td>
+    <td><%= link_to "Voir", facture %>
     <td>
         <%= link_to edit_facture_path(facture), class: "btn btn-sm btn-outline-light text-dark" do %>
            Editer
