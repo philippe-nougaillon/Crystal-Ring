@@ -124,7 +124,7 @@ Rails.application.configure do
   }
   ActionMailer::Base.delivery_method = :smtp
 
-  config.action_mailer.default_url_options = { host: 'grohe.Ring.fr', protocol: 'https' }
+  config.action_mailer.default_url_options = { host: 'ring.herokuapp.com', protocol: 'https' }
 
   # Exception Notification
   # Rails.application.config.middleware.use ExceptionNotification::Rack,

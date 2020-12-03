@@ -90,10 +90,10 @@ gem 'workflow'
 gem 'workflow-activerecord'
 
 # ActiveStorage Service to store files PostgeSQL.
-#gem 'active_storage-postgresql'
+gem 'active_storage-postgresql'
 
 # cloud file storage service Amazon’s S3.
-gem "aws-sdk-s3", require: false
+#gem "aws-sdk-s3", require: false
 
 # A simple, efficient worker queue for Ruby & PostgreSQL
 # gem 'queue_classic', :git => 'https://github.com/QueueClassic/queue_classic.git'
