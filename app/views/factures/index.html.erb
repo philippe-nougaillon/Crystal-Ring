@@ -4,6 +4,8 @@
   <%= render "partials/search" %>
 <% end %>
 
+<%= link_to "Vue Grille", grid_factures_path %>
+
 <% if @factures.any? %>
   <div data-controller="action">
     <%= form_tag action_factures_path do %>

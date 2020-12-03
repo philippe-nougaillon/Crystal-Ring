@@ -1,0 +1,13 @@
+<h1 class="title">
+  Factures
+</h1>
+
+<div class="container">
+  <div class="columns is-multiline is-mobile">
+    <% @factures.each do | facture | %>
+      <div class="column is-one-quarter-desktop is-one-third-tablet is-full-mobile">
+        <%= render "card", facture: facture %>
+      </div>
+    <% end %>
+  </div>
+</div>

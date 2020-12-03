@@ -1,3 +1,7 @@
 // Place all the styles related to the Factures controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.card:hover {
+    transform: translate3D(0,-1px,0) scale(1.025);
+}

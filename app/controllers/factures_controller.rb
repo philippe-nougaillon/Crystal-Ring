@@ -49,6 +49,10 @@ class FacturesController < ApplicationController
 
   end
 
+  def grid
+    @factures = Facture.all
+  end
+
   # GET /factures/1
   # GET /factures/1.json
   def show

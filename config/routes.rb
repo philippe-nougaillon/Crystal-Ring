@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :factures do
     collection do
+      get :grid
       post :action
     end
     post :validation

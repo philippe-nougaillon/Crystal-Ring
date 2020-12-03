@@ -1,0 +1,35 @@
+<div class="card">
+
+    <header class="card-header">
+        <div class="content">
+            <p class="card-header-title">
+                #<%= facture.num_chrono %>
+                /<%= truncate facture.société, length: 10 %>
+            </p>
+        </div>
+    </header>
+
+    <div class="card-image">
+        <figure class="image is-4by5">
+            <%= image_tag facture.scan %>
+        </figure>
+    </div>
+    
+    <div class="card-content">
+      <%= number_to_currency(facture.montantHT, unit: '€', precision: 2, format: '%n %u') %>
+    </div>
+
+    <footer class="card-footer">
+        <p class="card-footer-item">
+            <span class="tag is-medium <%= facture.style %>">
+                <%= facture.workflow_state.humanize %>
+            </span>
+        </p>
+        <p class="card-footer-item">
+            <span>
+                <%= link_to "Voir plus...", facture, class: "card-footer-item" %>
+            </span>
+        </p>
+    </footer>
+
+</div>
