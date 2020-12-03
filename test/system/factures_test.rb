@@ -18,7 +18,7 @@ class FacturesTest < ApplicationSystemTestCase
     fill_in "Cible", with: @facture.cible
     fill_in "Etat", with: @facture.etat
     fill_in "Num chrono", with: @facture.num_chrono
-    fill_in "Par", with: @facture.par
+    fill_in "Par", with: @facture.po
     fill_in "Société", with: @facture.société
     click_on "Create Facture"
 
@@ -34,7 +34,7 @@ class FacturesTest < ApplicationSystemTestCase
     fill_in "Cible", with: @facture.cible
     fill_in "Etat", with: @facture.etat
     fill_in "Num chrono", with: @facture.num_chrono
-    fill_in "Par", with: @facture.par
+    fill_in "Par", with: @facture.po
     fill_in "Société", with: @facture.société
     click_on "Update Facture"
 

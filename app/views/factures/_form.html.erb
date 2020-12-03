@@ -8,7 +8,7 @@
           <%= form.number_field :num_chrono, required: true %>
         </div>
         <div class="column">
-          <%= form.select :typefacture, options_for_select(Facture.typefactures.keys.to_a) %>
+          <%= form.select :typefacture, options_for_select(Facture.typefactures.keys.to_a), label: 'Type Facture' %>
         </div>
       </div>
 
@@ -16,16 +16,16 @@
 
       <div class="columns">
         <div class="column">
-          <%= form.text_field :par, label: 'PAR' %>
+          <%= form.number_field :montantHT, step: :any, label: "Montant € HT" %>
         </div>
         <div class="column">
-          <%= form.number_field :montantHT, step: :any, label: "Montant € HT" %>
+          <%= form.text_field :po, label: 'PO' %>
         </div>
       </div>
 
-      <%= form.label "Fichier", class: "" %><br>
+      <%= form.label "Image de la facture", class: "" %><br>
       <%= form.file_field :scan, required: true, class: "input", accept: ".pdf, .png, .jpg" %>
-
+      <br><br>
       <%= form.text_area :commentaires %>
 
       <div class="actions">

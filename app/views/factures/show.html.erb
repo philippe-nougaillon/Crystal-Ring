@@ -20,7 +20,7 @@
     <br>
 
     <p>
-      <strong>typefacture:</strong>
+      <strong>Type Facture:</strong>
       <%= @facture.typefacture.humanize.capitalize %>
     </p>
 
@@ -30,8 +30,8 @@
     </p>
 
     <p>
-      <strong>PAR:</strong>
-      <%= @facture.par %>
+      <strong>PO:</strong>
+      <%= @facture.po %>
     </p>
 
     <p>
@@ -46,6 +46,7 @@
 
     <% if current_user %>
       <p>
+        <br>
         <%= link_to edit_facture_path(@facture), class: "button is-small is-light" do %>
           <i class="far fa-edit"></i> Editer 
         <% end %>

@@ -17,7 +17,7 @@ class Facture < ApplicationRecord
 
   default_scope { order(Arel.sql("factures.updated_at DESC")) }
 
-  enum typefacture: [:manque_po, :manque_contrat, :écart_valeur, :manque_réception, :inconnu]
+  enum typefacture: [:conforme, :anomalie, :ano_manque_po, :ano_manque_contrat, :ano_écart_valeur, :ano_manque_réception, :anomalie_inconnue]
 
   self.per_page = 10
   

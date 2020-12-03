@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_03_083446) do
+ActiveRecord::Schema.define(version: 2020_12_03_131940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,7 +87,8 @@ ActiveRecord::Schema.define(version: 2020_12_03_083446) do
     t.decimal "montantHT", precision: 10, scale: 2
     t.text "commentaires"
     t.string "workflow_state"
-    t.string "typefacture"
+    t.string "po"
+    t.integer "typefacture"
     t.index ["slug"], name: "index_factures_on_slug", unique: true
     t.index ["workflow_state"], name: "index_factures_on_workflow_state"
   end
