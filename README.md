@@ -8,6 +8,8 @@ Chaque nouvelle facture ajoutée dans l'application suit un circuit de validatio
 
 # Les états d'une facture
 
+Ce workflow est un exemple. Il peut être très facilement adapté à des besoins spécifiques (cf. [workflow](https://github.com/geekq/workflow/)).
+
 * Ajoutée (la facture vient d'être ajoutée)
 * Envoyée (une notification a été envoyée au premier destinataire)
 * Ring1 (le destinataire n'a pas réagi au bout de 3 jours, une nouvelle notification a été envoyée)
@@ -17,10 +19,8 @@ Chaque nouvelle facture ajoutée dans l'application suit un circuit de validatio
 * Rejetée (la facture a été rejeté par un des destinataires) 
 * Imputatée (la facture a été saisie dans le système comptable)
 
-Ce workflow est un exemple. Il peut être très facilement adapté à des besoins spécifiques (cf. [workflow](https://github.com/geekq/workflow/)).
 
-Chaque passage d'étape provoque un changement d'état de la facture qui est consigné dans un "Audit trail". Cet audit trail permet d'avoir une tracabilité complète et précise de tous les changements intervenus sur une facture.   
-
+Chaque passage d'étape provoque un changement d'état de la facture, qui est consigné dans un historique des modifications ("Audit trail"). Cet "Audit Trail" permet d'avoir une tracabilité complète et précise de tous les changements intervenus sur une facture. Les données ainsi collectées sont exportables au format XLS.  
 
 ## l'état 'Ajoutée'
 
