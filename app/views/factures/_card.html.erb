@@ -11,7 +11,11 @@
 
     <div class="card-image">
         <figure class="image is-4by5">
-            <%= image_tag facture.scan %>
+            <% if facture.scan.previewable? %>
+                <%= image_tag facture.scan.preview(resize: "100x200>") %>
+            <% elsif facture.scan.variable? %>
+                <%= image_tag facture.scan.variant(resize: "100x200") %>
+            <% end %>
         </figure>
     </div>
     

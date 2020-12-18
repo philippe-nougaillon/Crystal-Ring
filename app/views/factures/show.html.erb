@@ -4,7 +4,11 @@
   <div class="column">
     <figure class="image is-4by5">
       <%= link_to url_for(@facture.scan), title: "Cliquez ici pour voir le document original" do %>
-        <%= image_tag @facture.scan %>
+        <% if @facture.scan.previewable? %>
+            <%= image_tag @facture.scan.preview(resize: "100x200>") %>
+        <% elsif @facture.scan.variable? %>
+            <%= image_tag @facture.scan.variant(resize: "100x200") %>
+        <% end %>
       <% end %>
     </figure>
   </div>
