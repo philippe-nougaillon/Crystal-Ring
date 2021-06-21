@@ -4,7 +4,7 @@
 
 # Le principe
 
-Chaque nouvelle facture ajoutée dans l'application suit un circuit de validation (workflow) qui passe par les états suivants grâce à des actions de l'utilisateur.
+Chaque nouvelle facture ajoutée dans l'application va suivre un circuit de validation (Workflow) qui passe par d'état et état grâce à l'action des utilisateurs.
 
 # Les états d'une facture
 
@@ -18,7 +18,6 @@ Ce workflow est un exemple. Il peut être très facilement adapté à des besoin
 * Validée (La facture a été validée par l'ensemble des destinataires)
 * Rejetée (la facture a été rejeté par un des destinataires) 
 * Imputatée (la facture a été saisie dans le système comptable)
-
 
 Chaque passage d'étape provoque un changement d'état de la facture, qui est consigné dans un historique des modifications ("Audit trail"). Cet "Audit Trail" permet d'avoir une tracabilité complète et précise de tous les changements intervenus sur une facture. Les données ainsi collectées sont exportables au format XLS.  
 
@@ -36,12 +35,12 @@ Ce formulaire permet aussi le chargement de la facture au format PDF. Un aperçu
 
 Une notification est envoyée par courrier électronique au premier signataire (Signataire1) qui aura alors le choix de valider ou de rejeter la facture et de commenter sa décision.
 
-Si la facture est validée par un signataire, une notification est envoyée au signataire suivant lui demandant approbation. 
+Si la facture est validée par un signataire, une notification est envoyée au signataire suivant.
 
 ## l'état 'Ring(1..3)'
 
 Une relance est automatiquement envoyée tous les 4 jours aux signataires qui n'ont pas encore répondu. A chaque nouvelle relance, l'état de la facture est avancé d'un cran jusqu'à la relance N°3 (Ring3).
-L'état Ring3 marque la fin des relances automatiques. Les factures doivent alors être relancées manuellement dans l'outil.
+L'état Ring3 marque la fin des relances automatiques. Les factures doivent alors être relancées manuellement.
 
 ## l'état 'Validée'
 
@@ -49,7 +48,7 @@ Tous les signataires ont validé la facture.
 
 ## l'état 'Rejetée'
 
-Un des signataire a rejeté la facture.
+Un des signataires a rejeté la facture.
 
 ## l'état 'Imputée'
 
@@ -57,7 +56,7 @@ La facture est considérée comme ayant terminé son chemin dans le circuit de v
 
 # Actions
 
-Après avoir coché une ou plusieurs factures dans la liste, un menu proposant plusieurs action apparait. L'action choisie sera alors appliquée à l'ensemble des factures sélectionnées.
+Après avoir coché une ou plusieurs factures dans la liste, un menu proposant plusieurs action apparaît. L'action choisie sera alors appliquée à l'ensemble des factures sélectionnées.
 
 ## Action 'Relancer'
 
@@ -68,10 +67,10 @@ Envoyer une notification par email et incrémenter l'état de la facture.
 Passer les factures sélectionnées à l'état 'Imputée'
 
 
-# Les petis extras 
+# Les petits extras 
 
 ## Vue Liste/Grille
-Les factures peuvent être vues sous la forme d'une liste, sorte de tableau excel qui presenté les données ou bien sous la forme d'une grille qui présente les factures sous forme d'images.
+Les factures peuvent être vues sous la forme d'une liste, sorte de tableau excel qui présente que les données des factures, ou bien sous la forme d'une grille pour voir les factures sous forme d'images uniquement.
 
 ## Export Excel
 
